@@ -9,6 +9,8 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <link rel="stylesheet" type="text/css"
     href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
 
@@ -19,84 +21,46 @@
 
   <link rel="stylesheet" href="styles/profile.css" />
 
-  <title>GameWired | Perfil</title>
+  <title>GameWired | Meu Perfil</title>
 </head>
 
 <body>
   <div id="header"></div>
 
-  <main id="community">
-    <section class="container__community">
-      <aside class="left">
-        <div class="profile">
-          <div class="user">
-            <img src="/views/src/assets/imgs/comunidade/users/users1.webp" alt="profile-photo-user" />
-            <h4>Dark Knight</h4>
-          </div>
+  <main id="profile">
+    <section class="container__profile">
+      <aside>
+          <form class="user">
+              <img id="foto_perfil" class="foto-perfil" src="/views/src/assets/imgs/user-default.jpg" alt="Foto de Perfil"/>
+              <input type="file" id="inputFoto" accept="image/*" style="display:none;">
 
-          <button type="button" class="community-button" id="abrirModalBtn">Criar Publicação<i class="bi bi-plus-circle"></i></button>
+              <h4 id="nome_usuario"></h4>
 
-          <button type="button" class="community-button">Minhas Publicações<i class="bi bi-person-lines-fill"></i></button>
+              <textarea id="bio" placeholder="Escreva sua bio..."></textarea>
 
-          <button type="button" class="community-button">Meu Perfil<i class="bi bi-person-circle"></i></button>
-        </div>
+              <textarea id="preferencias" placeholder="Escreva seus jogos/gêneros favoritos..."></textarea>
 
-        <div class="community-select">
-          <div id="catg-select">
-            <label for="">Escolha um jogo abaixo para filtrar:</label>
-
-            <div class="community-filter">
-              <div id="select-button">
-                <div id="selected-value">Selecione</div>
-
-                <div id="chevrons">
-                  <i class="bi bi-chevron-down"></i>
-                  <i class="bi bi-chevron-up"></i>
-                </div>
+              <div class="btns">
+                <button type="button" id="btnSalvar" class="btn-salvar">Salvar</button>
+                <button type="reset">Limpar</button>
               </div>
-
-              <button id="filtrar">Filtrar</button>
-            </div>
-          </div>
-        </div>
+          </form>
       </aside>
 
       <section class="middle" id="postsContainer">
-        <h1>Comunidade</h1>
-
-        <div id="modal" class="modal">
-          <div class="modal-content">
-            <form id="postForm">
-              <input type="text" id="titulo" placeholder="Título" required>
-
-              <select id="categoria" required>
-                <option value="">Carregando categorias...</option>
-              </select>
-
-              <textarea id="conteudo" placeholder="O que está acontecendo?" required></textarea>
-
-              <label>Deseja adicionar uma imagem?</label>
-              <input type="file" id="imagem" accept="image/*">
-
-              <div class="postButtons">
-                <button type="button" id="fecharModal" class="close">Voltar</button>
-                <button type="submit">Publicar</button>
-              </div>
-            </form>
-          </div>
-        </div>
+        <h1>Minhas Publicações</h1>
       </section>
     </section>
   </main>
 
   <div id="footer"></div>
-
-  <script src="/views/src/pages/scripts/community.js"></script>
+  
+  <script src="/views/src/pages/global/global-js/global-footer-header.js"></script>
+  <script src="/views/src/assets/scripts/_auth.js"></script>
   <script src="/views/src/assets/scripts/_navBar.js"></script>
   <script src="/views/src/assets/scripts/_temas.js"></script>
-  <script src="/views/src/pages/global/global-js/global-footer-header.js"></script>
-  <script src="/server.js"></script>
+
+  <script src="/views/src/pages/scripts/profile.js"></script>
 
 </body>
-
 </html>

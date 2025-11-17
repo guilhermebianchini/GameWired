@@ -87,7 +87,7 @@ const userController = {
             console.error("Erro no login:", err)
             res.status(500).json({
                 ok: false,
-                message: "Erro interno do servidor"
+                message: "Erro interno do servidor!"
             })
         }
     },

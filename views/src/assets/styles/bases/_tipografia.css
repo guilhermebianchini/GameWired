@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'SFPro';
-    src: url(/src/fonts/SF-Pro.ttf) format('truetype');
+    src: url(/views/src/assets/fonts/SF-Pro.ttf) format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Outfit';
-    src: url(/src/fonts/Outfit-VariableFont_wght.ttf) format(truetype);
+    src: url(/views/src/assets/fonts/Outfit-VariableFont_wght.ttf) format(truetype);
     font-weight: normal;
     font-style: normal;
 }

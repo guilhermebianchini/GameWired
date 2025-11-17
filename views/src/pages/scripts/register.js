@@ -53,7 +53,16 @@ form.addEventListener("submit", async (e) => {
   console.log(result)
 
   if (res.ok) {
-    window.location.href = "/index.html"
+
+    Swal.fire({
+      icon: 'success',
+      title: `Cadastro realizado com sucesso!`,
+      text: `Você está sendo redirecionado para a página de login e poderá entrar para continuar.`,
+      confirmButtonColor: '#8863e7',
+      confirmButtonText: 'Continuar'
+    }).then(() => {
+      window.location.href = "/login.html"
+    })
   }
 })
 

@@ -62,7 +62,17 @@ form.addEventListener("submit", async (e) => {
         return
     }
 
-    window.location.href = "/index.html"
+    localStorage.setItem("userId", result.user.id)
+
+    Swal.fire({
+        icon: 'success',
+        title: `Login realizado com sucesso!`,
+        text: `Seja bem vindo, ${result.user.nome_usuario}!`,
+        confirmButtonColor: '#8863e7',
+        confirmButtonText: 'Continuar'
+    }).then(() => {
+        window.location.href = "/index.html"
+    })
 })
 
 function isEmpty(value) {

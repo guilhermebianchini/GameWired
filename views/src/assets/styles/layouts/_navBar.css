@@ -214,7 +214,12 @@
 
 @media screen and (max-width: 1024px) {
   .main-nav {
-    padding: 0 5em;
+    padding: 0 2em;
+
+    .nav__logo::img {
+      width: 40px;
+      height: 40px;
+    }
 
     .nav__center {
       display: none;
@@ -232,6 +237,12 @@
 
     .nav-button {
       display: none;
+    }
+  }
+
+  .nav__mobile {
+    .bi {
+      font-size: 2.25em;
     }
   }
 }

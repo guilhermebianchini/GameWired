@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/views/src/assets/styles/main.css"/>
+    <link rel="stylesheet" href="/views/src/assets/styles/main.css" />
     <title>Header</title>
 </head>
+
 <body>
     <div class="eclipse"></div>
 
@@ -13,7 +15,9 @@
         <nav class="main-nav">
             <div class="nav__logo">
                 <a href="/index.html">
-                    <img src="/views/src/assets/imgs/Logo.svg" data-theme-image data-dark-src="/views/src/assets/imgs/Logo.svg" data-light-src="/views/src/assets/imgs/Logolight.svg" alt="Exemplo" />
+                    <img src="/views/src/assets/imgs/Logo.svg" data-theme-image
+                        data-dark-src="/views/src/assets/imgs/Logo.svg"
+                        data-light-src="/views/src/assets/imgs/Logolight.svg" alt="Exemplo" />
                 </a>
             </div>
 
@@ -34,15 +38,25 @@
             </div>
 
             <div class="nav__user">
-                <a href="/views/src/pages/register.html">
-                    <i class="bi bi-person-badge"></i>
+                <a id="registerLinkDesktop" href="/views/src/pages/register.html">
+                    <i class="bi bi-person-fill-add"></i>
+                </a>
+
+                <!-- APARECE APÓS O LOGIN-->
+
+                <a id="profileLinkDesktop" style="display:none;" href="../profile.html">
+                    <i class="bi bi-person-circle"></i>
                 </a>
 
                 <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
                     <i class="ph ph-moon-stars"></i>
                 </button>
 
-                <button class="nav-button" aria-label="Abrir menu de navegação" onclick="openMenu()">
+                <a id="logoutBtnDesktop" style="display:none;" href="">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+
+                <button class="nav-button" aria-label="abrir menu de navegação" onclick="openMenu()">
                     <span class="bar bar1"></span>
                     <span class="bar bar2"></span>
                     <span class="bar bar3"></span>
@@ -57,15 +71,15 @@
                 </li>
 
                 <li>
-                    <a href="/views/src/pages/computer.html" class="abas-mobile"> PC (Plataforma) </a>
+                    <a href="/views/src/pages/computer.html" class="abas-mobile"> PC </a>
                 </li>
 
                 <li>
-                    <a href="/views/src/pages/console.html" class="abas-mobile"> Console (Plataforma) </a>
+                    <a href="/views/src/pages/console.html" class="abas-mobile"> Console </a>
                 </li>
 
                 <li>
-                    <a href="/views/src/pages/mobile.html" class="abas-mobile"> Mobile (Plataforma) </a>
+                    <a href="/views/src/pages/mobile.html" class="abas-mobile"> Mobile </a>
                 </li>
 
                 <li>
@@ -73,8 +87,18 @@
                 </li>
             </ul>
 
-            <a href="/views/src/pages/register.html">
-                <i class="bi bi-person-badge"></i>
+            <a id="registerLinkMobile" href="/views/src/pages/register.html">
+                <i class="bi bi-person-fill-add"></i>
+            </a>
+
+            <!-- APARECE APÓS O LOGIN-->
+
+            <a id="profileLinkMobile" style="display:none;" href="../profile.html">
+                <i class="bi bi-person-circle"></i>
+            </a>
+
+            <a id="logoutBtnMobile" style="display:none;" href="">
+                <i class="bi bi-box-arrow-right"></i>
             </a>
         </div>
     </header>
