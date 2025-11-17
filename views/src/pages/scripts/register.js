@@ -61,7 +61,7 @@ form.addEventListener("submit", async (e) => {
       confirmButtonColor: '#8863e7',
       confirmButtonText: 'Continuar'
     }).then(() => {
-      window.location.href = "/login.html"
+      window.location.href = "login.html"
     })
   }
 })
@@ -78,7 +78,7 @@ function nome_usuarioIsValid(value) {
 
   if (isEmpty(value)) {
     validator.isValid = false
-    validator.errorMessage = 'O nome é obrigatório!'
+    validator.errorMessage = 'O nome é obrigatório e deve conter de 3 a 30 cacteres!'
     return validator
   }
 
@@ -102,10 +102,10 @@ function nome_usuarioIsValid(value) {
 
   //NOME COMPLETO: /^[A-Z][a-z].* [A-Z][a-z].*/
 
-  if (!regex.test(value)) {
-    validator.isValid = false
-    validator.errorMessage = 'Preencha o nome completo corretamente'
-  }
+  //if (!regex.test(value)) {
+  //  validator.isValid = false
+  //  validator.errorMessage = 'Preencha o nome completo corretamente'
+  //}
 
   return validator
 }
@@ -149,7 +149,7 @@ function emailIsValid(value) {
 
   if (!regex.test(value)) {
     validator.isValid = false
-    validator.errorMessage = 'O e-mail é precisa ser válido!'
+    validator.errorMessage = 'O e-mail precisa ser válido!'
     return validator
   }
 
@@ -164,7 +164,7 @@ function senhaIsSecure(value) {
 
   if (isEmpty(value)) {
     validator.isValid = false
-    validator.errorMessage = 'A senha é obrigatória'
+    validator.errorMessage = 'A senha é obrigatória!'
     return validator
   }
 
@@ -178,7 +178,7 @@ function senhaIsSecure(value) {
             1 letra minúscula <br/>
             1 letra maiúscula <br/>
             1 número <br/>
-            1 caractere especial
+            1 caractere especial (@,$ ou #)
         `
     return validator
   }
