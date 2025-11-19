@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" sizes="16x16 32x32 48x48" type="image/png" href="/frontend/public/assets/imgs/Logo.svg" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"/>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"/>
+
+  <link rel="stylesheet" href="/frontend/public/assets/styles/main.css"/>
+
+  <link rel="stylesheet" href="/frontend/views/components/styles/register.css"/>
+
+  <title>GameWired | Cadastro</title>
+</head>
+
+<body>
+  <div class="eclipse"></div>
+
+  <main id="register">
+    <section class="txt-register">
+      <h4>Cadastre-se para participar da comunidade!</h4>
+
+      <img src="/frontend/public/assets/imgs/player.png" alt="Imagem representativa" />
+    </section>
+
+    <section class="container-register">
+      <div class="card-register">
+        <div class="header-register">
+          <h3>Cadastre-se</h3>
+          <a href="/index.html">
+            <i class="ph ph-sign-out"></i>
+          </a>
+        </div>
+
+        <form id="form" method="post">
+          <div class="input-box">
+            <input type="text" name="name" id="nome_usuario" placeholder="Digite o nome de usuário" />
+            <span class="error"></span>
+          </div>
+          <div class="input-box">
+            <input type="date" name="date" id="data_nascimento" placeholder="dd/mm/aaaa" />
+            <span class="error"></span>
+          </div>
+          <div class="input-box">
+            <input type="email" name="email" id="email" placeholder="Digite o e-mail" />
+            <span class="error"></span>
+          </div>
+          <div class="input-box">
+            <input type="password" name="password" id="senha" placeholder="Digite uma senha" />
+            <span class="error"></span>
+          </div>
+          <div class="input-box">
+            <input type="password" name="confirm" id="confirmarSenha" placeholder="Confirme a senha" />
+            <span class="error"></span>
+          </div>
+
+          <div class="login">
+            <p>Já possui uma conta?</p>
+            <a href="./login.html"> Faça o login! </a>
+          </div>
+
+          <div class="action">
+            <button type="submit" class="btn-register">Cadastrar</button>
+
+            <button type="reset" class="btn-register">Limpar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="/frontend/views/components/scripts/register.js"></script>
+  <script src="/backend/src/middlewares/validateMiddleware.js"></script>
+
+</body>
+</html>

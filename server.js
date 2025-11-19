@@ -1,8 +1,8 @@
 import express from "express"
 import cors from "cors"
-import userRoute from "./src/routes/userRoute.js"
-import profileRoute from "./src/routes/profileRoute.js"
-import globalMiddleware from "./src/middlewares/globalMiddleware.js"
+import userRoute from "./backend/src/routes/userRoute.js"
+import profileRoute from "./backend/src/routes/profileRoute.js"
+import globalMiddleware from "./backend/src/middlewares/globalMiddleware.js"
 import dotenv from "dotenv"
 
 dotenv.config ()

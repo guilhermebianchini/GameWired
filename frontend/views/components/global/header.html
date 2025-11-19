@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/frontend/public/assets/styles/main.css" />
+    <title>Header</title>
+</head>
+
+<body>
+    <div class="eclipse"></div>
+
+    <header class="main-header">
+        <nav class="main-nav">
+            <div class="nav__logo">
+                <a href="../../../../index.html">
+                    <img src="/frontend/public/assets/imgs/Logo.svg" data-theme-image
+                        data-dark-src="/frontend/public/assets/imgs/Logo.svg"
+                        data-light-src="/frontend/public/assets/imgs/Logolight.svg" alt="Exemplo" />
+                </a>
+            </div>
+
+            <div class="nav__center">
+                <ul>
+                    <li> <a href="/frontend/views/pages/news.html" class="abas"> Notícias </a> </li>
+                    <li>
+                        <a href="" class="abas"> Plataformas </a>
+                        <i class="arrow"></i>
+                        <ul class="platforms-list">
+                            <li><a href="/frontend/views/pages/computer.html" class="abas">PC</a></li>
+                            <li><a href="/frontend/views/pages/console.html" class="abas">Console</a></li>
+                            <li><a href="/frontend/views/pages/mobile.html" class="abas">Mobile</a></li>
+                        </ul>
+                    </li>
+                    <li> <a href="/frontend/views/pages/community.html" class="abas"> Comunidade </a> </li>
+                </ul>
+            </div>
+
+            <div class="nav__user">
+                <a id="registerLinkDesktop" href="/frontend/views/pages/register.html">
+                    <i class="bi bi-person-fill-add"></i>
+                </a>
+
+                <!-- APARECE APÓS O LOGIN-->
+
+                <a id="profileLinkDesktop" style="display:none;" href="/frontend/views/pages/profile.html">
+                    <i class="bi bi-person-circle"></i>
+                </a>
+
+                <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
+                    <i class="ph ph-moon-stars"></i>
+                </button>
+
+                <a id="logoutBtnDesktop" style="display:none;" href="">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+
+                <button class="nav-button" aria-label="abrir menu de navegação" onclick="openMenu()">
+                    <span class="bar bar1"></span>
+                    <span class="bar bar2"></span>
+                    <span class="bar bar3"></span>
+                </button>
+            </div>
+        </nav>
+
+        <div class="nav__mobile">
+            <ul>
+                <li>
+                    <a href="/frontend/views/pages/news.html" class="abas-mobile"> Notícias </a>
+                </li>
+
+                <li>
+                    <a href="/frontend/views/pages/computer.html" class="abas-mobile"> PC </a>
+                </li>
+
+                <li>
+                    <a href="/frontend/views/pages/console.html" class="abas-mobile"> Console </a>
+                </li>
+
+                <li>
+                    <a href="/frontend/views/pages/mobile.html" class="abas-mobile"> Mobile </a>
+                </li>
+
+                <li>
+                    <a href="/frontend/views/pages/community.html" class="abas-mobile"> Comunidade </a>
+                </li>
+            </ul>
+
+            <a id="registerLinkMobile" href="/frontend/views/pages/register.html">
+                <i class="bi bi-person-fill-add"></i>
+            </a>
+
+            <!-- APARECE APÓS O LOGIN-->
+
+            <a id="profileLinkMobile" style="display:none;" href="/frontend/views/pages/profile.html">
+                <i class="bi bi-person-circle"></i>
+            </a>
+
+            <a id="logoutBtnMobile" style="display:none;" href="">
+                <i class="bi bi-box-arrow-right"></i>
+            </a>
+        </div>
+    </header>
+
+    <script src="/frontend/public/assets/scripts/_navBar.js"></script>
+    <script src="/frontend/public/assets/scripts/_temas.js"></script>
+</body>
+</html>

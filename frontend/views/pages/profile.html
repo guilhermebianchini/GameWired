@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" sizes="16x16 32x32 48x48" type="image/png" href="/frontend/public/assets/imgs/Logo.svg" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+
+  <link rel="stylesheet" href="/frontend/public/assets/styles/main.css" />
+
+  <link rel="stylesheet" href="/frontend/views/components/styles/profile.css" />
+
+  <title>GameWired | Meu Perfil</title>
+</head>
+
+<body>
+  <div id="header"></div>
+
+  <main id="profile">
+    <section class="container__profile">
+      <aside>
+          <form class="user">
+              <img id="foto_perfil" class="foto-perfil" src="/frontend/public/assets/imgs/user-default.jpg" alt="Foto de Perfil"/>
+              <input type="file" id="inputFoto" accept="image/*" style="display:none;">
+
+              <h4 id="nome_usuario"></h4>
+
+              <textarea id="bio" placeholder="Escreva sua bio..."></textarea>
+
+              <textarea id="preferencias" placeholder="Escreva seus jogos/gêneros favoritos..."></textarea>
+
+              <div class="btns">
+                <button type="button" id="btnSalvar" class="btn-salvar">Salvar</button>
+                <button type="reset">Limpar</button>
+              </div>
+          </form>
+      </aside>
+
+      <section class="middle" id="postsContainer">
+        <h1>Minhas Publicações</h1>
+      </section>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  
+  <script src="/frontend/views/components/global/global-js/global-footer-header.js"></script>
+  <script src="/frontend/public/assets/scripts/_auth.js"></script>
+  <script src="/frontend/public/assets/scripts/_navBar.js"></script>
+  <script src="/frontend/public/assets/scripts/_temas.js"></script>
+
+  <script src="/frontend/views/components/scripts/profile.js"></script>
+
+</body>
+</html>
