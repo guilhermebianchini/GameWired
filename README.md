@@ -11,16 +11,16 @@
 
 <ul>
   <li>
-    🕹️ Interface moderna com design voltado para gamers
+    🕹️ Interface moderna com design voltado para gamers;
   </li>
   <li>
-    📱 Totalmente responsivo para desktop, tablet e mobile
+    📱 Totalmente responsivo para desktop, tablet e mobile;
   </li>
   <li>
-    🎨 Tema escuro padrão com opção de tema claro
+    🎨 Tema escuro padrão com opção de tema claro;
   </li>
   <li>
-    📰 Sistema de categorias para organização de conteúdo
+    📰 Sistema de categorias para organização de conteúdo.
   </li>
 </ul>
 
