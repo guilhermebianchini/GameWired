@@ -5,8 +5,10 @@
   "main": "/backend/server.js",
   "type": "module",
   "scripts": {
-    "test": "poku src/tests/app.test.js",
-    "start": "node server.js"
+    "test": "poku src/tests/login.e2e.test.js",
+    "start": "node server.js",
+    "start-server": "npm start",
+    "testLogin": "start-server-and-test start-server http://localhost:3000/ test"
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,7 @@
     "autocannon": "^8.0.0",
     "node-mocks-http": "^1.17.2",
     "nodemon": "^3.1.14",
+    "start-server-and-test": "^3.0.2",
     "vitest": "^4.1.4"
   }
 }

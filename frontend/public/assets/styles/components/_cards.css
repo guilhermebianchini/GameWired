@@ -300,7 +300,7 @@
   }
 
   .card-news {
-    width: 314px;
+    width: 375px;
     height: auto;
     padding: 1.25em;
     border-radius: 10px;
@@ -310,8 +310,7 @@
 
     .img-card {
       img {
-        width: 290px;
-        height: 230px;
+        width: max-content;
         background: white;
         border-radius: 10px;
         object-fit: cover;

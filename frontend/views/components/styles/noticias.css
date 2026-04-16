@@ -12,6 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 80%;
 
     .notice {
         
@@ -30,10 +31,10 @@
             margin: 1em 0;
 
             .img {
-                width: 80%;
+                width: 100%;
                 height: auto;
                 object-fit: cover;
-                border-radius: 20px;
+                border-radius: 10px;
                 margin: 1em auto;
             }
         }
@@ -52,7 +53,6 @@
 
             blockquote {
                 margin: 0 auto;
-                width: 90%;
                 padding: 0.6em 0;
             }
         }

@@ -47,7 +47,7 @@ h4 {
 }
 
 /* p, span, a: Corpo de Texto e Links */
-p, span, a {
+p, span, a, li {
     /* Mínimo: 1rem (16px) | Fluido: 0.8vw | Máximo: 1.125rem (18px) */
     font-size: clamp(0.8rem, 0.8vw + 0.5rem, 1.125rem);
     line-height: 1.6;
