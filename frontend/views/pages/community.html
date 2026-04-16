@@ -60,7 +60,8 @@
 
           <div id="CommunityLoggedIn" class="infos hidden">
             <div class="user-img">
-              <img id="foto_perfil" class="foto-perfil" src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1776181814/user-default_gcbfvc.jpg"
+              <img id="foto_perfil" class="foto-perfil"
+                src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1776181814/user-default_gcbfvc.jpg"
                 alt="Foto de Perfil" />
             </div>
             <div class="user-info">
@@ -79,7 +80,7 @@
                 <option value="">Selecione...</option>
               </select>
 
-              <button id="filtrar">Filtrar</button>
+              <button id="filtrar" type="button">Filtrar</button>
             </div>
           </div>
         </div>
@@ -88,6 +89,12 @@
       <section class="middle">
         <div id="postsContainer"></div>
         <div id="commentsContainer"></div>
+
+        <div id="loadingPosts" class="loading-posts hidden">
+          <div class="spinner"></div>
+        </div>
+
+        <div id="sentinelaPosts"></div>
       </section>
     </section>
   </main>

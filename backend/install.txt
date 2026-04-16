@@ -1,8 +1,0 @@
-PACOTES: npm install express cors dotenv mssql multer pg bcrypt cloudinary jsonwebtoken express-async-errors
-
-PACOTES E DEPENDÊNCIAS: npm install -D nodemon
-
-PARA RODAR O NODE:
-
-1. cd backend
-2. npm start

@@ -17,9 +17,11 @@ const gameRepository = {
 
         const { recordset } = await conn.request()
             .input('games_id', sqltype.Int, games_id)
-            .query(`SELECT g.games_id, g.nome, g.plataforma, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos
-        FROM Games g
-        WHERE games_id = @games_id`)
+            .query(`
+                SELECT g.games_id, g.nome, g.plataforma, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos
+                FROM Games g
+                WHERE g.games_id = @games_id
+            `)
 
         return recordset[0]
     },

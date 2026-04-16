@@ -3,13 +3,44 @@ import sqltype from 'mssql'
 
 const postRepository = {
 
-    async readAll() {
+    /*async readAll() {
         const conn = await connect()
-        const { recordset } = await conn.query(`SELECT p.post_id, p.titulo_postagem, p.conteudo_postagem, p.data_postagem, p.foto_postagem, p.user_id, u.nome_usuario, u.foto_perfil, g.nome AS categoria
+
+        const { recordset } = await conn.query(`SELECT p.post_id, p.titulo_postagem, p.conteudo_postagem, p.data_postagem, p.foto_postagem, p.user_id, p.games_id, u.nome_usuario, u.foto_perfil, g.nome AS categoria
+            FROM Posts p
+            JOIN Users u ON p.user_id = u.user_id
+            JOIN Games g ON p.games_id = g.games_id
+            ORDER BY p.data_postagem DESC`)
+
+        return recordset
+    },*/
+
+    async readAllCursor(limit, cursor = null, games_id = null) {
+        const conn = await connect()
+
+        let query = `SELECT TOP (@limit) 
+        p.post_id, p.titulo_postagem, p.conteudo_postagem, p.data_postagem, p.foto_postagem, p.user_id, p.games_id, u.nome_usuario, u.foto_perfil, g.nome AS categoria
         FROM Posts p
         JOIN Users u ON p.user_id = u.user_id
         JOIN Games g ON p.games_id = g.games_id
-        ORDER BY p.data_postagem DESC`)
+        WHERE 1=1`
+
+        const request = conn.request()
+        request.input("limit", sqltype.Int, limit)
+
+        if (cursor !== null) {
+            query += ` AND p.post_id < @cursor`
+            request.input("cursor", sqltype.Int, cursor)
+        }
+
+        if (games_id !== null) {
+            query += ` AND p.games_id = @games_id`
+            request.input("games_id", sqltype.Int, games_id)
+        }
+
+        query += ` ORDER BY p.post_id DESC`
+
+        const { recordset } = await request.query(query)
 
         return recordset
     },
@@ -30,6 +61,21 @@ const postRepository = {
         }
 
         return recordset[0]
+    },
+
+    async readByGameId(games_id) {
+        const conn = await connect()
+
+        const { recordset } = await conn.request()
+            .input('games_id', sqltype.Int, games_id)
+            .query(`SELECT g.games_id, g.nome, g.plataforma, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos, p.post_id, p.titulo_postagem, p.conteudo_postagem, p.data_postagem, p.foto_postagem, p.games_id, u.nome_usuario, u.foto_perfil, g.nome AS categoria
+            FROM Posts p
+            JOIN Users u ON p.user_id = u.user_id
+            JOIN Games g ON p.games_id = g.games_id
+            WHERE p.games_id = @games_id
+            ORDER BY p.data_postagem DESC`)
+
+        return recordset
     },
 
     /*async getByUser(userId) {
@@ -124,18 +170,26 @@ const postRepository = {
         return result.rowsAffected[0]
     },
 
-    async deletePost(post_id, user_id) {
+    async delete(post_id, user_id) {
         const conn = await connect()
 
         const existing = await this.readByIdAndUser(post_id, user_id)
         if (!existing) throw new Error("Post não encontrado ou não pertence ao usuário!")
 
-        const sql = `DELETE FROM Posts WHERE post_id=@post_id AND user_id=@user_id`
+        await conn.request()
+            .input("post_id", sqltype.Int, post_id)
+            .query(`
+            DELETE FROM Comentarios
+            WHERE post_id = @post_id
+        `)
 
         const result = await conn.request()
             .input("post_id", sqltype.Int, post_id)
             .input("user_id", sqltype.Int, user_id)
-            .query(sql)
+            .query(`
+            DELETE FROM Posts
+            WHERE post_id = @post_id AND user_id = @user_id
+        `)
 
         return result.rowsAffected[0]
     }

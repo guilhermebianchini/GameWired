@@ -1,10 +1,62 @@
 import postRepository from "../repositories/postRepository.js"
 
 const postController = {
-    async getAllPosts(req, res) {
+    /*async getAllPosts(req, res) {
         try {
-            const posts = await postRepository.readAll()
+            const { games_id } = req.query
+
+            const posts = games_id
+                ? await postRepository.readByGameId(Number(games_id))
+                : await postRepository.readAll()
+
             res.json(posts)
+        } catch (e) {
+            console.error(e)
+            res.status(500).json({
+                ok: false,
+                message: "Erro ao buscar posts!"
+            })
+        }
+    },*/
+
+    async getAllPostsCursor(req, res) {
+        try {
+
+            const cursor = req.query.cursor ? parseInt(req.query.cursor) : null
+            const games_id = req.query.games_id ? parseInt(req.query.games_id) : null
+            const limit = 10
+
+            if (req.query.cursor && isNaN(cursor)) {
+                return res.status(400).json({
+                    ok: false,
+                    message: "Cursor inválido!"
+                })
+            }
+
+            if (req.query.games_id && isNaN(games_id)) {
+                return res.status(400).json({
+                    ok: false,
+                    message: "Jogo inválido!"
+                })
+            }
+
+            const data = await postRepository.readAllCursor(limit + 1, cursor, games_id)
+
+            let next_cursor = null
+
+            if (data.length > limit) {
+                next_cursor = data[limit - 1].post_id
+                data.pop()
+            }
+
+            res.status(200).json({
+                ok: true,
+                cursor,
+                next_cursor,
+                limit,
+                games_id,
+                data
+            })
         } catch (e) {
             console.error(e)
             res.status(500).json({
@@ -214,7 +266,7 @@ const postController = {
         try {
             const post_id = Number(req.params.post_id)
             const user_id = Number(req.user.id)
-            const confirma = req.body.key
+            const confirma = req.body?.key
 
             if (isNaN(post_id)) {
                 return res.status(400).json({
@@ -237,15 +289,6 @@ const postController = {
                 })
             }
 
-            const existing = await postRepository.readByIdAndUser(post_id, user_id)
-
-            if (!existing) {
-                return res.status(404).json({
-                    ok: false,
-                    message: "Post não encontrado ou não pertence ao usuário!"
-                })
-            }
-
             const rowsAffected = await postRepository.delete(post_id, user_id)
 
             if (rowsAffected > 0) {
@@ -260,6 +303,8 @@ const postController = {
                 message: "Não foi possível deletar o post!"
             })
         } catch (e) {
+            console.error("Erro ao deletar post:", e)
+
             res.status(500).json({
                 ok: false,
                 message: 'Erro do servidor!',

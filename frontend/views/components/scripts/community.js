@@ -48,9 +48,13 @@ document.addEventListener("DOMContentLoaded", () => { carregarPerfil() })
 async function carregarPerfil() {
   const token = localStorage.getItem("token")
   const abrirPerfilUsuario = document.getElementById("abrirPerfil")
+  const foto = document.querySelector(".foto-perfil")
+
+  const fotoPadrao = "https://res.cloudinary.com/dtno5yrwl/image/upload/v1776181814/user-default_gcbfvc.jpg"
 
   if (!token) {
     abrirPerfilUsuario.style.display = "none"
+    if (foto) foto.src = fotoPadrao
     return
   }
 
@@ -69,8 +73,11 @@ async function carregarPerfil() {
 
     document.getElementById("nome_usuario").textContent = user.nome_usuario
 
-    const foto = document.querySelector(".foto-perfil")
-    foto.src = user.foto_perfil
+    if (foto) {
+      foto.src = user.foto_perfil && user.foto_perfil.trim() !== ""
+        ? user.foto_perfil
+        : fotoPadrao
+    }
 
   } catch (err) {
     console.error("Erro ao carregar perfil:", err)
@@ -198,7 +205,7 @@ form.addEventListener("submit", async (e) => {
   }
 })
 
-// SELECT COM OS JOGOS
+// SELECT COM OS JOGOS (MODAL DE POSTAGEM)
 
 document.addEventListener("DOMContentLoaded", () => { carregarJogos() })
 
@@ -233,13 +240,17 @@ async function carregarJogosFiltro() {
 
     const select = document.getElementById('select-button')
 
+    if (!select) {
+      console.error('Select do filtro não encontrado!')
+      return
+    }
+
     select.innerHTML = '<option value="">Selecione...</option>'
 
     games.forEach(game => {
       const option = document.createElement('option')
       option.value = game.games_id
       option.textContent = game.nome
-
       select.appendChild(option)
     })
 
@@ -250,137 +261,277 @@ async function carregarJogosFiltro() {
 
 // CARREGAR POSTAGENS
 
-async function carregarPosts(gameId = null) {
-  try {
-    let url = 'http://localhost:3000/posts'
+let nextCursor = null
+let loading = false
+let hasMore = true
+let gameIdAtual = null
+let postsController = null
 
-    if (gameId) {
-      url += `?game_id=${gameId}`
-    }
+function mostrarLoading() {
+  const loadingEl = document.getElementById("loadingPosts")
+  if (loadingEl) loadingEl.classList.remove("hidden")
+}
 
-    const [responsePosts, responseComentarios] = await Promise.all([
-      fetch(url),
-      fetch("http://localhost:3000/comentarios")
-    ])
+function esconderLoading() {
+  const loadingEl = document.getElementById("loadingPosts")
+  if (loadingEl) loadingEl.classList.add("hidden")
+}
 
-    const postsResult = await responsePosts.json()
-    const posts = postsResult.data || postsResult
-    const comentariosResult = await responseComentarios.json()
-    const comentarios = comentariosResult.data || comentariosResult
+function limparPosts() {
+  const container = document.getElementById("postsContainer")
+  if (container) container.innerHTML = ""
+}
 
-    const container = document.getElementById('postsContainer')
-    container.innerHTML = ''
+async function recarregarFeed() {
+  observer.disconnect()
 
-    const userIdLogado = getUserIdFromToken()
+  nextCursor = null
+  hasMore = true
+  loading = false
 
-    let html = ""
+  await carregarPosts(true)
 
-    posts.forEach(post => {
-      const comentariosDoPost = comentarios.filter(comentario =>
-        Number(comentario.post_id) === Number(post.post_id)
-      )
+  const sentinela = document.getElementById("sentinelaPosts")
+  if (sentinela) {
+    observer.observe(sentinela)
+  }
+}
 
-      let comentariosHTML = ""
+function montarHTMLPosts(posts, comentarios, userIdLogado) {
+  let html = ""
 
-      comentariosDoPost.forEach(comentario => {
-        comentariosHTML += `
-          <div class="comment">
-            <div class="comment_origem">
-              <div class="user_photo_comment">
-                <img src="${comentario.foto_perfil}" alt="Foto de Perfil">
-              </div>
+  posts.forEach(post => {
+    const comentariosDoPost = comentarios.filter(comentario =>
+      Number(comentario.post_id) === Number(post.post_id)
+    )
 
-              <div class="infos_comment">
-                <p class="usernameComment">${comentario.nome_usuario}</p>
-              </div>
+    let comentariosHTML = ""
 
-              ${Number(comentario.user_id) === Number(userIdLogado) ? `
-                <div class="comment_menu">
-                  <button onclick="toggleMenuComentario(${comentario.comentario_id})">⋮</button>
-
-                  <div class="menu_options" id="comentario_menu-${comentario.comentario_id}">
-                    <button onclick="editarComment(${comentario.comentario_id})">Editar</button>
-                    <button onclick="deletarComment(${comentario.comentario_id})">Deletar</button>
-                  </div>
-                </div>
-              ` : ""}
+    comentariosDoPost.forEach(comentario => {
+      comentariosHTML += `
+        <div class="comment">
+          <div class="comment_origem">
+            <div class="user_photo_comment">
+              <img src="${comentario.foto_perfil}" alt="Foto de Perfil">
             </div>
 
-            <div class="content_comment">
-              <p>${comentario.comentario_conteudo}</p>
-            </div>
-            <p class="dataComment">
-              Data de Publicação: ${new Date(comentario.comentario_data).toLocaleDateString()}
-            </p>
-          </div>
-        `
-      })
-
-      html += `
-        <div class="post">
-          <div class="post_origem">
-            <div class="user_photo">
-              <img src="${post.foto_perfil}" alt="Foto de Perfil">
+            <div class="infos_comment">
+              <p class="usernameComment">${comentario.nome_usuario}</p>
             </div>
 
-            <div class="infos_post">
-              <p class="username">${post.nome_usuario}</p>
-              <p class="Catg">
-                ${post.categoria}
-              </p>
-            </div>
+            ${Number(comentario.user_id) === Number(userIdLogado) ? `
+              <div class="comment_menu">
+                <button onclick="toggleMenuComentario(${comentario.comentario_id})">⋮</button>
 
-            ${Number(post.user_id) === Number(userIdLogado) ? `
-              <div class="post_menu">
-                <button onclick="toggleMenu(${post.post_id})">⋮</button>
-
-                <div class="menu_options" id="menu-${post.post_id}">
-                  <button onclick="editarPost(${post.post_id})">Editar</button>
-                  <button onclick="deletarPost(${post.post_id})">Deletar</button>
+                <div class="menu_options" id="comentario_menu-${comentario.comentario_id}">
+                  <button onclick="editarComment(${comentario.comentario_id})">Editar</button>
+                  <button onclick="deletarComment(${comentario.comentario_id})">Deletar</button>
                 </div>
               </div>
             ` : ""}
           </div>
 
-          <div class="content_post">
-            <h3>${post.titulo_postagem}</h3>
-            <p>${post.conteudo_postagem}</p>
-            ${post.foto_postagem ? `<img src="${post.foto_postagem}" alt="Imagem do post">` : ""}
+          <div class="content_comment">
+            <p>${comentario.comentario_conteudo}</p>
           </div>
 
-          <div class="dataPost">
-            Data de Publicação: ${new Date(post.data_postagem).toLocaleDateString()}
-          </div>
-
-          <hr>
-
-          <div class="comments_list">
-            ${comentariosHTML || `<p class="semComentarios">Nenhum comentário ainda.</p>`}
-          </div>
-
-          <form class="comments" data-post-id="${post.post_id}">
-            <textarea class="commentContent" placeholder="Escreva seu comentário..."></textarea>
-            <button type="submit" class="commentBtn">Comentar</button>
-          </form>
+          <p class="dataComment">
+            Data de Publicação: ${new Date(comentario.comentario_data).toLocaleDateString()}
+          </p>
         </div>
       `
     })
 
-    container.innerHTML = html
+    html += `
+      <div class="post">
+        <div class="post_origem">
+          <div class="user_photo">
+            <img src="${post.foto_perfil}" alt="Foto de Perfil">
+          </div>
 
+          <div class="infos_post">
+            <p class="username">${post.nome_usuario}</p>
+            <p class="Catg">${post.categoria}</p>
+          </div>
+
+          ${Number(post.user_id) === Number(userIdLogado) ? `
+            <div class="post_menu">
+              <button onclick="toggleMenu(${post.post_id})">⋮</button>
+
+              <div class="menu_options" id="menu-${post.post_id}">
+                <button onclick="editarPost(${post.post_id})">Editar</button>
+                <button onclick="deletarPost(${post.post_id})">Deletar</button>
+              </div>
+            </div>
+          ` : ""}
+        </div>
+
+        <div class="content_post">
+          <h3>${post.titulo_postagem}</h3>
+          <p>${post.conteudo_postagem}</p>
+          ${post.foto_postagem ? `<img src="${post.foto_postagem}" alt="Imagem do post">` : ""}
+        </div>
+
+        <div class="dataPost">
+          Data de Publicação: ${new Date(post.data_postagem).toLocaleDateString()}
+        </div>
+
+        <hr>
+
+        <div class="comments_list">
+          ${comentariosHTML || `<p class="semComentarios">Nenhum comentário ainda.</p>`}
+        </div>
+
+        <form class="comments" data-post-id="${post.post_id}">
+          <textarea class="commentContent" placeholder="Escreva seu comentário..."></textarea>
+          <button type="submit" class="commentBtn">Comentar</button>
+        </form>
+      </div>
+    `
+  })
+
+  return html
+}
+
+function renderizarPosts(posts, comentarios) {
+  const container = document.getElementById("postsContainer")
+
+  if (!container) {
+    console.error("Container dos posts não encontrado!")
+    return
+  }
+
+  const userIdLogado = getUserIdFromToken()
+  const html = montarHTMLPosts(posts, comentarios, userIdLogado)
+
+  container.insertAdjacentHTML("beforeend", html)
+}
+
+async function carregarPosts(reset = false) {
+  if (loading && !reset) return
+  if (!hasMore && !reset) return
+
+  if (reset) {
+    if (postsController) {
+      postsController.abort()
+    }
+
+    nextCursor = null
+    hasMore = true
+    loading = false
+  }
+
+  loading = true
+  mostrarLoading()
+
+  postsController = new AbortController()
+
+  try {
+    let url = "http://localhost:3000/posts/cursor"
+    const params = new URLSearchParams()
+
+    if (gameIdAtual) {
+      params.append("games_id", gameIdAtual)
+    }
+
+    if (nextCursor !== null) {
+      params.append("cursor", nextCursor)
+    }
+
+    if ([...params].length > 0) {
+      url += `?${params.toString()}`
+    }
+
+    console.log("URL da requisição:", url)
+
+    const [responsePosts, responseComentarios] = await Promise.all([
+      fetch(url, { signal: postsController.signal }),
+      fetch("http://localhost:3000/comentarios", { signal: postsController.signal })
+    ])
+
+    const postsResult = await responsePosts.json()
+    const comentariosResult = await responseComentarios.json()
+
+    if (!responsePosts.ok) {
+      console.error("Erro retornado pelo backend:", postsResult)
+      return
+    }
+
+    const posts = postsResult.data || []
+    const comentarios = comentariosResult.data || comentariosResult
+
+    if (!Array.isArray(posts)) {
+      console.error("A resposta de posts não é um array:", posts)
+      return
+    }
+
+    if (reset) {
+      limparPosts()
+    }
+
+    renderizarPosts(posts, comentarios)
+
+    nextCursor = postsResult.next_cursor || null
+    hasMore = !!postsResult.next_cursor
   } catch (error) {
-    console.error("Erro ao carregar posts:", error)
+    if (error.name !== "AbortError") {
+      console.error("Erro ao carregar posts:", error)
+    }
+  } finally {
+    loading = false
+    esconderLoading()
   }
 }
+
+const observer = new IntersectionObserver(async (entries) => {
+  const entry = entries[0]
+
+  if (entry.isIntersecting && !loading && hasMore) {
+    await carregarPosts()
+  }
+}, {
+  root: null,
+  rootMargin: "0px",
+  threshold: 1
+})
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await carregarJogosFiltro()
+  await carregarPosts(true)
+
+  const sentinela = document.getElementById("sentinelaPosts")
+  if (sentinela) {
+    observer.observe(sentinela)
+  }
+
+  const botaoFiltrar = document.getElementById("filtrar")
+
+  if (botaoFiltrar) {
+    botaoFiltrar.addEventListener('click', async () => {
+
+      observer.disconnect()
+
+      const select = document.getElementById('select-button')
+      gameIdAtual = select.value || null
+
+      await carregarPosts(true)
+
+      const sentinela = document.getElementById("sentinelaPosts")
+      if (sentinela) {
+        observer.observe(sentinela)
+      }
+    })
+  }
+})
 
 function toggleMenu(postId) {
   const menu = document.getElementById(`menu-${postId}`)
 
-  document.querySelectorAll('.menu_options').forEach(m => {
-    if (m !== menu) m.style.display = 'none'
+  document.querySelectorAll(".menu_options").forEach(m => {
+    if (m !== menu) m.style.display = "none"
   })
 
-  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex'
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex"
 }
 
 function toggleMenuComentario(comentarioId) {
@@ -493,7 +644,7 @@ async function deletarPost(post_id) {
       confirmButtonText: "Continuar"
     })
 
-    await carregarPosts()
+    await recarregarFeed()
 
   } catch (err) {
     console.error("Erro ao deletar post:", err)
@@ -595,7 +746,7 @@ document.addEventListener("submit", async (e) => {
       confirmButtonText: "Continuar"
     })
 
-    await carregarPosts()
+    await recarregarFeed()
 
   } catch (err) {
     console.error("Erro ao criar comentário:", err)
@@ -724,7 +875,7 @@ async function deletarComment(comentario_id) {
       confirmButtonText: "Continuar"
     })
 
-    await carregarPosts()
+    await recarregarFeed()
 
   } catch (err) {
     console.error("Erro ao deletar comentário:", err)

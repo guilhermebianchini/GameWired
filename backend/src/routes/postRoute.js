@@ -5,7 +5,8 @@ import { verifyToken } from "../middlewares/authMiddleware.js"
 
 const postRouter = Router()
 
-postRouter.get('/posts', postController.getAllPosts)
+postRouter.get('/posts/cursor', postController.getAllPostsCursor)
+/*postRouter.get('/posts', postController.getAllPosts)*/
 postRouter.get('/posts/:post_id', postController.getPostById)
 postRouter.get('/posts/:post_id/me', verifyToken, postController.getPostByIdAndUser)
 postRouter.post('/posts', verifyToken, uploadPosts.single("foto_postagem"), postController.insertPost)

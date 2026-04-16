@@ -9,6 +9,6 @@ userRoute.get('/users/:id', userController.getUserById)
 userRoute.post('/users/register', userController.insert)
 userRoute.post('/users/login', userController.login)
 userRoute.patch('/users/update', verifyToken, userController.update)
-userRoute.delete('/users/delete/:id', verifyToken, userController.delete)
+userRoute.delete('/users/delete/:id', verifyToken, userController.deleteUser)
 
 export default userRoute
