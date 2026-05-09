@@ -113,7 +113,6 @@ const userController = {
     async update(req, res) {
         try {
             const model = req.body
-            console.log(model)
             const id = req.params.id
 
             model.senha = auth.crypt(model.senha)

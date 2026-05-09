@@ -15,24 +15,23 @@
         <nav class="main-nav">
             <div class="nav__logo">
                 <a href="../../../../index.html">
-                    <img src="/frontend/public/assets/imgs/Logo.svg" data-theme-image
-                        data-dark-src="/frontend/public/assets/imgs/Logo.svg"
-                        data-light-src="/frontend/public/assets/imgs/Logolight.svg" alt="Exemplo" />
+                    <img src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logo_ojcaft.svg" data-theme-image
+                        data-dark-src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logo_ojcaft.svg"
+                        data-light-src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logolight_qkhi1k.svg" alt="GameWired Logo" />
                 </a>
             </div>
 
             <div class="nav__center">
                 <ul>
-                    <!--style="display:none;"-->
                     <li> <a href="/frontend/views/pages/subpages/editor-dashboard.html" class="abas" style="display:none;"> Dashboard </a> </li>
                     <li> <a href="/frontend/views/pages/news.html" class="abas"> Notícias </a> </li>
                     <li>
                         <a href="" class="abas"> Plataformas </a>
                         <i class="arrow"></i>
                         <ul class="platforms-list">
-                            <li><a href="/frontend/views/pages/computer.html" class="abas">PC</a></li>
-                            <li><a href="/frontend/views/pages/console.html" class="abas">Console</a></li>
-                            <li><a href="/frontend/views/pages/mobile.html" class="abas">Mobile</a></li>
+                            <li><a href="/frontend/views/pages/computer.html" class="abas" onclick="carregarJogosPorPlataforma(1)">PC</a></li>
+                            <li><a href="/frontend/views/pages/console.html" class="abas" onclick="carregarJogosPorPlataforma(2)">Console</a></li>
+                            <li><a href="/frontend/views/pages/mobile.html" class="abas" onclick="carregarJogosPorPlataforma(3)">Mobile</a></li>
                         </ul>
                     </li>
                     <li> <a href="/frontend/views/pages/community.html" class="abas"> Comunidade </a> </li>
@@ -44,7 +43,7 @@
                     <i class="bi bi-person-fill-add"></i>
                 </a>
 
-                <!-- APARECE APÓS O LOGIN-->
+                <!-- APARECE APÓS O LOGIN -->
 
                 <a id="profileLinkDesktop" style="display:none;" href="/frontend/views/pages/subpages/profile.html">
                     <i class="bi bi-person-circle"></i>
@@ -70,11 +69,11 @@
             <ul>
                 <li><a href="/frontend/views/pages/news.html" class="abas-mobile"> Notícias </a></li>
 
-                <li><a href="/frontend/views/pages/computer.html" class="abas-mobile"> PC </a></li>
+                <li><a href="/frontend/views/pages/computer.html" class="abas-mobile" onclick="carregarJogosPorPlataforma(1)"> PC </a></li>
 
-                <li><a href="/frontend/views/pages/console.html" class="abas-mobile"> Console </a></li>
+                <li><a href="/frontend/views/pages/console.html" class="abas-mobile" onclick="carregarJogosPorPlataforma(2)"> Console </a></li>
 
-                <li><a href="/frontend/views/pages/mobile.html" class="abas-mobile"> Mobile </a></li>
+                <li><a href="/frontend/views/pages/mobile.html" class="abas-mobile" onclick="carregarJogosPorPlataforma(3)"> Mobile </a></li>
 
                 <li><a href="/frontend/views/pages/community.html" class="abas-mobile"> Comunidade </a></li>
             </ul>
@@ -83,7 +82,7 @@
                 <i class="bi bi-person-fill-add"></i>
             </a>
 
-            <!-- APARECE APÓS O LOGIN-->
+            <!-- APARECE APÓS O LOGIN -->
 
             <a id="profileLinkMobile" style="display:none;" href="/frontend/views/pages/subpages/profile.html">
                 <i class="bi bi-person-circle"></i>
@@ -97,5 +96,6 @@
 
     <script src="/frontend/public/assets/scripts/_navBar.js"></script>
     <script src="/frontend/public/assets/scripts/_temas.js"></script>
+    <script src="/frontend/views/components/scripts/platforms.js"></script>
 </body>
 </html>

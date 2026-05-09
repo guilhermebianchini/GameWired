@@ -1,7 +1,6 @@
 const globalMiddleware = {
     getIP(req,res,next){
         const ip = req.ip 
-        console.log(ip)
 
         next()
     },

@@ -110,14 +110,6 @@
         align-items: center;
         justify-content: center;
 
-        .search__bar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 1.5vh 0;
-            gap: .5em;
-        }
-
         h1 {
             font-size: 40px;
             font-weight: 700;
@@ -165,7 +157,7 @@
             cursor: pointer;
             font-size: 24px;
             padding: 10px;
-            border-radius: 10%;
+            border-radius: 50px;
             z-index: 5;
         }
 

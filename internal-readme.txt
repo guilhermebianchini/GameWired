@@ -9,5 +9,4 @@ PACOTES: npm install express cors dotenv mssql multer pg bcrypt cloudinary jsonw
 PACOTES E DEPENDÊNCIAS:
 
 npm install -D nodemon
-npm install -D vitest
 npm install node-mocks-http --save-dev

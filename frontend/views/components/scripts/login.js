@@ -48,7 +48,6 @@ form.addEventListener("submit", async (e) => {
     })
 
     const result = await res.json()
-    console.log(result)
 
     if (!res.ok) {
         const emailInputBox = document.getElementById('email').closest('.input-box')

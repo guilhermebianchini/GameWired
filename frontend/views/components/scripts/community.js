@@ -442,8 +442,6 @@ async function carregarPosts(reset = false) {
       url += `?${params.toString()}`
     }
 
-    console.log("URL da requisição:", url)
-
     const [responsePosts, responseComentarios] = await Promise.all([
       fetch(url, { signal: postsController.signal }),
       fetch("http://localhost:3000/comentarios", { signal: postsController.signal })
