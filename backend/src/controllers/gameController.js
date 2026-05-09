@@ -33,6 +33,23 @@ const gameController = {
         } catch (err) {
             res.status(500).json({ erro: err.message })
         }
+    },
+
+    async getGameByPlatform(req, res) {
+        try {
+            const platform_id = Number(req.params.platform_id)
+
+            const games = await gameRepository.readByPlatform(platform_id)
+
+            if (!games || games.length === 0) {
+                return res.status(404).json({ mensagem: "Nenhum jogo encontrado para essa plataforma" })
+            }
+
+            res.json(games)
+
+        } catch (err) {
+            res.status(500).json({ erro: err.message })
+        }
     }
 }
 

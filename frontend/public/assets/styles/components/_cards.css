@@ -1,4 +1,4 @@
-@media screen and (max-width: 1920px) {
+/*@media screen and (max-width: 1920px) {
 
   .container-cards {
   display: grid;
@@ -290,295 +290,305 @@
   }
 }
 
-@media screen and (max-width: 1366px) {
-  .container-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5em;
-    justify-items: center;
-    width: 100%;
+@media screen and (max-width: 1366px) {*/
+.container-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5em;
+  justify-items: center;
+  width: 100%;
+}
+
+.card-news {
+  width: 375px;
+  height: auto;
+  padding: 1.25em;
+  border-radius: 10px;
+  margin-top: 5vh;
+
+  background-color: var(--bg-Card);
+
+  .img-card {
+    img {
+      width: max-content;
+      background: white;
+      border-radius: 10px;
+      object-fit: cover;
+    }
   }
 
-  .card-news {
-    width: 375px;
-    height: auto;
-    padding: 1.25em;
-    border-radius: 10px;
-    margin-top: 5vh;
+  .txt-card {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: justify;
+    margin-top: 1vh;
+    height: 400px;
 
-    background-color: var(--bg-Card);
-
-    .img-card {
-      img {
-        width: max-content;
-        background: white;
-        border-radius: 10px;
-        object-fit: cover;
-      }
+    .date {
+      font-size: clamp(0.8rem, 0.8vw + 0.5rem, 1rem);
+      margin: 0 0 0.5em;
+      color: #625994;
+      font-weight: 600;
     }
 
-    .txt-card {
-      display: flex;
+    h4 {
+      margin: 0 0 0.5em;
+    }
+
+    p {
+      height: 160px;
+      overflow: hidden;
       position: relative;
-      flex-direction: column;
-      justify-content: flex-start;
-      text-align: justify;
-      margin-top: 1vh;
-      height: 400px;
 
-      .date {
-        font-size: clamp(0.8rem, 0.8vw + 0.5rem, 1rem);
-        margin: 0 0 0.5em;
-        color: #625994;
-        font-weight: 600;
-      }
-
-      h4 {
-        margin: 0 0 0.5em;
-      }
-
-      p {
-        height: 160px;
-        overflow: hidden;
-        position: relative;
-
-        &::before {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          width: 100%;
-          height: 40px;
-          background: linear-gradient(transparent, var(--bg-Card));
-        }
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 40px;
+        background: linear-gradient(transparent, var(--bg-Card));
       }
     }
   }
+}
 
-  .container-carousel {
-    width: 1086px;
+.container-carousel {
+  width: 1086px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  scroll-behavior: smooth;
+
+  .carousel-wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    scroll-behavior: smooth;
+    justify-content: space-between;
+    width: 100%;
+    gap: 2.0em;
+  }
+}
 
-    .carousel-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      gap: 2.0em;
+.card__game {
+  flex: 0 0 17.3%;
+  align-items: center;
+  margin: 2vh 3vw 2vh 0;
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+
+  img {
+    width: 250px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .game-n-more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 75px;
+    background-color: var(--bg-Card);
+    border-radius: 0 0 8px 8px;
+    padding: 1px 5px 8px;
+
+    p {
+      font-size: 16px;
+    }
+
+    button {
+      border-radius: 20px;
+      color: #f9fcff;
+      background-color: #282348;
+      padding: 8px;
+      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+      text-transform: uppercase;
+      font-size: 12px;
     }
   }
 
-  .card__game {
-    flex: 0 0 17.3%;
-    align-items: center;
-    margin: 2vh 3vw 2vh 0;
-    width: 300px;
-    height: 300px;
-    background: white;
-    border-radius: 10px;
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+  }
 
-    img {
-      width: 250px;
-      object-fit: cover;
-      border-radius: 8px 8px 0 0;
+  .modal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-Card);
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 75vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease;
+
+    h2 {
+      padding: 10px;
+      font-size: 30px;
     }
 
-    .game-n-more {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    hr {
+      margin: 0 auto;
       text-align: center;
-      height: 75px;
-      background-color: var(--bg-Card);
-      border-radius: 0 0 8px 8px;
-      padding: 1px 5px 8px;
+      width: 97%;
+    }
+
+    .game-content {
+      padding: 10px;
+      text-align: justify;
 
       p {
+        margin-top: 1em;
         font-size: 18px;
       }
+    }
+  }
+
+  .modal-content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .modal-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .modal-content::-webkit-scrollbar-thumb {
+    background-color: var(--bg-Font);
+    border-radius: 10px;
+  }
+
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffffff;
+    cursor: pointer;
+  }
+}
+
+.container-community {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2vh 0;
+  width: 100%;
+}
+
+.card-community {
+  background-color: var(--bg-Card);
+  padding: 2em;
+  width: 314px;
+  height: 347px;
+  border-radius: 20px;
+  margin-top: 1vh;
+
+  .community-user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    img {
+      height: 40px;
+      width: 40px;
+      object-fit: cover;
+      border-radius: 100px;
+      margin-right: 1vw;
+    }
+  }
+
+  .txt-community {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1vh 0;
+
+    span {
+      color: var(--bg-Button);
+      font-size: 1rem;
+    }
+
+    p {
+      text-align: justify;
+      margin: 0.5vh 0 3vh;
+      height: 170px;
+      overflow: hidden;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 40px;
+        background: linear-gradient(transparent, var(--bg-Card));
+      }
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-around;
+      gap: 10%;
 
       button {
-        border-radius: 20px;
-        color: #f9fcff;
-        background-color: #282348;
-        padding: 8px;
-        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
-        text-transform: uppercase;
-        font-size: 12px;
-      }
+        color: var(--bg-Font);
+        font-size: 1.25rem;
 
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        justify-content: center;
-        align-items: center;
-      }
-
-      .modal-content {
-        background-color: var(--bg-Card);
-        padding: 25px;
-        border-radius: 10px;
-        width: 70%;
-        height: 90%;
-        text-align: center;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        animation: fadeIn 0.3s ease;
-
-        h2 {
-          padding: 10px;
-          font-size: 40px;
-        }
-
-        hr {
-          margin: 0 auto;
-          text-align: center;
-          width: 97%;
-        }
-
-        .game-content {
-          padding: 10px;
-          text-align: justify;
-        }
-
-        p {
-          margin-top: 1em;
-          font-size: 19px;
-        }
-
-        a {
-          color: #8863e7;
-          font-size: 19px;
-        }
-        
-      }
-
-      .close {
-        position: absolute;
-        top: 15px;
-        right: 20px;
-        font-size: 28px;
-        font-weight: bold;
-        color: #ffffff;
-        cursor: pointer;
-      }
-    }
-  }
-
-  .container-community {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2vh 0;
-    width: 100%;
-  }
-
-  .card-community {
-    background-color: var(--bg-Card);
-    padding: 2em;
-    width: 314px;
-    height: 347px;
-    border-radius: 20px;
-    margin-top: 1vh;
-
-    .community-user {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-
-      img {
-        height: 40px;
-        width: 40px;
-        object-fit: cover;
-        border-radius: 100px;
-        margin-right: 1vw;
-      }
-    }
-
-    .txt-community {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin: 1vh 0;
-
-      span {
-        color: var(--bg-Button);
-        font-size: 1rem;
-      }
-
-      p {
-        text-align: justify;
-        margin: 0.5vh 0 3vh;
-        height: 170px;
-        overflow: hidden;
-        position: relative;
-
-        &::before {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          width: 100%;
-          height: 40px;
-          background: linear-gradient(transparent, var(--bg-Card));
-        }
-      }
-
-      .actions {
-        display: flex;
-        justify-content: space-around;
-        gap: 10%;
-
-        button {
-          color: var(--bg-Font);
-          font-size: 1.25rem;
-
-          &:hover {
-            color: var(--bg-Button);
-            transition: 0.3s;
-          }
+        &:hover {
+          color: var(--bg-Button);
+          transition: 0.3s;
         }
       }
     }
   }
+}
 
-  .card__dev {
-    background-color: var(--bg-Card);
-    padding: 2em;
-    width: 100%;
-    height: auto;
-    border-radius: 20px;
-    margin-top: 1vh;
+.card__dev {
+  background-color: var(--bg-Card);
+  padding: 2em;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  margin-top: 1vh;
 
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  .txt__dev {
+    width: 50%;
+    text-align: left;
+
+    span {
+      color: var(--bg-Button);
+      font-weight: 600;
+      font-size: clamp(1.75rem, 3.5vw + 1rem, 2.75rem);
+    }
+  }
+
+  .devs-link {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-
-    .txt__dev {
-      width: 50%;
-      text-align: left;
-
-      span {
-        color: var(--bg-Button);
-        font-weight: 600;
-        font-size: clamp(1.75rem, 3.5vw + 1rem, 2.75rem);
-      }
-    }
-
-    .devs-link {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      width: 30%;
-    }
+    flex-direction: column;
+    width: 30%;
   }
 }
 

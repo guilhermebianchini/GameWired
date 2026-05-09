@@ -31,9 +31,6 @@ const profileController = {
                 bio
             )
 
-            console.log("FILE:", req.file)
-            console.log("BODY:", req.body)
-
             return res.json(perfilAtualizado)
 
         } catch (err) {
