@@ -14,7 +14,7 @@
     <header class="main-header">
         <nav class="main-nav">
             <div class="nav__logo">
-                <a href="../../../../index.html">
+                <a href="/">
                     <img src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logo_ojcaft.svg" data-theme-image
                         data-dark-src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logo_ojcaft.svg"
                         data-light-src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logolight_qkhi1k.svg" alt="GameWired Logo" />
@@ -24,28 +24,28 @@
             <div class="nav__center">
                 <ul>
                     <li> <a href="/frontend/views/pages/subpages/editor-dashboard.html" class="abas" style="display:none;"> Dashboard </a> </li>
-                    <li> <a href="/frontend/views/pages/news.html" class="abas"> Notícias </a> </li>
+                    <li> <a href="/noticias" class="abas"> Notícias </a> </li>
                     <li>
                         <a href="" class="abas"> Plataformas </a>
                         <i class="arrow"></i>
                         <ul class="platforms-list">
-                            <li><a href="/frontend/views/pages/computer.html" class="abas" onclick="carregarJogosPorPlataforma(1)">PC</a></li>
-                            <li><a href="/frontend/views/pages/console.html" class="abas" onclick="carregarJogosPorPlataforma(2)">Console</a></li>
-                            <li><a href="/frontend/views/pages/mobile.html" class="abas" onclick="carregarJogosPorPlataforma(3)">Mobile</a></li>
+                            <li><a href="/computador" class="abas" onclick="carregarJogosPorPlataforma(1)">PC</a></li>
+                            <li><a href="/console" class="abas" onclick="carregarJogosPorPlataforma(2)">Console</a></li>
+                            <li><a href="/mobile" class="abas" onclick="carregarJogosPorPlataforma(3)">Mobile</a></li>
                         </ul>
                     </li>
-                    <li> <a href="/frontend/views/pages/community.html" class="abas"> Comunidade </a> </li>
+                    <li> <a href="/comunidade" class="abas"> Comunidade </a> </li>
                 </ul>
             </div>
 
             <div class="nav__user">
-                <a id="registerLinkDesktop" href="/frontend/views/pages/register.html">
+                <a id="registerLinkDesktop" href="/cadastro">
                     <i class="bi bi-person-fill-add"></i>
                 </a>
 
                 <!-- APARECE APÓS O LOGIN -->
 
-                <a id="profileLinkDesktop" style="display:none;" href="/frontend/views/pages/subpages/profile.html">
+                <a id="profileLinkDesktop" style="display:none;" href="/perfil">
                     <i class="bi bi-person-circle"></i>
                 </a>
 
@@ -53,7 +53,7 @@
                     <i class="ph ph-moon-stars"></i>
                 </button>
 
-                <a id="logoutBtnDesktop" style="display:none;" href="/frontend/views/pages/login.html">
+                <a id="logoutBtnDesktop" style="display:none;" href="/login">
                     <i class="bi bi-box-arrow-right"></i>
                 </a>
 
@@ -67,28 +67,28 @@
 
         <div class="nav__mobile">
             <ul>
-                <li><a href="/frontend/views/pages/news.html" class="abas-mobile"> Notícias </a></li>
+                <li><a href="/noticias" class="abas-mobile"> Notícias </a></li>
 
-                <li><a href="/frontend/views/pages/computer.html" class="abas-mobile" onclick="carregarJogosPorPlataforma(1)"> PC </a></li>
+                <li><a href="/computador" class="abas-mobile" onclick="carregarJogosPorPlataforma(1)"> PC </a></li>
 
-                <li><a href="/frontend/views/pages/console.html" class="abas-mobile" onclick="carregarJogosPorPlataforma(2)"> Console </a></li>
+                <li><a href="/console" class="abas-mobile" onclick="carregarJogosPorPlataforma(2)"> Console </a></li>
 
-                <li><a href="/frontend/views/pages/mobile.html" class="abas-mobile" onclick="carregarJogosPorPlataforma(3)"> Mobile </a></li>
+                <li><a href="/mobile" class="abas-mobile" onclick="carregarJogosPorPlataforma(3)"> Mobile </a></li>
 
-                <li><a href="/frontend/views/pages/community.html" class="abas-mobile"> Comunidade </a></li>
+                <li><a href="/comunidade" class="abas-mobile"> Comunidade </a></li>
             </ul>
 
-            <a id="registerLinkMobile" href="/frontend/views/pages/register.html">
+            <a id="registerLinkMobile" href="/cadastro">
                 <i class="bi bi-person-fill-add"></i>
             </a>
 
             <!-- APARECE APÓS O LOGIN -->
 
-            <a id="profileLinkMobile" style="display:none;" href="/frontend/views/pages/subpages/profile.html">
+            <a id="profileLinkMobile" style="display:none;" href="/perfil">
                 <i class="bi bi-person-circle"></i>
             </a>
 
-            <a id="logoutBtnMobile" style="display:none;" href="/frontend/views/pages/login.html">
+            <a id="logoutBtnMobile" style="display:none;" href="/login">
                 <i class="bi bi-box-arrow-right"></i>
             </a>
         </div>
