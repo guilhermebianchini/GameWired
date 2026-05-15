@@ -1,6 +1,6 @@
 import { describe, assert, test } from 'poku'
 
-const requestLogin = (body) => fetch('http://20.201.122.109:3000/users/login', {
+const requestLogin = (body) => fetch('https://gamewired-api.duckdns.org/users/login', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(body)

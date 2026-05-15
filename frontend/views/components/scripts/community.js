@@ -59,7 +59,7 @@ async function carregarPerfil() {
   }
 
   try {
-    const res = await fetch(`http://20.201.122.109:3000/profile`, {
+    const res = await fetch(`https://gamewired-api.duckdns.org/profile`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
@@ -161,11 +161,11 @@ form.addEventListener("submit", async (e) => {
     formData.append("foto_postagem", fileInput.files[0])
   }
 
-  let url = "http://20.201.122.109:3000/posts"
+  let url = "https://gamewired-api.duckdns.org/posts"
   let method = "POST"
 
   if (editandoId) {
-    url = `http://20.201.122.109:3000/posts/${editandoId}`
+    url = `https://gamewired-api.duckdns.org/posts/${editandoId}`
     method = "PATCH"
   }
 
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => { carregarJogos() })
 
 async function carregarJogos() {
   try {
-    const res = await fetch("http://20.201.122.109:3000/games/select")
+    const res = await fetch("https://gamewired-api.duckdns.org/games/select")
     const games = await res.json()
 
     const select = document.getElementById("categoria_postagem")
@@ -235,7 +235,7 @@ async function carregarJogos() {
 
 async function carregarJogosFiltro() {
   try {
-    const res = await fetch('http://20.201.122.109:3000/games/select')
+    const res = await fetch('https://gamewired-api.duckdns.org/games/select')
     const games = await res.json()
 
     const select = document.getElementById('select-button')
@@ -428,7 +428,7 @@ async function carregarPosts(reset = false) {
   postsController = new AbortController()
 
   try {
-    let url = "http://20.201.122.109:3000/posts/cursor"
+    let url = "https://gamewired-api.duckdns.org/posts/cursor"
     const params = new URLSearchParams()
 
     if (gameIdAtual) {
@@ -445,7 +445,7 @@ async function carregarPosts(reset = false) {
 
     const [responsePosts, responseComentarios] = await Promise.all([
       fetch(url, { signal: postsController.signal }),
-      fetch("http://20.201.122.109:3000/comentarios", { signal: postsController.signal })
+      fetch("https://gamewired-api.duckdns.org/comentarios", { signal: postsController.signal })
     ])
 
     const postsResult = await responsePosts.json()
@@ -555,7 +555,7 @@ function toggleMenuComentario(comentarioId) {
 async function editarPost(post_id) {
   const token = localStorage.getItem("token")
 
-  const res = await fetch(`http://20.201.122.109:3000/posts/${post_id}/me`, {
+  const res = await fetch(`https://gamewired-api.duckdns.org/posts/${post_id}/me`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -618,7 +618,7 @@ async function deletarPost(post_id) {
   if (!confirmacao.isConfirmed) return
 
   try {
-    const res = await fetch(`http://20.201.122.109:3000/posts/${post_id}`, {
+    const res = await fetch(`https://gamewired-api.duckdns.org/posts/${post_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -702,7 +702,7 @@ document.addEventListener("submit", async (e) => {
     return
   }
 
-  let url = "http://20.201.122.109:3000/comentarios"
+  let url = "https://gamewired-api.duckdns.org/comentarios"
   let method = "POST"
   let body = {
     comentario_conteudo,
@@ -710,7 +710,7 @@ document.addEventListener("submit", async (e) => {
   }
 
   if (editandoComentarioId) {
-    url = `http://20.201.122.109:3000/comentarios/${editandoComentarioId}`
+    url = `https://gamewired-api.duckdns.org/comentarios/${editandoComentarioId}`
     method = "PATCH"
     body = {
       comentario_conteudo
@@ -772,7 +772,7 @@ async function editarComment(comentario_id) {
   const token = localStorage.getItem("token")
 
   try {
-    const res = await fetch(`http://20.201.122.109:3000/comentarios/${comentario_id}/me`, {
+    const res = await fetch(`https://gamewired-api.duckdns.org/comentarios/${comentario_id}/me`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -849,7 +849,7 @@ async function deletarComment(comentario_id) {
   if (!confirmacao.isConfirmed) return
 
   try {
-    const res = await fetch(`http://20.201.122.109:3000/comentarios/${comentario_id}`, {
+    const res = await fetch(`https://gamewired-api.duckdns.org/comentarios/${comentario_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

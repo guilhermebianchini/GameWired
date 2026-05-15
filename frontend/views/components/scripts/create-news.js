@@ -45,7 +45,7 @@ form.addEventListener("submit", async (e) => {
     confirmarSenha: document.getElementById("confirmarSenha").value
   }
 
-  /*const url = "http://20.201.122.109:3000/users/register";
+  /*const url = "https://gamewired-api.duckdns.org/users/register";
 
   const res = await fetch(url, {
     headers: { "Content-Type": "application/json" },
