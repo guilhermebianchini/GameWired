@@ -1,0 +1,40 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/frontend/views/pages/login.html"
+    },
+    {
+      "source": "/cadastro",
+      "destination": "/frontend/views/pages/register.html"
+    },
+    {
+      "source": "/perfil",
+      "destination": "/frontend/views/pages/subpages/profile.html"
+    },
+    {
+      "source": "/comunidade",
+      "destination": "/frontend/views/pages/community.html"
+    },
+    {
+      "source": "/noticias",
+      "destination": "/frontend/views/pages/news.html"
+    },
+    {
+      "source": "/console",
+      "destination": "/frontend/views/pages/console.html"
+    },
+    {
+      "source": "/computador",
+      "destination": "/frontend/views/pages/computer.html"
+    },
+    {
+      "source": "/mobile",
+      "destination": "/frontend/views/pages/mobile.html"
+    }
+  ]
+}
