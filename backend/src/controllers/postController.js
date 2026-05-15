@@ -239,12 +239,13 @@ const postController = {
 
             model.foto_postagem = req.file ? req.file.path : existing.foto_postagem
 
-            const rowsAffected = await postRepository.update(model)
+            const postUpdated = await postRepository.update(model)
 
-            if (rowsAffected > 0) {
+            if (postUpdated) {
                 return res.status(200).json({
                     ok: true,
-                    message: 'Post atualizado com sucesso!'
+                    message: 'Post atualizado com sucesso!',
+                    data: postUpdated
                 })
             }
 
@@ -289,12 +290,13 @@ const postController = {
                 })
             }
 
-            const rowsAffected = await postRepository.delete(post_id, user_id)
+            const postDeleted = await postRepository.delete(post_id, user_id)
 
-            if (rowsAffected > 0) {
+            if (postDeleted) {
                 return res.status(200).json({
                     ok: true,
                     message: 'Post deletado com sucesso!',
+                    data: postDeleted
                 })
             }
 

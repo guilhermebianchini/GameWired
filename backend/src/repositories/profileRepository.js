@@ -1,48 +1,40 @@
-import { connect } from "../config/connection.js"
-import sqltype from 'mssql'
+import query from "../config/connection.js"
 
 const profileRepository = {
+
     async readPerfilById(usuarioId) {
-        const conn = await connect()
+        const { rows } = await query(`
+            SELECT foto_perfil, nome_usuario, bio
+            FROM users
+            WHERE user_id = $1
+            `, [usuarioId])
 
-        const { recordset } = await conn.request()
-            .input("user_id", sqltype.Int, usuarioId)
-            .query(`SELECT foto_perfil, nome_usuario, bio
-            FROM Users
-            WHERE user_id = @user_id`)
-
-        return recordset[0]
+        return rows[0]
     },
 
     async updateProfile(usuarioId, foto_perfil, bio) {
-        const conn = await connect()
-
-        let query = `
-        UPDATE Users SET 
-        bio = @bio
+        let sql = `
+        UPDATE users
+        SET bio = $1
     `
 
-    if (foto_perfil) {
-        query += `, foto_perfil = @foto_perfil`
-    }
+    const params = [bio]
 
-    query += ` WHERE user_id = @user_id;
+        if (foto_perfil) {
+            sql += `, foto_perfil = $2`
+            params.push(foto_perfil)
+        }
 
-    SELECT foto_perfil, bio
-    FROM Users
-    WHERE user_id = @user_id`
+        const userIdParam = params.length + 1
 
-    const request = conn.request()
-        .input("user_id", sqltype.Int, usuarioId)
-        .input("bio", sqltype.VarChar, bio)
+        sql += ` WHERE user_id = $${userIdParam}
+        RETURNING foto_perfil, bio `
 
-    if (foto_perfil) {
-        request.input("foto_perfil", sqltype.VarChar, foto_perfil)
-    }
+        params.push(usuarioId)
 
-    const { recordset } = await request.query(query)
+        const { rows } = await query(sql, params)
 
-    return recordset[0]
+        return rows[0]
     }
 }
 

@@ -299,6 +299,7 @@ async function recarregarFeed() {
 
 function montarHTMLPosts(posts, comentarios, userIdLogado) {
   let html = ""
+  const FOTO_PADRAO = "https://res.cloudinary.com/dtno5yrwl/image/upload/v1776181814/user-default_gcbfvc.jpg"
 
   posts.forEach(post => {
     const comentariosDoPost = comentarios.filter(comentario =>
@@ -312,7 +313,7 @@ function montarHTMLPosts(posts, comentarios, userIdLogado) {
         <div class="comment">
           <div class="comment_origem">
             <div class="user_photo_comment">
-              <img src="${comentario.foto_perfil}" alt="Foto de Perfil">
+              <img src="${comentario.foto_perfil || FOTO_PADRAO}" alt="Foto de Perfil">
             </div>
 
             <div class="infos_comment">
@@ -346,7 +347,7 @@ function montarHTMLPosts(posts, comentarios, userIdLogado) {
       <div class="post">
         <div class="post_origem">
           <div class="user_photo">
-            <img src="${post.foto_perfil}" alt="Foto de Perfil">
+            <img src="${post.foto_perfil || FOTO_PADRAO}" alt="Foto de Perfil">
           </div>
 
           <div class="infos_post">
@@ -456,7 +457,11 @@ async function carregarPosts(reset = false) {
     }
 
     const posts = postsResult.data || []
-    const comentarios = comentariosResult.data || comentariosResult
+    const comentarios = Array.isArray(comentariosResult.data)
+      ? comentariosResult.data
+      : Array.isArray(comentariosResult)
+        ? comentariosResult
+        : []
 
     if (!Array.isArray(posts)) {
       console.error("A resposta de posts não é um array:", posts)
@@ -466,6 +471,9 @@ async function carregarPosts(reset = false) {
     if (reset) {
       limparPosts()
     }
+
+    console.log("POSTS:", posts)
+    console.log("COMENTÁRIOS:", comentarios)
 
     renderizarPosts(posts, comentarios)
 

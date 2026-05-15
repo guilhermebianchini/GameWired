@@ -1,42 +1,24 @@
-/*import 'dotenv/config'
-import pg from 'pg'
+import pg from "pg"
+import dotenv from "dotenv"
 
-export async function connPG() {
-  const pool = new pg.Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  })
+dotenv.config()
 
-  const conn = await pool.connect()
-  return conn
-}*/
+const { Pool } = pg
 
-import mssql from "mssql"
-
-const sqlConfig = {
-  user: 'sa',
-  password: 'hash597684',
-  server: 'DESKTOP-GUILHER\\SQLEXPRESS',
-  database: 'GameWired',
-  options: {
-    encrypt: false,
-    trustServerCertificate: true
+const pool = new Pool({
+  host: process.env.PGHOST,
+  database: process.env.PGDATABASE,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  port: Number(process.env.PGPORT) || 5432,
+  ssl: {
+    rejectUnauthorized: false
   }
+})
+
+export async function query(text, params) {
+  const result = await pool.query(text, params)
+  return result
 }
 
-export async function connect() {
-  try {
-    const conn = await mssql.connect(sqlConfig)
-    console.log("Conectado ao SQL Server!")
-    return conn
-  } catch (err) {
-    console.error("Erro na conexão com SQL:", err)
-    throw err
-  }
-}
-
-connect()
-
-export default connect
+export default query
