@@ -1,56 +1,46 @@
-import { connect } from "../config/connection.js"
-import sqltype from 'mssql'
+import query from "../config/connection.js"
 
 const gameRepository = {
 
     async readAll() {
-        const conn = await connect()
-        const { recordset } = await conn.query(`SELECT g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos, g.game_img
-        FROM Games g
+        const { rows } = await query(`
+            SELECT g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos, g.game_img
+        FROM games g
         ORDER BY g.nome ASC`)
 
-        return recordset
+        return rows
     },
 
     async readById(games_id) {
-        const conn = await connect()
-
-        const { recordset } = await conn.request()
-            .input('games_id', sqltype.Int, games_id)
-            .query(`
+        const { rows } = await query(`
                 SELECT g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos, g.game_img
-                FROM Games g
-                WHERE g.games_id = @games_id
-            `)
+                FROM games g
+                WHERE g.games_id = $1
+                `, [games_id]
+            )
 
-        return recordset[0]
+        return rows[0]
     },
 
     async readSelect() {
-        const conn = await connect()
-
-        const { recordset } = await conn.query(`SELECT games_id, nome
-        FROM Games
+        const { rows } = await query(`SELECT games_id, nome
+        FROM games
         ORDER BY nome ASC`)
 
-        return recordset
+        return rows
     },
 
     async readByPlatform(platform_id) {
-        const conn = await connect()
-
-        const { recordset } = await conn.request()
-            .input('platform_id', sqltype.Int, platform_id)
-            .query(`
+        const { rows } = await query(`
             SELECT g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos, g.game_img, pl.platform_nome
-            FROM Games g
-            JOIN Game_Platform gp ON gp.games_id = g.games_id
-            JOIN Platforms pl ON pl.platform_id = gp.platform_id
-            WHERE pl.platform_id = @platform_id
+            FROM games g
+            JOIN game_platform gp ON gp.games_id = g.games_id
+            JOIN platforms pl ON pl.platform_id = gp.platform_id
+            WHERE pl.platform_id = $1
             ORDER BY g.nome ASC
-        `)
+        `, [platform_id])
 
-        return recordset
+        return rows
     }
 }
 

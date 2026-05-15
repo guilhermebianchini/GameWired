@@ -33,19 +33,20 @@ const userController = {
                 })
             }
 
-            delete model.confirmar_senha
+            delete model.confirmarSenha
 
             model.senha = await auth.crypt(model.senha)
 
             const respDB = await userRepository.create(model)
-            if (respDB.rowsAffected[0] > 0) {
+
+            if (respDB) {
                 res.status(200).json({
                     ok: true,
                     message: 'Usuário inserido com sucesso!',
                     email: model.email
                 })
-                return
             }
+
             res.status(500).json({
                 ok: false,
                 message: 'Erro ao inserir usuário!',
@@ -67,7 +68,7 @@ const userController = {
             if (!email || !senha) {
                 return res.status(400).json({
                     ok: false,
-                    message: "Email e senha são obrigatórios!"
+                    message: "Email e Senha são obrigatórios!"
                 })
             }
 
@@ -115,17 +116,18 @@ const userController = {
             const model = req.body
             const id = req.params.id
 
-            model.senha = auth.crypt(model.senha)
+            model.senha = await auth.crypt(model.senha)
 
             const respDB = await userRepository.update(id, model)
-            if (respDB.rowsAffected[0] > 0) {
+
+            if (respDB) {
                 res.status(200).json({
                     ok: true,
                     message: 'Usuário alterado com sucesso!',
                     email: model.email
                 })
-                return
             }
+
             res.status(500).json({
                 ok: false,
                 message: 'Erro ao alterar usuário',
@@ -146,7 +148,7 @@ const userController = {
             const confirma = req.body.key
             if (confirma === 'EXCLUIR') {
                 const respDB = await userRepository.deleteUser(id)
-                if (respDB.rowsAffected[0] > 0) {
+                if (respDB) {
                     res.status(200).json({
                         ok: true,
                         message: 'Usuário deletado com sucesso!',

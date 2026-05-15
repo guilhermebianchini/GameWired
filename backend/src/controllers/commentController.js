@@ -174,12 +174,13 @@ const commentController = {
             model.comentario_id = comentario_id
             model.user_id = user_id
 
-            const rowsAffected = await commentRepository.update(model)
+            const commentUpdated = await commentRepository.update(model)
 
-            if (rowsAffected > 0) {
+            if (commentUpdated) {
                 return res.status(200).json({
                     ok: true,
-                    message: 'Comentário atualizado com sucesso!'
+                    message: 'Comentário atualizado com sucesso!',
+                    data: commentUpdated
                 })
             }
 
@@ -232,12 +233,13 @@ const commentController = {
                 })
             }
 
-            const rowsAffected = await commentRepository.delete(comentario_id, user_id)
+            const commentDeleted = await commentRepository.delete(comentario_id, user_id)
 
-            if (rowsAffected > 0) {
+            if (commentDeleted) {
                 return res.status(200).json({
                     ok: true,
-                    message: 'Comentário deletado com sucesso!'
+                    message: 'Comentário deletado com sucesso!',
+                    data: commentDeleted
                 })
             }
 

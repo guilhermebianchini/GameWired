@@ -1,15 +1,17 @@
 import 'dotenv/config'
+
+import express from "express"
+import cors from "cors"
+
 import userRoute from "./src/routes/userRoute.js"
 import profileRoute from "./src/routes/profileRoute.js"
 import postRouter from "./src/routes/postRoute.js"
 import gameRouter from "./src/routes/gameRoute.js"
-import globalMiddleware from "./src/middlewares/globalMiddleware.js"
-import express from "express"
-import cors from "cors"
 import commentRouter from './src/routes/commentRoute.js'
 
+import globalMiddleware from "./src/middlewares/globalMiddleware.js"
+
 const port = process.env.PORT
-const host = process.env.HOST
 const app = express()
 
 app.use(cors({
@@ -19,6 +21,7 @@ app.use(cors({
 }))
 
 app.use(express.json())
+
 app.use(globalMiddleware.getIP)
 
 app.use(userRoute)
@@ -27,6 +30,6 @@ app.use(postRouter)
 app.use(commentRouter)
 app.use(gameRouter)
 
-app.listen(port, host, () => {
+app.listen(port, () => {
   console.log(`Servidor rodando na porta: ${port}`)
 })
