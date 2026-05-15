@@ -39,7 +39,7 @@ form.addEventListener("submit", async (e) => {
         senha: document.getElementById('senha').value
     }
 
-    const url = "http://localhost:3000/users/login";
+    const url = "http://20.201.122.109:3000/users/login";
 
     const res = await fetch(url, {
         headers: { "Content-Type": "application/json" },

@@ -52,7 +52,7 @@ async function carregarPerfil() {
     }
 
     try {
-        const res = await fetch(`http://localhost:3000/profile`, {
+        const res = await fetch(`http://20.201.122.109:3000/profile`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -92,7 +92,7 @@ async function salvarPerfil() {
     }
 
     try {
-        const res = await fetch(`http://localhost:3000/profile`, {
+        const res = await fetch(`http://20.201.122.109:3000/profile`, {
             method: "PUT",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -117,7 +117,7 @@ async function salvarPerfil() {
 /*async function carregarPostsPerfil() {
   const userId = localStorage.getItem("userId")
 
-  const response = await fetch(`http://localhost:3000/posts/user/${userId}`)
+  const response = await fetch(`http://20.201.122.109:3000/posts/user/${userId}`)
   const posts = await response.json()
 
   const container = document.getElementById('postsContainer')

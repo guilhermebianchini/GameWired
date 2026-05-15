@@ -11,11 +11,11 @@ import commentRouter from './src/routes/commentRoute.js'
 
 import globalMiddleware from "./src/middlewares/globalMiddleware.js"
 
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 const app = express()
 
 app.use(cors({
-  origin: "*",
+  origin: "https://gamewired.vercel.app",
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }))
@@ -30,6 +30,6 @@ app.use(postRouter)
 app.use(commentRouter)
 app.use(gameRouter)
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Servidor rodando na porta: ${port}`)
 })

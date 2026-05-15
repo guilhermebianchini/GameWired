@@ -8,7 +8,7 @@
     "test": "poku src/tests/login.e2e.test.js",
     "start": "node server.js",
     "start-server": "npm start",
-    "testLogin": "start-server-and-test start-server http://localhost:3000/ test"
+    "testLogin": "start-server-and-test start-server http://20.201.122.109:3000/ test"
   },
   "repository": {
     "type": "git",
