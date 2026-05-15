@@ -30,6 +30,10 @@ app.use(postRouter)
 app.use(commentRouter)
 app.use(gameRouter)
 
+<<<<<<< HEAD
 app.listen(port, "0.0.0.0", () => {
+=======
+app.listen(port, () => {
+>>>>>>> 7e4dd07ce52bc5481b73052f9e48217fad760258
   console.log(`Servidor rodando na porta: ${port}`)
 })
