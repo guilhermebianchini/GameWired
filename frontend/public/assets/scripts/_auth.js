@@ -18,8 +18,8 @@ function applyauth() {
         profileDesktop.style.display = "inline-block"
         profileMobile.style.display = "inline-block"
 
-        profileDesktop.href = `/frontend/views/pages/subpages/profile.html`
-        profileMobile.href = `/frontend/views/pages/subpages/profile.html`
+        profileDesktop.href = `/perfil`
+        profileMobile.href = `/perfil`
 
         logoutDesktop.style.display = "inline-block"
         logoutMobile.style.display = "inline-block"

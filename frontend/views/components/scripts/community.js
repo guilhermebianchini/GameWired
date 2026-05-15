@@ -68,7 +68,7 @@ async function carregarPerfil() {
     const user = await res.json()
 
     abrirPerfilUsuario.addEventListener("click", () => {
-      window.location.href = `/frontend/views/pages/subpages/profile.html`
+      window.location.href = `/perfil`
     })
 
     document.getElementById("nome_usuario").textContent = user.nome_usuario

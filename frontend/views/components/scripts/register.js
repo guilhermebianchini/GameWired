@@ -60,7 +60,7 @@ form.addEventListener("submit", async (e) => {
       confirmButtonColor: '#8863e7',
       confirmButtonText: 'Continuar'
     }).then(() => {
-      window.location.href = "login.html"
+      window.location.href = "login"
     })
   }
 })
