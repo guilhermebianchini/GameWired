@@ -1,37 +1,34 @@
-import { connect } from "../config/connection.js"
-import sqltype from 'mssql'
+import query from "../config/connection.js"
 
 const commentRepository = {
     async readAll() {
-        const conn = await connect()
-        const { recordset } = await conn.query(`SELECT c.comentario_id, c.comentario_conteudo, c.comentario_data, c.user_id, c.post_id, u.nome_usuario, u.foto_perfil
-            FROM Comentarios c
-            JOIN Users u ON c.user_id = u.user_id
-            JOIN Posts p ON c.post_id = p.post_id
+
+        const { rows } = await query(`SELECT c.comentario_id, c.comentario_conteudo, c.comentario_data, c.user_id, c.post_id, u.nome_usuario, u.foto_perfil
+            FROM comentarios c
+            JOIN users u ON c.user_id = u.user_id
+            JOIN posts p ON c.post_id = p.post_id
             ORDER BY c.comentario_data ASC`)
 
-        return recordset
+        return rows
     },
 
     async readById(comentario_id) {
-        const conn = await connect()
-        const { recordset } = await conn.request()
-            .input('comentario_id', sqltype.Int, comentario_id)
-            .query(`SELECT c.comentario_id, c.comentario_conteudo, c.comentario_data, u.nome_usuario, u.foto_perfil, p.post_id
-            FROM Comentarios c
-            JOIN Users u ON c.user_id = u.user_id
-            JOIN Posts p ON c.post_id = p.post_id
-            WHERE c.comentario_id = @comentario_id`)
 
-        if (recordset.length === 0) {
+        const { rows } = await query(`SELECT c.comentario_id, c.comentario_conteudo, c.comentario_data, u.nome_usuario, u.foto_perfil, p.post_id
+            FROM comentarios c
+            JOIN users u ON c.user_id = u.user_id
+            JOIN posts p ON c.post_id = p.post_id
+            WHERE c.comentario_id = $1
+            `, [comentario_id])
+
+        if (rows.length === 0) {
             return null
         }
 
-        return recordset[0]
+        return rows[0]
     },
 
     async create(comentario) {
-        const conn = await connect()
 
         if (!comentario.comentario_conteudo) {
             throw new Error("Conteúdo do comentário é obrigatório!")
@@ -45,33 +42,34 @@ const commentRepository = {
             throw new Error("Post é obrigatório!")
         }
 
-        const sql = `INSERT INTO Comentarios (comentario_conteudo, user_id, post_id) OUTPUT INSERTED.*
-        VALUES (@comentario_conteudo, @user_id, @post_id)`
+        const sql = `
+        INSERT INTO comentarios (comentario_conteudo, user_id, post_id)
+        VALUES ($1, $2, $3)
+        RETURNING *
+        `
 
-        const result = await conn.request()
-            .input("comentario_conteudo", sqltype.VarChar, comentario.comentario_conteudo)
-            .input("user_id", sqltype.Int, comentario.user_id)
-            .input("post_id", sqltype.Int, comentario.post_id)
-            .query(sql)
+        const { rows } = await query(sql, [
+            comentario.comentario_conteudo,
+            comentario.user_id,
+            comentario.post_id
+        ])
 
-        return result.recordset[0]
+        return rows[0]
     },
 
     async readByIdAndUser(comentario_id, user_id) {
-        const conn = await connect()
-        const { recordset } = await conn.request()
-            .input('comentario_id', sqltype.Int, comentario_id)
-            .input('user_id', sqltype.Int, user_id)
-            .query(`SELECT c.comentario_id, c.comentario_conteudo, c.comentario_data, c.post_id, u.nome_usuario, u.foto_perfil
-            FROM Comentarios c
-            JOIN Users u ON c.user_id = u.user_id
-            WHERE c.comentario_id = @comentario_id AND c.user_id = @user_id`)
+        const { rows } = await query(`
+            SELECT c.comentario_id, c.comentario_conteudo, c.comentario_data, c.post_id, u.nome_usuario, u.foto_perfil
+            FROM comentarios c
+            JOIN users u ON c.user_id = u.user_id
+            WHERE c.comentario_id = $1
+            AND c.user_id = $2
+            `, [comentario_id, user_id])
 
-        return recordset[0] || null
+        return rows[0] || null
     },
 
     async update(comentario) {
-        const conn = await connect()
 
         const existing = await this.readByIdAndUser(comentario.comentario_id, comentario.user_id)
         if (!existing) throw new Error("Comentário não encontrado ou não pertence ao usuário!")
@@ -80,33 +78,34 @@ const commentRepository = {
             throw new Error("Conteúdo do comentário é obrigatório!")
         }
 
-        const sql = `UPDATE Comentarios
-        SET comentario_conteudo=@comentario_conteudo
-        WHERE comentario_id=@comentario_id AND user_id=@user_id`
+        const sql = `UPDATE comentarios
+        SET comentario_conteudo=$1
+        WHERE comentario_id=$2
+        AND user_id=$3
+        RETURNING *
+        `
 
-        const result = await conn.request()
-            .input('comentario_id', sqltype.Int, comentario.comentario_id)
-            .input('comentario_conteudo', sqltype.VarChar, comentario.comentario_conteudo)
-            .input('user_id', sqltype.Int, comentario.user_id)
-            .query(sql)
+        const { rows } = await query(sql, [
+            comentario.comentario_conteudo,
+            comentario.comentario_id,
+            comentario.user_id
+        ])
 
-        return result.rowsAffected[0]
+        return rows[0]
     },
 
     async delete(comentario_id, user_id) {
-        const conn = await connect()
-
+        
         const existing = await this.readByIdAndUser(comentario_id, user_id)
         if (!existing) throw new Error("Comentário não encontrado ou não pertence ao usuário!")
 
-        const sql = `DELETE FROM Comentarios WHERE comentario_id=@comentario_id AND user_id=@user_id`
+        const { rows } = await query(`DELETE FROM comentarios
+            WHERE comentario_id=$1
+            AND user_id=$2
+            RETURNING *
+            `, [comentario_id, user_id])
 
-        const result = await conn.request()
-            .input("comentario_id", sqltype.Int, comentario_id)
-            .input("user_id", sqltype.Int, user_id)
-            .query(sql)
-
-        return result.rowsAffected[0]
+        return rows[0]
     }
 }
 

@@ -1,80 +1,76 @@
-import { connect } from "../config/connection.js"
-import sqltype from 'mssql'
+import query from "../config/connection.js"
 import authUserController from "../controllers/authUserController.js"
-/*import { connPG } from "../config/connection.js"
-const connect = await connPG()*/
 
 const userRepository = {
 
     async readAll() {
-        const conn = await connect()
-        const { recordset } = await conn.query('select * from Users')
-        return recordset
+        const { rows } = await query('SELECT * FROM users')
+
+        return rows
     },
 
     async readById(id) {
-        const conn = await connect()
+        const { rows } = await query(
+            'SELECT * FROM users WHERE user_id = $1',
+            [id]
+        )
 
-        const { recordset } = await conn.request()
-            .input('user_id', sqltype.Int, id)
-            .query('select * from Users where user_id = @user_id')
-
-        return recordset
+        return rows[0]
     },
 
     async create(user) {
-        const conn = await connect()
 
-        const sql = `insert into Users (nome_usuario, data_nascimento, email, senha)
-        values (@nome_usuario, @data_nascimento, @email, @senha)`
+        const sql = `
+        INSERT INTO users (nome_usuario, data_nascimento, email, senha)
+        VALUES ($1, $2, $3, $4)
+        RETURNING *
+        `
 
-        const result = await conn.request()
-            .input("nome_usuario", sqltype.VarChar, user.nome_usuario)
-            .input("data_nascimento", sqltype.Date, user.data_nascimento)
-            .input("email", sqltype.VarChar, user.email)
-            .input("senha", sqltype.VarChar, user.senha)
-            .query(sql)
+        const { rows } = await query(sql, [
+            user.nome_usuario,
+            user.data_nascimento,
+            user.email,
+            user.senha
+        ])
 
-        return result
+        return rows[0]
     },
 
     async findByEmail(email) {
-        const conn = await connect()
+        const { rows } = await query(
+            'SELECT * FROM users WHERE email = $1',
+            [email]
+        )
 
-        const { recordset } = await conn.request()
-            .input('email', sqltype.VarChar(150), email)
-            .query(`select * from Users where email = @email`)
-
-        return recordset[0]
+        return rows[0]
     },
 
     async update(id, user) {
-        const conn = await connect()
 
-        const sql = `update Users
-        set nome_usuario=@nome_usuario, email=@email,data_nascimento=@data_nascimento
-        where user_id=@user_id;`
+        const sql = `
+        UPDATE users
+        SET nome_usuario=$1, email=$2, data_nascimento=$3
+        WHERE user_id = $4
+        RETURNING *
+        `
 
-        const result = await conn.request()
-            .input('user_id', sqltype.Int, id)
-            .input('nome_usuario', sqltype.VarChar, user.nome_usuario)
-            .input('email', sqltype.VarChar, user.email)
-            .input('data_nascimento', sqltype.Date, user.data_nascimento)
-            .query(sql)
+        const { rows } = await query(sql, [
+            user.nome_usuario,
+            user.email,
+            user.data_nascimento,
+            id
+        ])
 
-        return result
+        return rows[0]
     },
 
     async deleteUser(id) {
-        const conn = await connect()
+        const { rows } = await query(
+            'DELETE FROM users WHERE user_id = $1 RETURNING *',
+            [id]
+        )
 
-        const sql = `delete from Users where user_id=@user_id`
-
-        const result = await conn.request()
-            .input("user_id", sqltype.Int, id)
-            .query(sql)
-
-        return result
+        return rows[0]
     }
 }
 

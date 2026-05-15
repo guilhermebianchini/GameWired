@@ -403,36 +403,23 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
+
     #community {
-        padding: 0 2rem;
+        padding: 0 2em;
     }
 
     .container__community {
         flex-direction: column;
-        gap: 1.5rem;
-    }
-
-    .container__community .left,
-    .middle {
-        width: 100%;
+        gap: 1.5em;
     }
 
     .container__community .left {
-        position: static;
+        width: 100%;
+        position: relative;
     }
 
-    .container__community .left .profile .infos {
-        align-items: center;
-    }
-
-    .container__community .left .community-select #catg-select .community-filter {
-        flex-wrap: wrap;
-        gap: 0.75rem;
-    }
-
-    .container__community .left .community-select #catg-select .community-filter select,
-    .container__community .left .community-select #catg-select .community-filter button {
+    .middle {
         width: 100%;
     }
 
@@ -440,53 +427,113 @@
         width: 90%;
     }
 
-    .modal-content form .titleCatg {
-        flex-direction: column;
-        width: 100%;
+    .container__community .left .profile .infos .user-img img {
+        width: 140px;
+        height: 120px;
     }
 
-    .modal-content form .titleCatg .title,
-    .modal-content form .titleCatg .postCategoria,
-    .modal-content form .subject {
-        width: 100%;
+    .middle #postsContainer .post .infos_post .username {
+        font-size: 22px;
     }
 }
 
-@media (max-width: 640px) {
+@media screen and (max-width: 640px) {
+
     #community {
-        top: 3.5em;
-        padding: 0 1rem;
-        margin-bottom: 3rem;
+        padding: 0 1em;
+        top: 3em;
     }
 
     .container__community .left .profile {
-        padding: 1rem;
-    }
-
-    .container__community .left .profile .infos {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
 
-    .container__community .left .profile .infos .user-img img {
-        width: 110px;
-        height: 110px;
-        object-fit: cover;
+    .container__community .left .profile .infos {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
 
     .container__community .left .profile .infos .user-info {
         width: 100%;
     }
 
-    .container__community .left .community-select,
-    .middle {
-        padding: 1rem;
+    .container__community .left .profile .infos .user-img img {
+        width: 120px;
+        height: 120px;
     }
 
-    .middle #postsContainer .post .post_origem,
-    .middle .comments_list .comment .comment_origem {
-        align-items: flex-start;
+    .container__community .left .community-select #catg-select .community-filter {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .container__community .left .community-select #catg-select .community-filter select,
+    .container__community .left .community-select #catg-select .community-filter button {
+        width: 100%;
+    }
+
+    .middle {
+        padding: 15px;
+    }
+
+    .middle #postsContainer .post .post_origem {
+        flex-wrap: wrap;
+    }
+
+    .middle #postsContainer .post .infos_post .username {
+        font-size: 20px;
+    }
+
+    .middle #postsContainer .post .infos_post .Catg {
+        font-size: 14px;
+    }
+
+    .middle .comments {
+        flex-direction: column;
+    }
+
+    .middle .comments button {
+        width: 100%;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .modal-content form .titleCatg {
+        flex-direction: column;
+    }
+
+    .modal-content form .titleCatg .title,
+    .modal-content form .titleCatg .postCategoria {
+        width: 100%;
+    }
+
+    .menu_options {
+        right: 0;
+    }
+}
+
+@media screen and (max-width: 490px) {
+
+    #community {
+        padding: 0 0.5em;
+    }
+
+    .middle {
+        padding: 10px;
+    }
+
+    .container__community .left .profile {
+        padding: 15px;
+    }
+
+    .middle #postsContainer .post {
+        padding: 0.8em;
     }
 
     .middle #postsContainer .post .user_photo img {
@@ -494,33 +541,38 @@
     }
 
     .middle .comments_list .comment .user_photo_comment img {
-        height: 38px;
+        height: 40px;
     }
 
     .middle #postsContainer .post .infos_post .username {
-        font-size: 20px;
-    }
-
-    .middle .comments_list .comment .infos_comment .usernameComment {
         font-size: 18px;
     }
 
-    .middle .comments {
-        flex-direction: column;
+    .middle .comments_list .comment .infos_comment .usernameComment {
+        font-size: 17px;
     }
 
-    .middle .comments .commentContent {
-        height: auto;
-        min-height: 45px;
+    .middle #postsContainer .post .dataPost,
+    .middle .comments_list .comment .dataComment {
+        font-size: 14px;
     }
 
-    .menu_options {
-        right: 0;
-        width: 130px;
+    .comment_menu button,
+    .post_menu button {
+        font-size: 22px;
     }
 
     .modal-content {
-        width: 95%;
-        padding: 1rem;
+        width: 100%;
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    .modal-content form {
+        padding: 5px;
+    }
+
+    .middle .comments .commentContent {
+        font-size: 14px;
     }
 }
