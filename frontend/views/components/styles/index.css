@@ -6,6 +6,11 @@
   width: 100%;
   margin: 2vh 0;
   padding: 4em 0;
+
+    h2 {
+    margin: 1vh 0;
+    margin-bottom: 0.5em;
+  }
 }
 
 .welcome {
@@ -25,7 +30,7 @@
 .container-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 5em;
+  gap: 3em;
   justify-items: center;
 }
 
@@ -36,7 +41,7 @@
   justify-content: flex-start;
   height: 100%;
   width: 100%;
-  margin-bottom: 5em;
+  margin-bottom: 8em;
   margin-top: 5em;
 }
 
@@ -47,11 +52,11 @@
   justify-content: flex-start;
   height: 75vh;
   width: 100%;
-  margin-bottom: 5em;
+  margin-bottom: 8em;
 
   h2 {
     margin: 1vh 0;
-    margin-bottom: 0.5em;
+    margin-bottom: 1.5em;
     padding: 1px 5px;
   }
 
@@ -101,13 +106,8 @@
   align-items: center;
   justify-content: flex-start;
   height: 100%;
-  margin-bottom: 5em;
+  margin-bottom: 8em;
   width: 80%;
-
-  .efect {
-    text-align: center;
-    width: 85%;
-  }
 
   .community-wrapper {
     display: flex;
@@ -124,7 +124,7 @@
   align-items: center;
   justify-content: flex-start;
   height: 100%;
-  margin-bottom: 5em;
+  margin-bottom: 2em;
   width: 80%;
 }
 

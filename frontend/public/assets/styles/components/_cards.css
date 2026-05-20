@@ -294,7 +294,7 @@
 .container-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 5em;
+  gap: 2.5em;
   justify-items: center;
   width: 100%;
 }

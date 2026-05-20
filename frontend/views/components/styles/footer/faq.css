@@ -4,22 +4,23 @@ main {
     justify-content: center;
     width: 100%;
     margin: 5vh 0;
-    padding: 5em;
+    padding: 4em;
 
     .container {
         display: flex;
         flex-direction: column;
         text-align: justify;
-        width: 90%;
+        width: 100%;
         gap: 4em;
 
         h1 {
-            font-size: 45px;
+            text-align: justify;
+            font-size: 35px;
         }
 
         .faq {
             gap: 2em;
-            
+
             .questions {
                 font-weight: 600;
                 color: var(--bg-Button);
@@ -28,6 +29,36 @@ main {
 
             .responses {
                 color: var(--bg-Font);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    main {
+        .container {
+            h1 {
+                font-size: 30px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 640px) {
+    main {
+        .container {
+            h1 {
+                font-size: 25px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    main {
+        .container {
+            h1 {
+                font-size: 20px;
             }
         }
     }
