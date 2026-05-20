@@ -20,7 +20,7 @@
     .card-login {
       background-color: var(--bg-Card);
       border-radius: 20px;
-      padding: 1.25em;
+      padding: 1em;
       height: auto;
       width: 500px;
       position: relative;
@@ -30,7 +30,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 1vh;
+      margin-bottom: 2em;
 
       a {
         position: absolute;
@@ -50,12 +50,14 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
       text-wrap: nowrap;
       padding-bottom: 0.8em;
 
       input {
-        width: 387px;
-        height: 50px;
+        width: 100%;
+        max-width: 350px;
+        height: 45px;
         border-radius: 100px;
         padding: 0.6em 1.2em;
         background-color: #1c1c1c;
@@ -75,6 +77,7 @@
     .register {
       display: flex;
       align-items: center;
+      margin-top: 0.8em;
 
       p,
       a {
@@ -99,11 +102,7 @@
     gap: 3%;
 
     .txt-login {
-      text-align: center;
-
-      img {
-        display: none;
-      }
+      display: none;
     }
   }
 }
@@ -111,58 +110,34 @@
 @media screen and (max-width: 640px) {
   #login {
     .container-login {
-      width: 90%;
-
       .card-login {
-        width: 100%;
-        position: relative;
+        width: 400px;
       }
 
       #form {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-
         .input-box {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-wrap: nowrap;
-          padding-bottom: 0.5em;
-
           input {
-            width: 280px;
-            height: 50px;
-            border-radius: 100px;
-            padding: 0.6em 1.2em;
-            background-color: #1c1c1c;
-            color: var(--bg-Font);
-
-            &:focus {
-              background-color: black;
-            }
-          }
-
-          .error {
-            color: var(--bg-Button);
-            font-size: 1rem;
+            width: 100%;
+            max-width: 300px;
           }
         }
+      }
+    }
+  }
+}
 
-        .register {
-          display: flex;
-          align-items: center;
+@media screen and (max-width: 480px) {
+  #login {
+    .container-login {
+      .card-login {
+        width: 350px;
+      }
 
-          p,
-          a {
-            text-wrap: nowrap;
-            font-size: 1rem;
-          }
-
-          a {
-            color: var(--bg-Button);
-            text-decoration: none;
-            padding: 0 0.5em;
+      #form {
+        .input-box {
+          input {
+            width: 100%;
+            max-width: 250px;
           }
         }
       }

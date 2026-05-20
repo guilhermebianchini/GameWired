@@ -292,6 +292,7 @@
     .Catg {
         font-size: 16px;
         font-weight: 300;
+        color: var(--bg-Button);
     }
 }
 

@@ -156,7 +156,7 @@
   font-size: 1.1em;
 }
 
-@media (max-width: 430px) {
+@media (max-width: 480px) {
   #filtro {
     width: 90%;      
     padding: 0.3em 0.6em;

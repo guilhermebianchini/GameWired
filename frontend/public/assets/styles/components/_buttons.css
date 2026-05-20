@@ -88,9 +88,10 @@
   background-color: var(--bg-Button);
   color: white;
   padding: 0.6em 1.5em;
-  border-radius: 8px;
+  border-radius: 10px;
   text-align: center;
-  margin: 1vh 1vw;
+  margin: 1vh;
+  margin-top: 1em;
 }
 
 @media screen and (max-width: 1024px) {
