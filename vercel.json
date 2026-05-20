@@ -35,6 +35,14 @@
     {
       "source": "/mobile",
       "destination": "/frontend/views/pages/mobile.html"
+    },
+    {
+      "source": "/suporte",
+      "destination": "/frontend/views/pages/footer/support.html"
+    },
+    {
+      "source": "/faq",
+      "destination": "/frontend/views/pages/footer/faq.html"
     }
   ]
 }

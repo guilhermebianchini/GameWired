@@ -1,0 +1,34 @@
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 5vh 0;
+    padding: 5em;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        text-align: justify;
+        width: 90%;
+        gap: 4em;
+
+        h1 {
+            font-size: 45px;
+        }
+
+        .faq {
+            gap: 2em;
+            
+            .questions {
+                font-weight: 600;
+                color: var(--bg-Button);
+                margin-bottom: 1em;
+            }
+
+            .responses {
+                color: var(--bg-Font);
+            }
+        }
+    }
+}

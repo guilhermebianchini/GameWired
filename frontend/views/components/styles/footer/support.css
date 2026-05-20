@@ -1,0 +1,31 @@
+.support {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 2vh 0;
+    padding: 5em;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: justify;
+        width: 80%;
+        gap: 4em;
+
+        h1 {
+            font-size: 45px;
+        }
+
+        a {
+            text-decoration: none;
+
+            &:hover {
+            color: var(--bg-Button);
+            transition: 0.4s;
+          }
+        }
+    }
+}
