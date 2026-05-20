@@ -15,7 +15,11 @@ const port = process.env.PORT || 3000
 const app = express()
 
 app.use(cors({
-  origin: "https://gamewired.vercel.app",
+  origin: [
+    "https://gamewired.vercel.app",
+    "http://127.0.0.1:5502",
+    "http://localhost:5502"
+  ],
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }))
