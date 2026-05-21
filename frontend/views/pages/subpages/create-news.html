@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" sizes="16x16 32x32 48x48" type="image/png" href="/frontend/public/assets/imgs/Logo.svg" />
+  <link rel="icon" sizes="16x16 32x32 48x48" type="image/png"
+    href="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logo_ojcaft.svg" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
 
@@ -14,84 +15,82 @@
   <link rel="stylesheet" type="text/css"
     href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <link rel="stylesheet" href="/frontend/public/assets/styles/main.css" />
 
   <link rel="stylesheet" href="/frontend/views/components/styles/create-news.css" />
 
   <title>GameWired | Publicação de Notícias</title>
 </head>
-
-<div id="clear-modal" class="modal hidden">
-  <div class="modal-content">
-    <h4>Limpar conteúdo</h4>
-    <p>Tem certeza que deseja limpar esta notícia?</p>
-
-    <div class="modal-actions">
-      <button id="cancel-clear" class="btn-cancel">Cancelar</button>
-      <button id="confirm-clear" class="btn-confirm">Limpar</button>
-    </div>
-  </div>
-</div>
-
 <body>
   <div id="header"></div>
 
-  <main id="create-area">
+  <div id="clear-modal" class="modal hidden">
+    <div class="modal-content">
+      <h4>Limpar conteúdo</h4>
+      <p>Tem certeza que deseja limpar o conteúdo dessa notícia?</p>
+
+      <div class="modal-actions">
+        <button id="confirm-clear" class="btn-confirm">Limpar</button>
+        <button id="cancel-clear" class="btn-cancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
     <section class="container">
       <div class="card">
 
-        <form method="post" id="form">
-          <div class="input-box">
-            <label for="titulo">Título:</label>
-            <input type="text" id="titulo" placeholder="Digite o título do post">
-            <span class="error"></span>
-          </div>
+        <h3>Publicação de Notícia</h1>
 
-          <div class="input-box">
-            <label for="data_publicacao">Data de publicação:</label>
-            <input type="date" id="data_publicacao">
-            <span class="error"></span>
-          </div>
+          <form method="post" id="form">
+            <div class="input-box">
+              <input type="text" id="titulo" placeholder="Digite o título da notícia">
+              <span class="error"></span>
+            </div>
 
-          <div class="input-box">
-            <label for="capa">Imagem de capa:</label>
-            <input type="file" id="capa" accept="image/*">
-            <span class="error"></span>
-          </div>
+            <div class="input-box">
+              <input type="date" id="data_publicacao">
+              <span class="error"></span>
+            </div>
 
-          <div class="input-box">
-            <label>Conteúdo:</label>
-          </div>
+            <div class="input-box">
+              <input type="text" id="subtitulo" placeholder="Digite o subtítulo da notícia">
+              <span class="error"></span>
+            </div>
 
-          <div class="toolbar">
+            <div class="input-box">
+              <input type="file" id="img_noticia" accept="image/*">
+              <span class="error"></span>
+            </div>
+
+            <!--<div class="toolbar">
             <button type="button" onclick="execCmd('bold')"><b>B</b></button>
             <button type="button" onclick="execCmd('italic')"><i>I</i></button>
             <button type="button" onclick="execCmd('underline')"><u>U</u></button>
-            
-            <!--<button onclick="addLink()">Link</button>-->
-          
-          </div>
+          </div>-->
 
-          <div class="input-box">     
-            <textarea id="conteudo" class="editor" name="conteudo"></textarea>
-            <span class="error"></span>
-          </div>
+            <div class="input-box">
+              <textarea id="conteudo" class="editor" name="conteudo"
+                placeholder="Digite o conteúdo da notícia"></textarea>
+              <span class="error"></span>
+            </div>
 
-          <div class="input-box">
-            <label for="titulo">Link:</label>
-            <input type="text" id="link" placeholder="Link da fonte">
-            <span class="error"></span>
-          </div>
+            <div class="input-box">
+              <input type="text" id="fonte" placeholder="Digite a fonte da notícia">
+              <span class="error"></span>
+            </div>
 
-          <!--<input id="conteudo" class="editor" name="conteudo">-->
-          <!--<div class="editor" id="editor" contenteditable="true"></div>-->
+            <!--<input id="conteudo" class="editor" name="conteudo">-->
+            <!--<div class="editor" id="editor" contenteditable="true"></div>-->
 
-          <div class="action">
-            <button type="submit" class="btn-publish">Publicar Notícia</button>
-            <button type="button" id="btn-clear" class="btn-register">Limpar</button>
-          </div>
+            <div class="action">
+              <button type="submit" class="btn-publish">Publicar</button>
+              <button type="button" id="btn-clear" class="btn-publish">Limpar</button>
+            </div>
 
-        </form>
+          </form>
       </div>
   </main>
 
@@ -99,7 +98,6 @@
 
   <!--<script src="/frontend/views/components/scripts/editor-tools.js"></script>-->
   <script src="/frontend/views/components/scripts/create-news.js"></script>
-
   <script src="/frontend/views/components/global/global-js/global-footer-header.js"></script>
   <script src="/frontend/public/assets/scripts/_temas.js"></script>
   <script src="/frontend/public/assets/scripts/_navBar.js"></script>

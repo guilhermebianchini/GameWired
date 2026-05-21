@@ -24,7 +24,16 @@ const storagePosts = new CloudinaryStorage({
   }
 })
 
+const storageNews = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "gamewired/news",
+    allowed_formats: ["jpg", "png", "jpeg"]
+  }
+})
+
 export const uploadPerfil = multer({ storage: storagePerfil })
 export const uploadPosts = multer({ storage: storagePosts })
+export const uploadNews = multer({ storage: storageNews })
 
 export default cloudinary

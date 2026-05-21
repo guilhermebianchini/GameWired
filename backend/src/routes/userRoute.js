@@ -5,9 +5,12 @@ import { verifyToken } from "../middlewares/authMiddleware.js"
 const userRoute = Router()
 
 userRoute.get('/users', userController.getAllUsers)
+userRoute.get('/users/me', verifyToken, userController.getMe)
 userRoute.get('/users/:id', userController.getUserById)
+
 userRoute.post('/users/register', userController.insert)
 userRoute.post('/users/login', userController.login)
+
 userRoute.patch('/users/update/:id', verifyToken, userController.update)
 userRoute.delete('/users/delete/:id', verifyToken, userController.deleteUser)
 

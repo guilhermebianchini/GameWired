@@ -4,14 +4,23 @@ import authUserController from "../controllers/authUserController.js"
 const userRepository = {
 
     async readAll() {
-        const { rows } = await query('SELECT * FROM users')
+        const { rows } = await query(`SELECT * FROM users`)
 
         return rows
     },
 
     async readById(id) {
         const { rows } = await query(
-            'SELECT * FROM users WHERE user_id = $1',
+            `SELECT * FROM users WHERE user_id = $1`,
+            [id]
+        )
+
+        return rows[0]
+    },
+
+    async readAuthUser(id) {
+        const { rows } = await query(
+            `SELECT user_id, nome_usuario, user_type FROM users WHERE user_id = $1`,
             [id]
         )
 

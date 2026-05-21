@@ -5,6 +5,7 @@ import cors from "cors"
 
 import userRoute from "./src/routes/userRoute.js"
 import profileRoute from "./src/routes/profileRoute.js"
+import newsRouter from './src/routes/newsRoute.js'
 import postRouter from "./src/routes/postRoute.js"
 import gameRouter from "./src/routes/gameRoute.js"
 import commentRouter from './src/routes/commentRoute.js'
@@ -30,6 +31,7 @@ app.use(globalMiddleware.getIP)
 
 app.use(userRoute)
 app.use(profileRoute)
+app.use(newsRouter)
 app.use(postRouter)
 app.use(commentRouter)
 app.use(gameRouter)

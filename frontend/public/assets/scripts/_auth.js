@@ -1,4 +1,4 @@
-function applyauth() {
+async function applyauth() {
     const token = localStorage.getItem("token")
 
     const registerDesktop = document.getElementById("registerLinkDesktop")
@@ -9,9 +9,41 @@ function applyauth() {
     const profileMobile = document.getElementById("profileLinkMobile")
     const logoutMobile = document.getElementById("logoutBtnMobile")
 
+    const dashboardBtn = document.getElementById("dashboardBtn")
+
     if (!registerDesktop) return
 
-    if (token) {
+    if (!token) {
+        registerDesktop.style.display = "inline-block"
+        registerMobile.style.display = "inline-block"
+
+        profileDesktop.style.display = "none"
+        profileMobile.style.display = "none"
+
+        logoutDesktop.style.display = "none"
+        logoutMobile.style.display = "none"
+
+        if (dashboardBtn) {
+            dashboardBtn.style.display = "none"
+        }
+
+        return
+    }
+
+    try {
+        const response = await fetch("http://127.0.0.1:3000/users/me", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        if (!response.ok) {
+            logout()
+            return
+        }
+
+        const user = await response.json()
+
         registerDesktop.style.display = "none"
         registerMobile.style.display = "none"
 
@@ -24,15 +56,19 @@ function applyauth() {
         logoutDesktop.style.display = "inline-block"
         logoutMobile.style.display = "inline-block"
 
-    } else {
-        registerDesktop.style.display = "inline-block"
-        registerMobile.style.display = "inline-block"
+        if (dashboardBtn) {
 
-        profileDesktop.style.display = "none"
-        profileMobile.style.display = "none"
+            if (user.user_type === "admin" || user.user_type === "editor") {
+                dashboardBtn.style.display = "inline-block"
+            } else {
+                dashboardBtn.style.display = "none"
+            }
+        }
 
-        logoutDesktop.style.display = "none"
-        logoutMobile.style.display = "none"
+    } catch (error) {
+
+        console.error("Erro ao autenticar usuário:", error)
+        logout()
     }
 
     logoutDesktop.addEventListener("click", logout)

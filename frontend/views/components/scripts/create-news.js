@@ -1,13 +1,64 @@
+// AUTENTICAÇÃO PARA PUBLICAR
+
+function newsAuth() {
+  const token = localStorage.getItem("token")
+
+  const newsOff = document.getElementById("newsLoggedOff")
+  const newsIn = document.getElementById("newsLoggedIn")
+
+  if (token) {
+    newsOff.classList.add("hidden")
+    newsIn.classList.remove("hidden")
+  } else {
+    newsOff.classList.remove("hidden")
+    newsIn.classList.add("hidden")
+  }
+}
+
+function logout() {
+  localStorage.removeItem("token")
+  window.location.reload()
+}
+
+document.addEventListener("DOMContentLoaded", newsAuth)
+
+// PEGANDO O ID DO USUÁRIO COM O JWT
+
+function getUserIdFromToken() {
+  const token = localStorage.getItem("token")
+  if (!token) return null
+
+  try {
+    const payloadBase64 = token.split(".")[1]
+      .replace(/-/g, "+")
+      .replace(/_/g, "/")
+
+    const decoded = JSON.parse(atob(payloadBase64))
+    return Number(decoded.id)
+  } catch (e) {
+    console.error("Erro ao decodificar token:", e)
+    return null
+  }
+}
+
+// FORMULÁRIO DE POSTAGEM E VALIDAÇÃO
+
+let editandoId = null
+
 const form = document.querySelector("#form")
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault()
 
+  const token = localStorage.getItem("token")
+
   const fields = [
     { id: 'titulo', validator: tituloIsValid },
     { id: 'data_publicacao', validator: dataIsValid },
-    { id: 'capa', validator: capaIsValid },
-    { id: 'conteudo', validator: conteudoIsValid }
+    { id: 'subtitulo', validator: subtituloIsValid },
+    { id: 'img_noticia', validator: imgIsValid },
+    { id: 'conteudo', validator: conteudoIsValid },
+    { id: 'fonte', validator: fonteIsValid }
   ]
 
   const errorIcon = '<i class="fa-solid fa-triangle-exclamation"></i>'
@@ -16,11 +67,6 @@ form.addEventListener("submit", async (e) => {
     const input = document.getElementById(field.id)
     const inputBox = input.closest('.input-box')
     const inputValue = input.value
-
-    // editor é diferente (contenteditable)
-    if (field.id === 'editor') {
-      value = input.innerHTML
-    }
 
     const errorSpan = inputBox.querySelector('.error')
     errorSpan.innerHTML = ''
@@ -37,29 +83,69 @@ form.addEventListener("submit", async (e) => {
     }
   })
 
-    const data = {
-    nome_usuario: document.getElementById("nome_usuario").value,
-    data_nascimento: document.getElementById("data_nascimento").value,
-    email: document.getElementById("email").value,
-    senha: document.getElementById("senha").value,
-    confirmarSenha: document.getElementById("confirmarSenha").value
+  const titulo = document.getElementById("titulo").value.trim()
+  const data_publicacao = document.getElementById("data_publicacao").value.trim()
+  const subtitulo = document.getElementById("subtitulo").value.trim()
+  const fileInput = document.getElementById("img_noticia")
+  const conteudo = document.getElementById("conteudo").value.trim()
+  const fonte = document.getElementById("fonte").value
+
+  const formData = new FormData()
+  formData.append("titulo", titulo)
+  formData.append("data_publicacao", data_publicacao)
+  formData.append("subtitulo", subtitulo)
+  formData.append("conteudo", conteudo)
+  formData.append("fonte", fonte)
+
+  if (fileInput.files.length > 0) {
+    formData.append("img_noticia", fileInput.files[0])
   }
 
-  /*const url = "https://gamewired-api.duckdns.org/users/register";
+  let url = "https://gamewired-api.duckdns.org/news"
+  let method = "POST"
 
-  const res = await fetch(url, {
-    headers: { "Content-Type": "application/json" },
-    method: "POST",
-    body: JSON.stringify(data)
-  })
+  if (editandoId) {
+    url = `https://gamewired-api.duckdns.org/news/${editandoId}`
+    method = "PATCH"
+  }
 
-  const result = await res.json()
-  console.log(result)*/
+  try {
+    const res = await fetch(url, {
+      method: method,
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formData
+    })
 
+    const result = await res.json()
+
+    if (!res.ok) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro!",
+        text: result.message || "Erro ao publicar notícia!",
+        confirmButtonColor: "#8863e7",
+        confirmButtonText: "Continuar"
+      })
+      return
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "Sucesso!",
+      text: result.message || "Notícia publicada com sucesso!",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    }).then(() => {
+      window.location.href = "news.html"
+    })
+  } catch (err) {
+    console.error("Erro ao publicar notícia:", err)
+  }
 })
 
-//const hasInvalid = document.querySelector('.invalid')
-//if (hasInvalid) return
+// VALIDAÇÃO REGGEX
 
 function isEmpty(value) {
   return value === ''
@@ -70,11 +156,11 @@ function tituloIsValid(value) {
 
   if (isEmpty(value)) {
     validator.isValid = false
-    validator.errorMessage = 'O título é obrigatório!'
+    validator.errorMessage = 'O título não pode estar vazio!'
     return validator
   }
 
-  const min = 5
+  const min = 50
 
   if (value.length < min) {
     validator.isValid = false
@@ -106,23 +192,43 @@ function dataIsValid(value) {
   return validator
 }
 
-function capaIsValid(value) {
+function subtituloIsValid(value) {
   const validator = { isValid: true, errorMessage: null }
 
-  const fileInput = document.getElementById('capa')
+  if (isEmpty(value)) {
+    validator.isValid = false
+    validator.errorMessage = 'O subtítulo não pode estar vazio!'
+    return validator
+  }
+
+  const min = 50
+
+  if (value.length < min) {
+    validator.isValid = false
+    validator.errorMessage = `O subtítulo deve ter no mínimo ${min} caracteres!`
+    return validator
+  }
+
+  return validator
+}
+
+function imgIsValid(value) {
+  const validator = { isValid: true, errorMessage: null }
+
+  const fileInput = document.getElementById('img_noticia')
 
   if (fileInput.files.length === 0) {
     validator.isValid = false
-    validator.errorMessage = 'A imagem de capa é obrigatória!'
+    validator.errorMessage = 'A imagem da notícia é obrigatória!'
     return validator
   }
 
   const file = fileInput.files[0]
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
   if (!allowedTypes.includes(file.type)) {
     validator.isValid = false
-    validator.errorMessage = 'Formato inválido! Use JPG, PNG ou WEBP.'
+    validator.errorMessage = 'Formato inválido! Use JPG, PNG ou JPG.'
     return validator
   }
 
@@ -132,7 +238,7 @@ function capaIsValid(value) {
 function conteudoIsValid(value) {
   const validator = { isValid: true, errorMessage: null }
 
-  // remove tags HTML
+  // REMOVE TAGS HTML
   const text = value.replace(/<[^>]*>/g, '').trim()
 
   if (text === '') {
@@ -141,21 +247,43 @@ function conteudoIsValid(value) {
     return validator
   }
 
-  if (text.length < 20) {
+  const min = 200
+
+  if (text.length < min) {
     validator.isValid = false
-    validator.errorMessage = 'O conteúdo deve ter no mínimo 20 caracteres!'
+    validator.errorMessage = `O conteúdo deve ter no mínimo ${min} caracteres!`
     return validator
   }
 
   return validator
 }
 
-// MODAL LIMPAR
+function fonteIsValid(value) {
+  const validator = { isValid: true, errorMessage: null }
+
+  if (isEmpty(value)) {
+    validator.isValid = false
+    validator.errorMessage = 'A fonte é obrigatória!'
+    return validator
+  }
+
+  const min = 5
+
+  if (value.length < min) {
+    validator.isValid = false
+    validator.errorMessage = `A fonte deve ter no mínimo ${min} caracteres!`
+    return validator
+  }
+
+  return validator
+}
+
+// MODAL DE LIMPAR
+
 const btnClear = document.querySelector("#btn-clear")
 const modalClear = document.querySelector("#clear-modal")
 const btnCancelClear = document.querySelector("#cancel-clear")
 const btnConfirmClear = document.querySelector("#confirm-clear")
-
 
 btnClear.addEventListener("click", () => {
   modalClear.classList.remove("hidden")
@@ -168,7 +296,7 @@ btnCancelClear.addEventListener("click", () => {
 btnConfirmClear.addEventListener("click", () => {
   form.reset()
 
-  // limpar erros visuais também
+  // LIMPAR ERROS VISUAIS
   document.querySelectorAll('.input-box').forEach(box => {
     box.classList.remove('invalid', 'valid')
     const error = box.querySelector('.error')

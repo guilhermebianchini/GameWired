@@ -1,4 +1,4 @@
-#create-area {
+main {
   padding: 90px 0px 50px 0px;
 }
 
@@ -10,95 +10,44 @@
   border-radius: 20px;
 }
 
-label {
-  font-size: 18px;
-  display: block;
-  margin: 1rem 0 .4rem;
-}
-
-
-.editor {
-  width: 100%;
-  padding: .7rem;
-  border-radius: 6px;
-  background-color: #1c1c1c;
-  color: white;
-  font-size: 1rem;
-}
-
-input:focus {
-  background-color: black;
-  border-radius: 100px;
-}
-
-.toolbar {
+.container .card {
   display: flex;
-  gap: .5rem;
-  margin-bottom: .5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.toolbar button {
-  padding: .4rem .6rem;
-  font-size: .9rem;
-  color: white;
-  background-color: var(--bg-Button);
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-#form .input-box .editor {
-  min-height: 200px;
-  border-radius: 15px;
-  text-align: left;
-  resize: none;
-}
-
-#form .input-box .editor:focus {
-  border-radius: 15px;
-  background-color: black;
-}
-
-#conteudo {
-  text-align: left;
-}
-
-.editor {
-  text-align: left;
-}
-
-.btn-publish {
-  display: inline-block;
-  margin-top: 1.5rem;
-  background-color: var(--bg-Button);
-  color: white;
-  padding: .8rem 1.4rem;
-  border-radius: 6px;
-  text-decoration: none;
+.container .card h3 {
+  margin-bottom: 1em;
 }
 
 #form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
 
   .input-box {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 100%;
     text-wrap: nowrap;
     padding-bottom: 0.8em;
 
-
     input {
-      width: 100%;
+      width: 90%;
+      height: 45px;
       padding: .7rem;
-      border-radius: 100px;
-      background-color: #1c1c1c;
+      border-radius: 10px;
+      background-color: var(--bg-Background);
       color: var(--bg-Font);
       font-size: 1rem;
+    }
 
-      &:focus {
-        background-color: black;
-        border-radius: 100px;
-      }
+    textarea {
+      width: 90%;
+      background-color: var(--bg-Background);
     }
 
     .error {
@@ -124,27 +73,65 @@ input:focus {
   }
 }
 
-.input-box.valid input {
-  border: 1px solid #74fc6f;
+#form .input-box .editor {
+  min-height: 200px;
+  border-radius: 15px;
+  text-align: left;
+  resize: none;
 }
 
-.input-box.valid .editor {
-  border: 1px solid #74fc6f;
+#form .input-box .editor:focus {
+  border-radius: 15px;
+  background-color: black;
+}
+
+input:focus {
+  background-color: black;
+  border-radius: 100px;
+}
+
+/*label {
+  font-size: 18px;
+  display: block;
+  margin: 1rem 0 .4rem;
+}*/
+
+.editor {
+  text-align: left;
+  width: 100%;
+  padding: .7rem;
+  border-radius: 6px;
+  background-color: #1c1c1c;
+  color: white;
+  font-size: 1rem;
+}
+
+.action {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+
+  .btn-publish {
+    display: flex;
+    margin-top: 1em;
+    background-color: var(--bg-Button);
+    color: white;
+    padding: .8rem 1.4rem;
+    border-radius: 10px;
+  }
 }
 
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
 }
 
 .modal.hidden {
@@ -153,42 +140,65 @@ input:focus {
 
 .modal-content {
   background-color: var(--bg-Card);
-  padding: 1.5rem;
+  padding: 1.5em;
   border-radius: 15px;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   text-align: center;
 }
 
-.modal-content h4 {
-  margin-bottom: 0.5rem;
-}
-
 .modal-content p {
-  opacity: 0.8;
-  margin-bottom: 1rem;
+  margin-top: 1em;
 }
 
 .modal-actions {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-}
-
-.btn-cancel {
-  background-color: #555;
-  color: white;
-  padding: 0.4rem 1rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
+  align-items: center;
+  gap: 1em;
 }
 
 .btn-confirm {
+  display: flex;
+  margin-top: 1.5em;
   background-color: #ff4d4d;
   color: white;
-  padding: 0.4rem 1rem;
-  border-radius: 6px;
+  padding: 0.8rem 1.4em;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
+}
+
+.btn-cancel {
+  display: flex;
+  margin-top: 1.5em;
+  background-color: var(--bg-FooterFont);
+  color: white;
+  padding: 0.8rem 1.4em;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/*.toolbar {
+  display: flex;
+  gap: .5rem;
+  margin-bottom: .5rem;
+}
+
+.toolbar button {
+  padding: .4rem .6rem;
+  font-size: .9rem;
+  color: white;
+  background-color: var(--bg-Button);
+  cursor: pointer;
+  border-radius: 4px;
+}*/
+
+.input-box.valid input {
+  border: 1px solid #74fc6f;
+}
+
+.input-box.valid .editor {
+  border: 1px solid #74fc6f;
 }

@@ -43,6 +43,14 @@
     {
       "source": "/faq",
       "destination": "/frontend/views/pages/footer/faq.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/frontend/views/pages/subpages/editor-dashboard.html"
+    },
+    {
+      "source": "/postagem",
+      "destination": "/frontend/views/pages/subpages/create-news.html"
     }
   ]
 }
