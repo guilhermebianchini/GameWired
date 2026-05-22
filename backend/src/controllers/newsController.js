@@ -42,7 +42,7 @@ const newsController = {
     async insertNews(req, res) {
         try {
             const { titulo, data_publicacao, subtitulo, conteudo, fonte } = req.body
-            const img_noticia = req.file
+            const img_noticia = req.file?.path
             const user_id = req.user_id
 
             if (!titulo || !data_publicacao || !subtitulo || !img_noticia || !conteudo || !fonte) {
