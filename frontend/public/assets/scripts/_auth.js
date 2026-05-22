@@ -31,7 +31,7 @@ async function applyauth() {
     }
 
     try {
-        const response = await fetch("http://127.0.0.1:3000/users/me", {
+        const response = await fetch("https://gamewired-api.duckdns.org/users/me", {
             headers: {
                 Authorization: `Bearer ${token}`
             }

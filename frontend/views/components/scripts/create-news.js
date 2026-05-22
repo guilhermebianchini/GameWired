@@ -147,7 +147,7 @@ form.addEventListener("submit", async (e) => {
       confirmButtonColor: "#8863e7",
       confirmButtonText: "Continuar"
     }).then(() => {
-      window.location.href = "news.html"
+      window.location.href = "/news"
     })
   } catch (err) {
     console.error("Erro ao publicar notícia:", err)
