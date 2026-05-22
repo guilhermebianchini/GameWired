@@ -63,6 +63,8 @@ form.addEventListener("submit", async (e) => {
 
   const errorIcon = '<i class="fa-solid fa-triangle-exclamation"></i>'
 
+  let formIsValid = true
+
   fields.forEach(function (field) {
     const input = document.getElementById(field.id)
     const inputBox = input.closest('.input-box')
@@ -77,11 +79,18 @@ form.addEventListener("submit", async (e) => {
     const fieldValidator = field.validator(inputValue)
 
     if (!fieldValidator.isValid) {
+      formIsValid = false
+
       errorSpan.innerHTML = `${errorIcon} ${fieldValidator.errorMessage}`
+
       inputBox.classList.add('invalid')
       inputBox.classList.remove('valid')
     }
   })
+
+  if (!formIsValid) {
+    return
+  }
 
   const titulo = document.getElementById("titulo").value.trim()
   const data_publicacao = document.getElementById("data_publicacao").value.trim()

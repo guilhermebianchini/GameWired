@@ -42,9 +42,10 @@ const newsController = {
     async insertNews(req, res) {
         try {
             const { titulo, data_publicacao, subtitulo, img_noticia, conteudo, fonte } = req.body
+            const img_noticia = req.file
             const user_id = req.user_id
 
-            if (!titulo || !data_publicacao || !subtitulo || !img_noticia || !conteudo || !fonte) {
+            if (!titulo || !data_publicacao || !subtitulo || !conteudo || !fonte) {
                 return res.status(400).json({
                     ok: false,
                     message: "Os campos de título, data da publicação, subtítulo, imagem, conteúdo e fonte são obrigatórios!"
