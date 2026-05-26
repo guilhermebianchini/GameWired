@@ -18,7 +18,7 @@ function previewNews(noticias) {
           <div class="txt-card">
             <h4>${news.titulo}</h4>
 
-            <span class="date">Publicado em: ${new Date(news.data_publicacao).toLocaleDateString('pt-BR')}</span>
+            <span class="date">${new Date(news.data_publicacao).toLocaleDateString('pt-BR')}</span>
 
             <p>${news.subtitulo}</p>
 
