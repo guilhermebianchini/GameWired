@@ -46,9 +46,7 @@
     }
 }
 
-/* Filtro e Button*/
 .filtros {
-  
   display: flex;
   justify-content: center;
   align-items: center;

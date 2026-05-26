@@ -472,9 +472,6 @@ async function carregarPosts(reset = false) {
       limparPosts()
     }
 
-    console.log("POSTS:", posts)
-    console.log("COMENTÁRIOS:", comentarios)
-
     renderizarPosts(posts, comentarios)
 
     nextCursor = postsResult.next_cursor || null

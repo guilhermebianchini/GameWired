@@ -80,22 +80,6 @@ main {
   resize: none;
 }
 
-#form .input-box .editor:focus {
-  border-radius: 15px;
-  background-color: black;
-}
-
-input:focus {
-  background-color: black;
-  border-radius: 100px;
-}
-
-/*label {
-  font-size: 18px;
-  display: block;
-  margin: 1rem 0 .4rem;
-}*/
-
 .editor {
   text-align: left;
   width: 100%;
@@ -141,7 +125,7 @@ input:focus {
 .modal-content {
   background-color: var(--bg-Card);
   padding: 1.5em;
-  border-radius: 15px;
+  border-radius: 10px;
   width: 100%;
   max-width: 500px;
   text-align: center;
@@ -161,7 +145,7 @@ input:focus {
 .btn-confirm {
   display: flex;
   margin-top: 1.5em;
-  background-color: #ff4d4d;
+  background-color: var(--bg-ButtonCancel);
   color: white;
   padding: 0.8rem 1.4em;
   border-radius: 10px;
@@ -179,21 +163,6 @@ input:focus {
   border: none;
   cursor: pointer;
 }
-
-/*.toolbar {
-  display: flex;
-  gap: .5rem;
-  margin-bottom: .5rem;
-}
-
-.toolbar button {
-  padding: .4rem .6rem;
-  font-size: .9rem;
-  color: white;
-  background-color: var(--bg-Button);
-  cursor: pointer;
-  border-radius: 4px;
-}*/
 
 .input-box.valid input {
   border: 1px solid #74fc6f;

@@ -25,6 +25,10 @@
       "destination": "/frontend/views/pages/news.html"
     },
     {
+      "source": "/noticias/:id",
+      "destination": "/frontend/views/pages/newsModel.html"
+    },
+    {
       "source": "/console",
       "destination": "/frontend/views/pages/console.html"
     },
@@ -51,6 +55,10 @@
     {
       "source": "/postagem",
       "destination": "/frontend/views/pages/subpages/create-news.html"
+    },
+    {
+      "source": "/gerenciamento",
+      "destination": "/frontend/views/pages/subpages/manage-news.html"
     }
   ]
 }

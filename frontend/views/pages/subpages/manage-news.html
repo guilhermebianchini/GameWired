@@ -4,51 +4,56 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" sizes="16x16 32x32 48x48" type="image/png" href="/frontend/public/assets/imgs/Logo.svg" />
+  <link rel="icon" sizes="16x16 32x32 48x48" type="image/png"
+    href="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logo_ojcaft.svg" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
 
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <link rel="stylesheet" href="/frontend/public/assets/styles/main.css" />
+
   <link rel="stylesheet" href="/frontend/views/components/styles/manage-news.css" />
 
   <title>GameWired | Gerenciar Notícias</title>
 </head>
-
-<div id="delete-modal" class="modal hidden">
-  <div class="modal-content">
-    <h4>Excluir notícia</h4>
-    <p>Tem certeza que deseja excluir esta notícia?</p>
-
-    <div class="modal-actions">
-      <button id="cancel-delete" class="btn-cancel">Cancelar</button>
-      <button id="confirm-delete" class="btn-confirm">Excluir</button>
-    </div>
-  </div>
-</div>
-
 <body>
-
   <div id="header"></div>
 
-  <main id="manage-area">
+  <div id="delete-modal" class="modal hidden">
+    <div class="modal-content">
+      <h4>Excluir notícia</h4>
+      <p>Tem certeza que deseja excluir esta notícia?</p>
+
+      <div class="modal-actions">
+        <button id="confirm-delete" class="btn-confirm">Excluir</button>
+        <button id="cancel-delete" class="btn-cancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="info-manage">
+      <h1>Gerencimento de Notícias</h1>
+    </div>
+
     <section class="container">
-
-      <h3>Gerenciar Notícias</h3>
-
       <div id="news-list">
-
         <div class="news-card">
           <img src="/frontend/public/assets/imgs/exemplo.jpg" alt="Capa">
-
           <div class="news-content">
             <h4>Título da Notícia</h4>
             <span class="date">10/04/2026</span>
-
             <div class="actions">
               <button class="btn-edit">
-                <a href="/frontend/views/pages/subpages/edit-news.html" class="bi bi-pencil">Editar</a> 
+                <a class="bi bi-pencil"> Editar </a>
               </button>
-
               <button class="btn-delete">
                 <i class="bi bi-trash"></i> Excluir
               </button>
@@ -56,14 +61,12 @@
           </div>
         </div>
       </div>
-
     </section>
   </main>
 
   <footer id="footer"></footer>
 
   <script src="/frontend/views/components/scripts/manage-news.js"></script>
-
   <script src="/frontend/views/components/global/global-js/global-footer-header.js"></script>
   <script src="/frontend/public/assets/scripts/_temas.js"></script>
   <script src="/frontend/public/assets/scripts/_navBar.js"></script>

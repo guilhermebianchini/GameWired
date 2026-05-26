@@ -12,16 +12,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    width: 90%;
 
     .notice {
-        
         .title {
             margin: 0.8em 0 0.3em;
         }
 
         .date {
-            font-size: clamp(0.8rem, 0.8vw + 0.5rem, 1rem);
+            font-size: clamp(0.8rem, 0.8vw + 0.8rem, 1.1rem);
             text-decoration: underline;
             color: var(--bg-Button);
             text-decoration: none;
@@ -43,17 +42,13 @@
             margin: 1em 0;
 
             p {
+                white-space: pre-line;
                 padding: 0.6em 0;
 
                 a {
                     color: var(--bg-Button);
-                    text-decoration: underline;
+                    text-decoration: none;
                 }
-            }
-
-            blockquote {
-                margin: 0 auto;
-                padding: 0.6em 0;
             }
         }
     }
