@@ -116,6 +116,23 @@ const postController = {
         }
     },*/
 
+    async getByLatestPosts(req, res) {
+
+        try {
+
+            const posts = await postRepository.readByLatestPosts()
+
+            res.status(200).json(posts)
+
+        } catch (e) {
+
+            res.status(500).json({
+                ok: false,
+                message: "Erro do servidor!"
+            })
+        }
+    },
+
     async insertPost(req, res) {
         try {
             const { titulo_postagem, conteudo_postagem, games_id } = req.body

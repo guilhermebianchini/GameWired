@@ -44,7 +44,7 @@ const newsRepository = {
     },
 
     async create(news) {
-        
+
         if (!news.titulo || !news.data_publicacao || !news.subtitulo || !news.img_noticia || !news.conteudo || !news.fonte) {
             throw new Error("Os campos de título, data da publicação, subtítulo, imagem, conteúdo e fonte são obrigatórios!")
         }

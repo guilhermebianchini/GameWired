@@ -111,6 +111,27 @@ const postRepository = {
         return recordset
     },*/
 
+
+
+    async readByLatestPosts() {
+
+        const { rows } = await query(`
+            SELECT
+                p.post_id,
+                p.conteudo_postagem,
+                p.categoria,
+                u.nome_usuario,
+                u.foto_perfil
+            FROM posts p
+            JOIN users u
+                ON p.user_id = u.user_id
+            ORDER BY p.data_postagem DESC
+            LIMIT 3
+        `)
+
+        return rows
+    },
+
     async create(post) {
 
         if (!post.titulo_postagem || !post.conteudo_postagem) {
