@@ -119,12 +119,12 @@ const postRepository = {
             SELECT
                 p.post_id,
                 p.conteudo_postagem,
-                p.categoria,
                 u.nome_usuario,
-                u.foto_perfil
+                u.foto_perfil,
+                g.nome AS categoria
             FROM posts p
-            JOIN users u
-                ON p.user_id = u.user_id
+            JOIN users u ON p.user_id = u.user_id
+            JOIN games g ON p.games_id = g.games_id
             ORDER BY p.data_postagem DESC
             LIMIT 3
         `)

@@ -126,12 +126,9 @@ const postController = {
 
         } catch (e) {
 
-            console.error(e)
-
             res.status(500).json({
                 ok: false,
-                message: "Erro do servidor!",
-                error: e.message
+                message: "Erro do servidor!"
             })
         }
     },
