@@ -198,7 +198,7 @@ form.addEventListener("submit", async (e) => {
       confirmButtonColor: "#8863e7",
       confirmButtonText: "Continuar"
     }).then(() => {
-      window.location.href = "community.html"
+      window.location.href = "/comunidade"
     })
   } catch (err) {
     console.error("Erro ao criar postagem:", err)

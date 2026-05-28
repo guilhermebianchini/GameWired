@@ -194,11 +194,6 @@ function previewPosts(posts) {
   return html
 }
 
-if (!Array.isArray(posts)) {
-  console.error(posts)
-  return
-}
-
 function renderizarPosts(post) {
   const container = document.getElementById("postsContainer")
 
@@ -217,6 +212,11 @@ async function carregarPosts() {
     const response = await fetch("https://gamewired-api.duckdns.org/posts/latest")
 
     const posts = await response.json()
+
+    if (!Array.isArray(posts)) {
+      console.error(posts)
+      return
+    }
 
     renderizarPosts(posts)
   } catch (error) {
