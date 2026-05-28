@@ -1,85 +1,215 @@
-const newsList = document.querySelector("#news-list")
+// AUTENTICAÇÃO PARA PUBLICAR
 
-const modal = document.querySelector("#delete-modal")
-const btnCancel = document.querySelector("#cancel-delete")
-const btnConfirm = document.querySelector("#confirm-delete")
+function newsAuth() {
+  const token = localStorage.getItem("token")
 
-let selectedId = null
+  const newsOff = document.getElementById("newsLoggedOff")
+  const newsIn = document.getElementById("newsLoggedIn")
 
-const noticias = [
-  {
-    id: 1,
-    titulo: "Nova atualização do jogo",
-    data: "2026-04-10",
-    imagem: "/frontend/public/assets/imgs/exemplo.jpg"
+  if (token) {
+    newsOff.classList.add("hidden")
+    newsIn.classList.remove("hidden")
+  } else {
+    newsOff.classList.remove("hidden")
+    newsIn.classList.add("hidden")
   }
-]
+}
 
-function renderNoticias() {
-  newsList.innerHTML = ""
+function logout() {
+  localStorage.removeItem("token")
+  window.location.reload()
+}
 
-  noticias.forEach(noticia => {
-    const card = document.createElement("div")
-    card.classList.add("news-card")
+document.addEventListener("DOMContentLoaded", newsAuth)
 
-    card.innerHTML = `
-      <img src="${noticia.imagem}" alt="Capa">
+// PEGANDO O ID DO USUÁRIO COM O JWT
 
-      <div class="news-content">
-        <h3>${noticia.titulo}</h3>
-        <span class="date">${noticia.data}</span>
+function getUserIdFromToken() {
+  const token = localStorage.getItem("token")
+  if (!token) return null
 
-        <div class="actions">
-          <button class="btn-edit" data-id="${noticia.id}">
-            <i class="bi bi-pencil"></i> Editar
-          </button>
+  try {
+    const payloadBase64 = token.split(".")[1]
+      .replace(/-/g, "+")
+      .replace(/_/g, "/")
 
-          <button class="btn-delete" data-id="${noticia.id}">
-            <i class="bi bi-trash"></i> Excluir
-          </button>
+    const decoded = JSON.parse(atob(payloadBase64))
+    return Number(decoded.id)
+  } catch (e) {
+    console.error("Erro ao decodificar token:", e)
+    return null
+  }
+}
+
+// CARREGAMENTO DE NOTÍCIAS DO USUÁRIO
+
+function limparManageNews() {
+  const container = document.getElementById("manageNewsContainer")
+  if (container) container.innerHTML = ""
+}
+
+function previewManageNews(noticias) {
+  let html = ""
+
+  noticias.forEach(news => {
+
+    html += `
+      <div class="news-list">
+        <div class="news-card">
+          <img src="${news.img_noticia}" alt="${news.titulo}">
+            <div class="news-content">
+              <h4>${news.titulo}</h4>
+              <span class="date">${new Date(news.data_publicacao).toLocaleDateString('pt-BR')}</span>
+                <div class="actions">
+                  <button class="btn-edit">
+                    <a href="/frontend/views/create-news.html?id=${news.news_id}" class="bi bi-pencil"> Editar </a>
+                  </button>
+
+                  <button class="btn-delete" onclick="abrirModalExclusao(${news.news_id})">
+                    <i class="bi bi-trash"></i> Excluir
+                  </button>
+                </div>
+            </div>
         </div>
       </div>
     `
-
-    newsList.appendChild(card)
   })
+
+  return html
 }
 
-newsList.addEventListener("click", (e) => {
-  const button = e.target.closest("button")
-  const id = button?.dataset.id
+function renderizarManageNews(news) {
+  const container = document.getElementById("manageNewsContainer")
 
-  if (!button) return
-
-  if (button.classList.contains("btn-delete")) {
-    selectedId = id
-    modal.classList.remove("hidden")
+  if (!container) {
+    console.error("Container das notícias não encontrado!")
+    return
   }
 
-  if (button.classList.contains("btn-edit")) {
-    window.location.href = `/edit-news.html?id=${id}`
+  const html = previewManageNews(news)
+
+  container.innerHTML = html
+}
+
+async function carregarGerenciamentoNoticias() {
+  try {
+    const token = localStorage.getItem("token")
+
+    const response = await fetch(`https://gamewired-api.duckdns.org/news/me`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+
+    const noticias = await response.json()
+
+    renderizarManageNews(noticias)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+carregarGerenciamentoNoticias()
+
+// DELETAR NOTÍCIA
+
+async function deletarNews(news_id) {
+  const token = localStorage.getItem("token")
+
+  if (!token) {
+    Swal.fire({
+      icon: "error",
+      title: "Você precisa estar logado!",
+      text: "Faça login para deletar uma postagem.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+    return
+  }
+
+  try {
+    const res = await fetch(`https://gamewired-api.duckdns.org/news/${news_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        key: "EXCLUIR"
+      })
+    })
+
+    const result = await res.json()
+
+    if (!res.ok) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro!",
+        text: result.message || "Erro ao deletar notícia!",
+        confirmButtonColor: "#8863e7",
+        confirmButtonText: "Continuar"
+      })
+      return
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "Sucesso!",
+      text: result.message || "Notícia deletada com sucesso!",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+
+    document
+      .getElementById("delete-modal")
+      .classList.add("hidden")
+
+    await carregarGerenciamentoNoticias()
+
+  } catch (err) {
+    console.error("Erro ao deletar notícia:", err)
+    Swal.fire({
+      icon: "error",
+      title: "Erro!",
+      text: "Erro de conexão ao deletar o notícia.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+  }
+}
+
+// MODAL DE LIMPAR
+
+const btnClear = document.querySelector("#btn-clear")
+const modalClear = document.querySelector("#clear-modal")
+const btnCancelClear = document.querySelector("#cancel-clear")
+const btnConfirmClear = document.querySelector("#confirm-clear")
+
+btnClear.addEventListener("click", () => {
+  modalClear.classList.remove("hidden")
+})
+
+btnCancelClear.addEventListener("click", () => {
+  modalClear.classList.add("hidden")
+})
+
+btnConfirmClear.addEventListener("click", () => {
+  form.reset()
+
+  // LIMPAR ERROS VISUAIS
+  document.querySelectorAll('.input-box').forEach(box => {
+    box.classList.remove('invalid', 'valid')
+    const error = box.querySelector('.error')
+    if (error) error.innerHTML = ''
+  })
+
+  modalClear.classList.add("hidden")
+})
+
+modalClear.addEventListener("click", (e) => {
+  if (e.target === modalClear) {
+    modalClear.classList.add("hidden")
   }
 })
-
-btnCancel.addEventListener("click", () => {
-  modal.classList.add("hidden")
-  selectedId = null
-})
-
-btnConfirm.addEventListener("click", () => {
-  console.log("Excluir notícia:", selectedId)
-
-  // await fetch(`/api/news/${selectedId}`, { method: "DELETE" })
-
-  modal.classList.add("hidden")
-  selectedId = null
-})
-
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    modal.classList.add("hidden")
-    selectedId = null
-  }
-})
-
-renderNoticias()

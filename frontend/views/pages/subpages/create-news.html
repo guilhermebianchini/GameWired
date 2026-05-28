@@ -66,9 +66,17 @@
             </div>
 
             <div class="input-box">
-              <textarea id="conteudo" class="editor" name="conteudo"
-                placeholder="Digite o conteúdo da notícia"></textarea>
+              <div class="toolbar">
+              <p>Barra de Ferramentas: </p>
+              <button type="button" onclick="execCmd('bold')"><b>B</b></button>
+              <button type="button" onclick="execCmd('italic')"><i>I</i></button>
+              <button type="button" onclick="execCmd('underline')"><u>U</u></button>
+            </div>
+
+              <div id="conteudo" class="editor" contenteditable="true" data-placeholder="Digite o conteúdo da notícia"></div>
               <span class="error"></span>
+
+              
             </div>
 
             <div class="input-box">
@@ -80,7 +88,6 @@
               <button type="submit" class="btn-publish">Publicar</button>
               <button type="button" id="btn-clear" class="btn-publish">Limpar</button>
             </div>
-
           </form>
       </div>
   </main>

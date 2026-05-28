@@ -41,6 +41,14 @@ function getUserIdFromToken() {
   }
 }
 
+// TOOLBAR
+
+function execCmd(command) {
+  document.execCommand(command, false, null)
+
+  document.getElementById("conteudo").focus()
+}
+
 // FORMULÁRIO DE POSTAGEM E VALIDAÇÃO
 
 let editandoId = null
@@ -96,7 +104,7 @@ form.addEventListener("submit", async (e) => {
   const data_publicacao = document.getElementById("data_publicacao").value.trim()
   const subtitulo = document.getElementById("subtitulo").value.trim()
   const fileInput = document.getElementById("img_noticia")
-  const conteudo = document.getElementById("conteudo").value.trim()
+  const conteudo = document.getElementById("conteudo").innerHTML.trim()
   const fonte = document.getElementById("fonte").value
 
   const formData = new FormData()
@@ -285,6 +293,54 @@ function fonteIsValid(value) {
   }
 
   return validator
+}
+
+// EDIÇÃO DE NOTÍCIAS
+
+const params = new URLSearchParams(window.location.search)
+const newsId = params.get("id")
+
+if (newsId) {
+  editarNews(newsId)
+}
+
+async function editarNews(news_id) {
+  const token = localStorage.getItem("token")
+
+  const res = await fetch(`https://gamewired-api.duckdns.org/news/${news_id}/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  try {
+    const result = await res.json()
+
+    if (!res.ok) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro!",
+        text: "Erro ao carregar notícia.",
+        confirmButtonColor: "#8863e7",
+        confirmButtonText: "Continuar"
+      })
+
+      return
+    }
+
+    editandoId = news.news_id
+
+    document.getElementById("titulo").value = news.titulo
+    document.getElementById("data_publicacao").value = news.data_publicacao.split("T")[0]
+    document.getElementById("subtitulo").value = news.subtitulo
+    document.getElementById("img_noticia") = news.img_noticia
+    document.getElementById("conteudo").innerHTML = news.conteudo
+    document.getElementById("fonte").value = news.fonte
+
+    document.querySelector(".btn-publish").textContent = "Salvar alterações"
+  } catch (err) {
+    console.error("Erro ao carregar notícia:", err)
+  }
 }
 
 // MODAL DE LIMPAR

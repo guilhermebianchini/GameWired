@@ -7,6 +7,7 @@ const newsRouter = Router()
 
 newsRouter.get('/news', newsController.getAllNews)
 newsRouter.get('/news/:news_id', newsController. getNewsById)
+newsRouter.get('/news/me', verifyToken, newsController.getNewsByUser)
 newsRouter.get('/news/:news_id/me', verifyToken, newsController.getNewstByIdAndUser)
 newsRouter.post('/news', verifyToken, uploadNews.single("img_noticia"), newsController.insertNews)
 newsRouter.patch('/news/:news_id', verifyToken, uploadNews.single("img_noticia"), newsController.updateNews)

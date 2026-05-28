@@ -39,6 +39,23 @@ const newsController = {
         }
     },
 
+    async getNewsByUser(req, res) {
+
+        try {
+
+            const news = await newsRepository.readByUser(req.user.id)
+
+            res.status(200).json(news)
+
+        } catch (e) {
+            console.error(e)
+            res.status(500).json({
+                ok: false,
+                message: "Erro do servidor!"
+            })
+        }
+    },
+
     async insertNews(req, res) {
         try {
             const { titulo, data_publicacao, subtitulo, conteudo, fonte } = req.body

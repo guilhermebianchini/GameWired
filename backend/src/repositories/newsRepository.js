@@ -1,7 +1,7 @@
 import query from "../config/connection.js"
 
 const newsRepository = {
-    
+
     async readAll() {
 
         const { rows } = await query(`SELECT * FROM news`)
@@ -9,7 +9,7 @@ const newsRepository = {
         return rows
     },
 
-    async readById(news_id){
+    async readById(news_id) {
 
         const { rows } = await query(`SELECT n.news_id, n.titulo, n.data_publicacao, n.subtitulo, n.img_noticia, n.conteudo, n.fonte, u.nome_usuario
             FROM news n
@@ -17,16 +17,36 @@ const newsRepository = {
             WHERE n.news_id = $1
             `, [news_id])
 
-            if (rows.length === 0) {
-                return null
-            }
+        if (rows.length === 0) {
+            return null
+        }
 
-            return rows[0]
+        return rows[0]
+    },
+
+    async readByUser(user_id) {
+
+        const { rows } = await query(`
+        SELECT
+            n.news_id,
+            n.titulo,
+            n.data_publicacao,
+            n.subtitulo,
+            n.img_noticia,
+            n.conteudo,
+            n.fonte
+        FROM news n
+        WHERE n.user_id = $1
+        ORDER BY n.data_publicacao DESC
+        `, [user_id])
+
+        return rows
     },
 
     async create(news) {
+        
         if (!news.titulo || !news.data_publicacao || !news.subtitulo || !news.img_noticia || !news.conteudo || !news.fonte) {
-            throw new Error ("Os campos de título, data da publicação, subtítulo, imagem, conteúdo e fonte são obrigatórios!")
+            throw new Error("Os campos de título, data da publicação, subtítulo, imagem, conteúdo e fonte são obrigatórios!")
         }
 
         const sql = `
@@ -48,7 +68,7 @@ const newsRepository = {
         return rows[0]
     },
 
-    async readByIdAndUser (news_id, user_id) {
+    async readByIdAndUser(news_id, user_id) {
 
         const { rows } = await query(`
             SELECT
@@ -59,23 +79,23 @@ const newsRepository = {
             n.img_noticia,
             n.conteudo,
             n.fonte,
-            u.user_id,
+            u.user_id
             FROM news n
             JOIN users u ON n.user_id = u.user_id
             WHERE n.news_id = $1
             AND n.user_id = $2
             `, [news_id, user_id])
 
-            return rows[0] || null
+        return rows[0] || null
     },
 
     async update(news) {
 
         const existing = await this.readByIdAndUser(news.news_id, news.user_id)
 
-        if (!existing) throw new Error ("Notícia não encontrada ou não pertence ao editor!")
+        if (!existing) throw new Error("Notícia não encontrada ou não pertence ao editor!")
 
-            const sql = `
+        const sql = `
             UPDATE news
             SET titulo = $1,
             data_publicacao = $2,
@@ -88,21 +108,21 @@ const newsRepository = {
             RETURNING *
             `
 
-            const { rows } = await query(sql, [
-                news.titulo,
-                news.data_publicacao,
-                news.subtitulo,
-                news.img_noticia,
-                news.conteudo,
-                news.fonte,
-                news.news_id,
-                news.user_id
-            ])
+        const { rows } = await query(sql, [
+            news.titulo,
+            news.data_publicacao,
+            news.subtitulo,
+            news.img_noticia,
+            news.conteudo,
+            news.fonte,
+            news.news_id,
+            news.user_id
+        ])
 
-            return rows[0]
+        return rows[0]
     },
 
-    async delete (news_id, user_id) {
+    async delete(news_id, user_id) {
 
         const existing = await this.readByIdAndUser(news_id, user_id)
 
@@ -115,7 +135,7 @@ const newsRepository = {
             RETURNING *
             `, [news_id, user_id])
 
-            return rows[0]
+        return rows[0]
     }
 }
 

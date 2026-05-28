@@ -7,7 +7,7 @@ main {
   margin: 2rem auto;
   background-color: var(--bg-Card);
   padding: 1.25em;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .container .card {
@@ -45,7 +45,7 @@ main {
       font-size: 1rem;
     }
 
-    textarea {
+    .editor {
       width: 90%;
       background-color: var(--bg-Background);
     }
@@ -75,7 +75,7 @@ main {
 
 #form .input-box .editor {
   min-height: 200px;
-  border-radius: 15px;
+  border-radius: 10px;
   text-align: left;
   resize: none;
 }
@@ -84,10 +84,38 @@ main {
   text-align: left;
   width: 100%;
   padding: .7rem;
-  border-radius: 6px;
+  border-radius: 10px;
   background-color: #1c1c1c;
   color: white;
   font-size: 1rem;
+}
+
+.editor:empty::before {
+  content: attr(data-placeholder);
+  color: #999;
+  pointer-events: none;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin-bottom: .8rem;
+  width: 90%;
+
+  p {
+    font-size: 1rem;
+  }
+}
+
+.toolbar button {
+  padding: .4rem .6rem;
+  font-size: .9rem;
+  color: white;
+  background-color: var(--bg-Button);
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .action {
