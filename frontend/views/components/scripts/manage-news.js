@@ -58,15 +58,13 @@ function previewManageNews(noticias) {
         <div class="news-card">
           <img src="${news.img_noticia}" alt="${news.titulo}">
             <div class="news-content">
-              <h4>${news.titulo}</h4>
+              <h3>${news.titulo}</h3>
               <span class="date">${new Date(news.data_publicacao).toLocaleDateString('pt-BR')}</span>
                 <div class="actions">
-                  <button class="btn-edit">
-                    <a href="/frontend/views/create-news.html?id=${news.news_id}" class="bi bi-pencil"> Editar </a>
-                  </button>
+                  <a class="btn-edit" href="/postagem/${news.news_id}" class="bi bi-pencil"> Editar </a>
 
                   <button class="btn-delete" onclick="abrirModalExclusao(${news.news_id})">
-                    <i class="bi bi-trash"></i> Excluir
+                    Excluir
                   </button>
                 </div>
             </div>
@@ -112,6 +110,43 @@ async function carregarGerenciamentoNoticias() {
 }
 
 carregarGerenciamentoNoticias()
+
+// FUNÇÃO DO BOTÃO DE DELETAR
+
+let newsIdParaExcluir = null
+
+function abrirModalExclusao(news_id) {
+
+  newsIdParaExcluir = news_id
+
+  document
+    .getElementById("delete-modal")
+    .classList.remove("hidden")
+}
+
+function fecharModalExclusao() {
+
+  document
+    .getElementById("delete-modal")
+    .classList.add("hidden")
+}
+
+document
+  .getElementById("cancel-delete")
+  .addEventListener("click", fecharModalExclusao)
+
+document
+  .getElementById("confirm-delete")
+  .addEventListener("click", async () => {
+
+    if (!newsIdParaExcluir) return
+
+    await deletarNews(newsIdParaExcluir)
+
+    fecharModalExclusao()
+})
+
+window.abrirModalExclusao = abrirModalExclusao
 
 // DELETAR NOTÍCIA
 

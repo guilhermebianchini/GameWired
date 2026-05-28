@@ -130,6 +130,10 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
+    console.log("TOKEN:", token)
+    console.log("URL:", url)
+    console.log("METHOD:", method)
+
     const res = await fetch(url, {
       method: method,
       headers: {
@@ -333,12 +337,13 @@ async function editarNews(news_id) {
       return
     }
 
+    const news = result.data
+
     editandoId = news.news_id
 
     document.getElementById("titulo").value = news.titulo
     document.getElementById("data_publicacao").value = news.data_publicacao.split("T")[0]
     document.getElementById("subtitulo").value = news.subtitulo
-    document.getElementById("img_noticia") = news.img_noticia
     document.getElementById("conteudo").innerHTML = news.conteudo
     document.getElementById("fonte").value = news.fonte
 

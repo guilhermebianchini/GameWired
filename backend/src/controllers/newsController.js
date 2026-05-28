@@ -141,7 +141,7 @@ const newsController = {
         try {
             const model = req.body
             const news_id = Number(req.params.news_id)
-            const user_id = Number(req.params.user_id)
+            const user_id = req.user.id
 
             if (isNaN(news_id)) {
                 return res.status(400).json({
@@ -157,7 +157,7 @@ const newsController = {
                 })
             }
 
-            if (!model.titulo || !model.data_publicacao || !model.subtitulo || !model.img_noticia || !model.conteudo || !model.fonte) {
+            if (!model.titulo || !model.data_publicacao || !model.subtitulo || !model.conteudo || !model.fonte) {
                 return res.status(400).json({
                     ok: false,
                     message: "Os campos de título, data da publicação, subtítulo, imagem, conteúdo e fonte são obrigatórios!"

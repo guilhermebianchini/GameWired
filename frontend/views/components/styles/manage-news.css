@@ -23,26 +23,31 @@ main {
 
 .container {
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 2em;
+  margin-top: -1em;
   background-color: var(--bg-Card);
   padding: 1.25em;
   border-radius: 10px;
+}
+
+.news-list {
+  margin: 1.5em;
 }
 
 .news-card {
   display: flex;
   width: 100%;
   gap: 1rem;
-  background-color: var(--bg-Card);
+  background-color: var(--bg-Background);
   padding: 1rem;
   border-radius: 10px;
   align-items: center;
 }
 
 .news-card img {
-  width: 200px;
-  height: 80px;
+  width: 250px;
+  height: 150px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -52,42 +57,43 @@ main {
 }
 
 .news-content h3 {
+  font-size: 1.2rem;
   margin: 0;
 }
 
-.date {
-  font-size: 0.9rem;
+.news-content .date {
+  font-size: 1rem;
   opacity: 0.7;
 }
 
 .actions {
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
   display: flex;
   gap: 0.7em;
 }
 
-.btn-edit {
+.btn-edit,
+.btn-delete {
   display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 1.5em;
-  background-color: var(--bg-Button);
   color: white;
-  padding: 0.8rem 1.4em;
+  padding: 0.5rem 1.4em;
   border-radius: 10px;
   border: none;
+  font-size: 1em;
+  text-decoration: none;
   cursor: pointer;
   gap: 0.5em;
 }
 
+.btn-edit {
+  background-color: var(--bg-Button);
+}
+
 .btn-delete {
-  display: flex;
-  margin-top: 1.5em;
   background-color: var(--bg-ButtonCancel);
-  color: white;
-  padding: 0.8rem 1.4em;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  gap: 0.5em;
 }
 
 .modal {
