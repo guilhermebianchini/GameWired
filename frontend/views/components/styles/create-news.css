@@ -88,6 +88,14 @@ main {
   background-color: #1c1c1c;
   color: white;
   font-size: 1rem;
+
+  outline: none;
+
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+
+  overflow-y: auto;
 }
 
 .editor:empty::before {

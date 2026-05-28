@@ -76,7 +76,10 @@ form.addEventListener("submit", async (e) => {
   fields.forEach(function (field) {
     const input = document.getElementById(field.id)
     const inputBox = input.closest('.input-box')
-    const inputValue = input.value
+    const inputValue =
+      field.id === "conteudo"
+        ? input.innerHTML
+        : input.value
 
     const errorSpan = inputBox.querySelector('.error')
     errorSpan.innerHTML = ''
@@ -256,7 +259,9 @@ function conteudoIsValid(value) {
   const validator = { isValid: true, errorMessage: null }
 
   // REMOVE TAGS HTML
-  const text = value.replace(/<[^>]*>/g, '').trim()
+  const text = (value || '')
+    .replace(/<[^>]*>/g, '')
+    .trim()
 
   if (text === '') {
     validator.isValid = false
