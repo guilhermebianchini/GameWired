@@ -57,6 +57,10 @@
       "destination": "/frontend/views/pages/subpages/create-news.html"
     },
     {
+      "source": "/postagem/:id",
+      "destination": "/frontend/views/pages/subpages/create-news.html"
+    },
+    {
       "source": "/gerenciamento",
       "destination": "/frontend/views/pages/subpages/manage-news.html"
     }

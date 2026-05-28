@@ -306,8 +306,17 @@ function fonteIsValid(value) {
 
 // EDIÇÃO DE NOTÍCIAS
 
-const params = new URLSearchParams(window.location.search)
-const newsId = params.get("id")
+let newsId = null
+
+const path = window.location.pathname
+
+const parts = path.split("/")
+
+const lastPart = parts[parts.length - 1]
+
+if (!isNaN(lastPart)) {
+  newsId = lastPart
+}
 
 if (newsId) {
   editarNews(newsId)

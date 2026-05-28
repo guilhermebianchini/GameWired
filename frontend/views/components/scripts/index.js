@@ -1,3 +1,68 @@
+// CARREGAR NOTÍCIAS
+
+function limparNews() {
+  const container = document.getElementById("newsContainer")
+  if (container) container.innerHTML = ""
+}
+
+function previewNews(noticias) {
+  let html = ""
+
+  noticias.forEach(news => {
+
+    html += `
+      <div class="news">
+        <div class="news_origem">
+          <div class="img-card">
+            <img src="${news.img_noticia}" alt="${news.titulo}">
+          </div>
+
+          <div class="txt-card">
+            <h4>${news.titulo}</h4>
+
+            <span class="date">${new Date(news.data_publicacao).toLocaleDateString('pt-BR')}</span>
+
+            <p>${news.subtitulo}</p>
+
+            <div class="linkNews">
+              <a href="/noticias/${news.news_id}" class="link-card"> Leia mais </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  })
+
+  return html
+}
+
+function renderizarNews(news) {
+  const container = document.getElementById("newsContainer")
+
+  if (!container) {
+    console.error("Container das notícias não encontrado!")
+    return
+  }
+
+  const html = previewNews(news)
+
+  container.innerHTML = html
+}
+
+async function carregarNoticias() {
+  try {
+    const response = await fetch("https://gamewired-api.duckdns.org/news/")
+
+    const noticias = await response.json()
+
+    renderizarNews(noticias)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+carregarNoticias()
+
 // CARROSSEL DE JOGOS
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -88,3 +153,75 @@ function configurarModais() {
     }
   })
 }
+
+// CARREGAR POSTAGENS DA COMUNIDADE
+
+function limparPosts() {
+  const container = document.getElementById("postsContainer")
+  if (container) container.innerHTML = ""
+}
+
+function previewPosts(posts) {
+  let html = ""
+
+  posts.forEach(post => {
+
+    const resumo =
+    post.conteudo_postagem.length > 120
+      ? post.conteudo_postagem.slice(0, 120) + "..."
+      : post.conteudo_postagem
+
+    html += `
+      <div class="container-community">
+        <div class="community-wrapper">
+          <div class="card-community">
+            <div class="community-user">
+              <img src="${post.foto_perfil}" alt="Foto de Perfil">
+              <h4>${post.nome_usuario}</h4>
+            </div>
+
+            <div class="txt-community">
+              <span>${post.categoria}</span>
+
+              <p>${resumo}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  })
+
+  return html
+}
+
+if (!Array.isArray(posts)) {
+  console.error(posts)
+  return
+}
+
+function renderizarPosts(post) {
+  const container = document.getElementById("postsContainer")
+
+  if (!container) {
+    console.error("Container das postagens não encontrado!")
+    return
+  }
+
+  const html = previewPosts(post)
+
+  container.innerHTML = html
+}
+
+async function carregarPosts() {
+  try {
+    const response = await fetch("https://gamewired-api.duckdns.org/posts/latest")
+
+    const posts = await response.json()
+
+    renderizarPosts(posts)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+carregarPosts()
