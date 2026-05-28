@@ -185,6 +185,12 @@ function previewPosts(posts) {
 
               <p>${resumo}</p>
             </div>
+
+            <div class="btn-linkCommunity">
+              <a href="/comunidade" class="link-community">
+                Leia mais! <i class="ph ph-arrow-right"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>

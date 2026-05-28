@@ -12,6 +12,19 @@
   }
 }
 
+.btn-linkCommunity {
+  display: flex;
+  justify-content: flex-end;
+  color: var(--bg-Font);
+
+  .link-community {
+    &:hover {
+      transition: 0.3s;
+      color: var(--bg-Button);
+    }
+  }
+}
+
 .formButtons {
   display: flex;
   flex-direction: row;
