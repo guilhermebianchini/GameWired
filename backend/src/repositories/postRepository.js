@@ -123,7 +123,10 @@ const postRepository = {
 
         return {
             posts: rows,
-            nextCursor: rows.at(-1)?.post_id ?? null
+            nextCursor: rows.length === 10
+                ? rows[rows.length - 1].post_id
+                : null,
+            hasMore: rows.length === 10
         }
     },
 

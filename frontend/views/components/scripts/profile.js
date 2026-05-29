@@ -160,23 +160,22 @@ function montarHTMLPosts(posts, userIdLogado) {
                     <p class="Catg">${post.categoria}</p>
                 </div>
 
-                ${Number(post.user_id) === Number(userIdLogado) ? `
-                    <div class="post_menu">
-                        <button onclick="toggleMenu(${post.post_id})">
-                            ⋮
+                
+                <div class="post_menu">
+                    <button onclick="toggleMenu(${post.post_id})">
+                        ⋮
+                    </button>
+
+                    <div class="menu_options" id="menu-${post.post_id}">
+                        <button onclick="editarPost(${post.post_id})">
+                            Editar
                         </button>
 
-                        <div class="menu_options" id="menu-${post.post_id}">
-                            <button onclick="editarPost(${post.post_id})">
-                                Editar
-                            </button>
-
-                            <button onclick="deletarPost(${post.post_id})">
-                                Deletar
-                            </button>
-                        </div>
+                        <button onclick="deletarPost(${post.post_id})">
+                            Deletar
+                        </button>
                     </div>
-                ` : ""}
+                </div>               
             </div>
 
             <div class="content_post">
@@ -206,12 +205,10 @@ function renderizarPosts(posts) {
         return
     }
 
-    const userIdLogado = getUserIdFromToken()
-
     container.insertAdjacentHTML(
         "beforeend",
         montarHTMLPosts(posts, userIdLogado)
-    );
+    )
 }
 
 async function carregarPosts(reset = false) {
