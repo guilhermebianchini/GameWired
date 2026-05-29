@@ -106,7 +106,7 @@ const postController = {
             const userId = req.user.id
             const { cursor } = req.query
 
-            const result = await PostsRepository.readByUser(
+            const result = await postRepository.readByUser(
                 userId,
                 cursor ? Number(cursor) : null
             )

@@ -260,7 +260,7 @@ async function carregarPosts(reset = false) {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        });
+        })
 
         const result = await response.json()
 
