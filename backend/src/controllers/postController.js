@@ -102,7 +102,7 @@ const postController = {
 
     async getPostsByUser(req, res) {
         try {
-            const user_id = req.user.user_id
+            const user_id = req.user.id
 
             const posts = await postRepository.getByUser(user_id)
 
