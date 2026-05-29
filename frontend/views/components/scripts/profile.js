@@ -147,7 +147,7 @@ function limparPosts() {
     }
 }
 
-function montarHTMLPosts(posts, userIdLogado) {
+function montarHTMLPosts(posts) {
     return posts.map(post => `
         <div class="post">
             <div class="post_origem">
@@ -207,7 +207,7 @@ function renderizarPosts(posts) {
 
     container.insertAdjacentHTML(
         "beforeend",
-        montarHTMLPosts(posts, userIdLogado)
+        montarHTMLPosts(posts)
     )
 }
 
