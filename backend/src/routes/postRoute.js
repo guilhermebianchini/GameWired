@@ -5,7 +5,8 @@ import { verifyToken } from "../middlewares/authMiddleware.js"
 
 const postRouter = Router()
 
-postRouter.get("/posts/latest", postController.getByLatestPosts)
+postRouter.get('/posts/latest', postController.getByLatestPosts)
+postRouter.get('/posts/me', verifyToken, postController.getPostsByUser)
 postRouter.get('/posts/cursor', postController.getAllPostsCursor)
 postRouter.get('/posts/:post_id', postController.getPostById)
 postRouter.get('/posts/:post_id/me', verifyToken, postController.getPostByIdAndUser)
@@ -14,5 +15,3 @@ postRouter.patch('/posts/:post_id', verifyToken, uploadPosts.single("foto_postag
 postRouter.delete('/posts/:post_id', verifyToken, postController.deletePost)
 
 export default postRouter
-
-/*postRouter.get('/posts/users/:id', postController.getPostsByUser)*/

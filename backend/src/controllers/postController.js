@@ -100,11 +100,11 @@ const postController = {
         }
     },
 
-    /*async getPostsByUser(req, res) {
+    async getPostsByUser(req, res) {
         try {
-            const { id } = req.params
+            const user_id = req.user.user_id
 
-            const posts = await postRepository.getByUser(id)
+            const posts = await postRepository.getByUser(user_id)
 
             res.json(posts)
         } catch (e) {
@@ -114,7 +114,7 @@ const postController = {
                 message: "Erro ao buscar posts do usuário!"
             })
         }
-    },*/
+    },
 
     async getByLatestPosts(req, res) {
 

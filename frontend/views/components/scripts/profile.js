@@ -45,7 +45,7 @@ async function carregarPerfil() {
             confirmButtonColor: '#8863e7',
             confirmButtonText: 'Continuar'
         }).then(() => {
-            window.location.href = "../login"
+            window.location.href = "/login"
         })
 
         return
@@ -114,15 +114,32 @@ async function salvarPerfil() {
     }
 }
 
-/*async function carregarPostsPerfil() {
-  const userId = localStorage.getItem("userId")
+async function carregarPostsPerfil() {
+    try {
+        const token = localStorage.getItem("token")
 
-  const response = await fetch(`https://gamewired-api.duckdns.org/posts/user/${userId}`)
-  const posts = await response.json()
+        const response = await fetch(`https://gamewired-api.duckdns.org/posts/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
 
-  const container = document.getElementById('postsContainer')
+        if (!response.ok) {
+            throw new Error('Erro ao buscar posts!')
+        }
 
-  container.innerHTML = posts.map(post => `
+        const posts = await response.json()
+
+        const container = document.getElementById('postsContainer')
+
+        if (!posts.length) {
+            container.innerHTML = `
+        <p class="sem-posts">Você ainda não publicou nenhum post.</p>
+      `
+            return
+        }
+
+        container.innerHTML = posts.map(post => `
     <div class="post">
       <div class="post_origem">
         <div class="user_photo">
@@ -130,8 +147,8 @@ async function salvarPerfil() {
         </div>
 
         <div class="infos_post">
-          <p id="username">${post.nome_usuario}</p>
-          <p id="dataCatg">
+          <p class="username">${post.nome_usuario}</p>
+          <p class="dataCatg">
             ${new Date(post.data_postagem).toLocaleDateString()} - ${post.categoria}
           </p>
         </div>
@@ -144,6 +161,13 @@ async function salvarPerfil() {
       </div>
     </div>
   `).join('')
+    } catch (e) {
+        console.error(e)
+
+        document.getElementById('postsContainer').innerHTML = `
+      <p>Erro ao carregar posts.</p>
+    `
+    }
 }
 
-carregarPostsPerfil()*/
+carregarPostsPerfil()

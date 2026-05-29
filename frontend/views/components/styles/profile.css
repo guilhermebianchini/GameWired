@@ -23,84 +23,91 @@ body {
     position: relative;
     z-index: 1;
     margin-bottom: 1.5em;
+}
 
-    aside {
-        height: max-content;
-        position: sticky;
-        width: 30vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: var(--bg-Card);
-        border-radius: 10px;
-        padding: 20px;
-        gap: 1em;
+.container__profile aside {
+    height: max-content;
+    position: sticky;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-Card);
+    border-radius: 10px;
+    padding: 20px;
+    gap: 1em;
+}
 
-        .user {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            gap: 0.5em;
+.container__profile aside .user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 0.5em;
+}
 
-            img {
-                height: 200px;
-                width: 200px;
-                border-radius: 10%;
-            }
+.container__profile aside .user img {
+    height: 200px;
+    width: 200px;
+    border-radius: 10px;
+}
 
-            .foto-perfil {
-                cursor: pointer;
-            }
+.container__profile aside .user .foto-perfil {
+    cursor: pointer;
+}
 
-            textarea {
-                resize: none;
-                overflow: hidden;
-                min-height: 60px;
-                max-height: 300px;
-                margin-top: 20px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                color: var(--bg-Font);
-                background: var(--bg-Background);
-                border-radius: 10px;
-                padding: 10px;
-                width: 100%;
-            }
+.container__profile aside .user textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 60px;
+    max-height: 300px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--bg-Font);
+    background: var(--bg-Background);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+}
 
-            btns {
-                display: flex;
-            }
+.container__profile aside .user .btns {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 0.5em;
+}
 
-            button {
-                color: var(--bg-Font);
-                background: var(--bg-Background);
-                border-radius: 10px;
-                padding: 10px;
-                margin-top: 15px;
-            }
-        }
+.container__profile aside .user .btns button {
+    color: var(--bg-Font);
+    background: var(--bg-Background);
+    border-radius: 10px;
+    padding: 0.8em;
+
+    &:hover {
+      transition: 0.3s;
+      color: var(--bg-Button);
     }
+}
 
-    .middle {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 65vw;
-        height: max-content;
-        position: relative;
-        background: var(--bg-Card);
-        border-radius: 10px;
-        padding: 20px;
-        gap: 1em;
+.middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 65vw;
+    height: max-content;
+    position: relative;
+    background: var(--bg-Card);
+    border-radius: 10px;
+    padding: 20px;
+    gap: 1em;
+}
 
-        h1 {
-            font-size: 30px;
-            font-weight: 700;
-        }
-    }
+.middle h1 {
+    font-size: 30px;
+    font-weight: 700;
 }
 
 @media screen and (max-width: 1024px) {

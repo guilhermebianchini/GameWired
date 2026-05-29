@@ -76,40 +76,32 @@ const postRepository = {
     },
 
     async readByGameId(games_id) {
+
         const { rows } = await query(`
             SELECT g.games_id, g.nome, g.plataforma, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos, p.post_id, p.titulo_postagem, p.conteudo_postagem, p.data_postagem, p.foto_postagem, p.games_id, u.nome_usuario, u.foto_perfil, g.nome AS categoria
             FROM posts p
             JOIN users u ON p.user_id = u.user_id
             JOIN games g ON p.games_id = g.games_id
             WHERE p.games_id = $1
-            ORDER BY p.data_postagem DESC`,
-            [games_id])
+            ORDER BY p.data_postagem DESC
+            `, [games_id])
 
         return rows[0]
     },
 
-    /*async getByUser(userId) {
-        const conn = await connect()
+    async getByUser(user_id) {
 
-        const { recordset } = await conn.query(`
-    SELECT 
-      p.post_id,
-      p.titulo_postagem,
-      p.conteudo_postagem,
-      p.data_postagem,
-      p.foto_postagem,
-      u.nome_usuario,
-      u.foto_perfil,
-      g.nome AS categoria
-    FROM Posts p
-    JOIN Users u ON p.id = u.id
-    JOIN Games g ON p.games_id = g.games_id
-    WHERE p.id = ${userId}
-    ORDER BY p.data_postagem DESC
-  `)
+        const { rows } = await query(`
+            SELECT p.post_id, p.titulo_postagem, p.conteudo_postagem, p.data_postagem, p.foto_postagem, u.nome_usuario, u.foto_perfil, g.nome AS categoria
+            FROM posts p
+            JOIN users u ON p.user_id = u.user_id
+            JOIN games g ON p.games_id = g.games_id
+            WHERE p.user_id = $1
+            ORDER BY p.data_postagem DESC
+            `, [user_id])
 
-        return recordset
-    },*/
+        return rows
+    },
 
 
 
