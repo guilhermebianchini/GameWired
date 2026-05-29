@@ -102,16 +102,23 @@ const postController = {
 
     async getPostsByUser(req, res) {
         try {
-            const user_id = req.user.id
 
-            const posts = await postRepository.getByUser(user_id)
+            const userId = req.user.id
+            const { cursor } = req.query
 
-            res.json(posts)
-        } catch (e) {
-            console.error(e)
-            res.status(500).json({
+            const result = await PostsRepository.readByUser(
+                userId,
+                cursor ? Number(cursor) : null
+            )
+
+            return res.status(200).json(result)
+
+        } catch (error) {
+            console.error(error)
+
+            return res.status(500).json({
                 ok: false,
-                message: "Erro ao buscar posts do usuário!"
+                message: "Erro ao carregar posts!"
             })
         }
     },

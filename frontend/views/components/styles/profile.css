@@ -105,9 +105,85 @@ body {
     gap: 1em;
 }
 
-.middle h1 {
-    font-size: 30px;
-    font-weight: 700;
+.middle #postsContainer {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    gap: 0.8em;
+}
+
+.middle #postsContainer .post {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-Background);
+    padding: 1em;
+    border-radius: 10px;
+    gap: 1em;
+}
+
+.middle #postsContainer .post .post_origem {
+    display: flex;
+    gap: 1em;
+}
+
+.middle #postsContainer .post .user_photo {
+    img {
+        height: 65px;
+        border-radius: 10px;
+    }
+}
+
+.middle #postsContainer .post .infos_post {
+    display: flex;
+    flex-direction: column;
+
+    .username {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .Catg {
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--bg-Button);
+    }
+}
+
+.middle #postsContainer .post .content_post {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.middle #postsContainer .post .dataPost {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.loading-posts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.loading-posts.hidden {
+  display: none;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 4px solid #d9d9d9;
+  border-top: 4px solid #555;
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media screen and (max-width: 1024px) {

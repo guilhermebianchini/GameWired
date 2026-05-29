@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,42 +23,48 @@
 
   <title>GameWired | Meu Perfil</title>
 </head>
-
 <body>
   <div id="header"></div>
 
   <main id="profile">
     <section class="container__profile">
       <aside>
-          <form class="user">
-              <img id="foto_perfil" class="foto-perfil" src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1776181814/user-default_gcbfvc.jpg" alt="Foto de Perfil"/>
-              <input type="file" id="inputFoto" accept="image/*" style="display:none;">
+        <form class="user">
+          <img id="foto_perfil" class="foto-perfil"
+            src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1776181814/user-default_gcbfvc.jpg"
+            alt="Foto de Perfil" />
+          <input type="file" id="inputFoto" accept="image/*" style="display:none;">
 
-              <h4 id="nome_usuario"></h4>
+          <h4 id="nome_usuario"></h4>
 
-              <textarea id="bio" placeholder="Escreva sua bio e seus jogos favoritos..."></textarea>
+          <textarea id="bio" placeholder="Escreva sua bio e seus jogos favoritos..."></textarea>
 
-              <div class="btns">
-                <button type="button" id="btnSalvar" class="btn-salvar"><i class="bi bi-floppy2-fill"></i> Salvar</button>
-                <button type="reset"><i class="bi bi-trash-fill"></i> Limpar</button>
-              </div>
-          </form>
+          <div class="btns">
+            <button type="button" id="btnSalvar" class="btn-salvar"><i class="bi bi-floppy2-fill"></i> Salvar</button>
+            <button type="reset"><i class="bi bi-trash-fill"></i> Limpar</button>
+          </div>
+        </form>
       </aside>
 
       <section class="middle">
         <div id="postsContainer"></div>
+
+        <div id="loadingPosts" class="hidden">
+          <div class="spinner"></div>
+        </div>
+
+        <div id="sentinelaPosts"></div>
       </section>
     </section>
   </main>
 
   <div id="footer"></div>
-  
+
+  <script src="/frontend/views/components/scripts/profile.js" defer></script>
   <script src="/frontend/views/components/global/global-js/global-footer-header.js"></script>
   <script src="/frontend/public/assets/scripts/_auth.js"></script>
   <script src="/frontend/public/assets/scripts/_navBar.js"></script>
   <script src="/frontend/public/assets/scripts/_temas.js"></script>
-
-  <script src="/frontend/views/components/scripts/profile.js"></script>
 
 </body>
 </html>

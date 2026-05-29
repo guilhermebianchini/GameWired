@@ -89,21 +89,43 @@ const postRepository = {
         return rows[0]
     },
 
-    async getByUser(user_id) {
+    async readByUser(user_id, cursor = null) {
 
-        const { rows } = await query(`
-            SELECT p.post_id, p.titulo_postagem, p.conteudo_postagem, p.data_postagem, p.foto_postagem, u.nome_usuario, u.foto_perfil, g.nome AS categoria
-            FROM posts p
-            JOIN users u ON p.user_id = u.user_id
-            JOIN games g ON p.games_id = g.games_id
-            WHERE p.user_id = $1
-            ORDER BY p.data_postagem DESC
-            `, [user_id])
+        const params = [user_id]
 
-        return rows
+        let sql = `
+        SELECT
+            p.post_id,
+            p.titulo_postagem,
+            p.conteudo_postagem,
+            p.data_postagem,
+            p.foto_postagem,
+            u.nome_usuario,
+            u.foto_perfil,
+            g.nome AS categoria
+        FROM posts p
+        JOIN users u ON p.user_id = u.user_id
+        JOIN games g ON p.games_id = g.games_id
+        WHERE p.user_id = $1
+    `
+
+        if (cursor) {
+            sql += ` AND p.post_id < $2`
+            params.push(cursor)
+        }
+
+        sql += `
+        ORDER BY p.post_id DESC
+        LIMIT 10
+    `
+
+        const { rows } = await query(sql, params)
+
+        return {
+            posts: rows,
+            nextCursor: rows.at(-1)?.post_id ?? null
+        }
     },
-
-
 
     async readByLatestPosts() {
 
