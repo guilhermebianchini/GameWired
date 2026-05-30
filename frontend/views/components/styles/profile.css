@@ -26,9 +26,9 @@ body {
 }
 
 .container__profile aside {
-    height: max-content;
     position: sticky;
     width: 30vw;
+    height: 85vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -40,6 +40,7 @@ body {
 
 .container__profile aside .user {
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
@@ -58,13 +59,13 @@ body {
 }
 
 .container__profile aside .user textarea {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     resize: none;
     overflow: hidden;
-    min-height: 60px;
-    max-height: 300px;
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
+    min-height: 120px;
+    margin-top: 10px;
     align-items: center;
     color: var(--bg-Font);
     background: var(--bg-Background);
@@ -87,29 +88,100 @@ body {
     padding: 0.8em;
 
     &:hover {
-      transition: 0.3s;
-      color: var(--bg-Button);
+        transition: 0.3s;
+        color: var(--bg-Button);
     }
 }
 
 .middle {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: flex-start;
     width: 65vw;
-    height: max-content;
+    height: 85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
     background: var(--bg-Card);
     border-radius: 10px;
-    padding: 20px;
+    padding: 1em;
     gap: 1em;
+}
+
+.middle h1 {
+    font-size: 30px;
+    font-weight: 700;
+    width: max-content;
+    background-color: var(--bg-Background);
+    padding: 0.4em;
+    border-radius: 10px;
+}
+
+.middle::-webkit-scrollbar {
+    width: 8px;
+}
+
+.middle::-webkit-scrollbar-track {
+    background: #1f1f1f;
+}
+
+.middle::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 10px;
+}
+
+.middle::-webkit-scrollbar-thumb:hover {
+    background: #888;
 }
 
 .middle #postsContainer {
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+    margin-top: 1em;
     gap: 0.8em;
+}
+
+.post_menu {
+    position: relative;
+    margin-left: auto;
+}
+
+.post_menu button {
+    background: none;
+    border: none;
+    font-size: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--bg-Font);
+}
+
+.menu_options {
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 0;
+    width: 150px;
+    background: var(--bg-Card);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    padding: 5px;
+    z-index: 10;
+}
+
+.menu_options button {
+    padding: 8px 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--bg-Font);
+    font-size: 16px;
+}
+
+.menu_options button:hover {
+    color: var(--bg-Button);
 }
 
 .middle #postsContainer .post {
@@ -128,7 +200,7 @@ body {
 
 .middle #postsContainer .post .user_photo {
     img {
-        height: 65px;
+        height: 60px;
         border-radius: 10px;
     }
 }
@@ -140,12 +212,6 @@ body {
     .username {
         font-size: 24px;
         font-weight: 600;
-    }
-
-    .Catg {
-        font-size: 16px;
-        font-weight: 300;
-        color: var(--bg-Button);
     }
 }
 
@@ -160,119 +226,45 @@ body {
     font-weight: 500;
 }
 
-.loading-posts {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+.middle .loading-posts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-.loading-posts.hidden {
-  display: none;
+.middle .loading-posts.hidden {
+    display: none;
 }
 
-.spinner {
-  width: 32px;
-  height: 32px;
-  border: 4px solid #d9d9d9;
-  border-top: 4px solid #555;
-  border-radius: 50%;
-  animation: girar 0.8s linear infinite;
+.middle .loading-posts.hidden .spinner {
+    width: 32px;
+    height: 32px;
+    border: 4px solid #d9d9d9;
+    border-top: 4px solid #555;
+    border-radius: 50%;
+    animation: girar 0.8s linear infinite;
 }
 
 @keyframes girar {
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @media screen and (max-width: 1024px) {
+    .container__profile aside .user img {
+        height: 150px;
+        width: 150px;
+        border-radius: 10px;
+    }
 
-    .container__profile {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 2%;
-        position: relative;
-        z-index: 1;
-        margin-bottom: 1.5em;
-
-        aside {
-            height: max-content;
-            position: sticky;
-            width: 35vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: var(--bg-Card);
-            border-radius: 10px;
-            padding: 20px;
-            gap: 1em;
-
-            .user {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
-                width: 100%;
-                gap: 0.5em;
-
-                img {
-                    height: 150px;
-                    width: 150px;
-                    border-radius: 50%;
-                }
-
-                .foto-perfil {
-                    cursor: pointer;
-                }
-
-                textarea {
-                    resize: none;
-                    margin-top: 20px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    color: var(--bg-Font);
-                    background: var(--bg-Background);
-                    border-radius: 10px;
-                    padding: 10px;
-                    width: 100%;
-                    font-size: 16px;
-                }
-
-                btns {
-                    display: flex;
-                }
-
-                button {
-                    color: var(--bg-Font);
-                    background: var(--bg-Background);
-                    border-radius: 10px;
-                    padding: 10px;
-                    margin-top: 15px;
-                    font-size: 16px;
-                }
-            }
-        }
-
-        .middle {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 60vw;
-            height: max-content;
-            position: relative;
-            background: var(--bg-Card);
-            border-radius: 10px;
-            padding: 20px;
-            gap: 1em;
-
-            h1 {
-                font-size: 25px;
-                font-weight: 700;
-            }
-        }
+    .middle h1 {
+        font-weight: 700;
+        width: max-content;
+        background-color: var(--bg-Background);
+        padding: 0.4em;
+        border-radius: 10px;
     }
 }
 
@@ -282,88 +274,40 @@ body {
     .container__profile {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
         align-items: center;
-        gap: 2%;
-        position: relative;
-        z-index: 1;
-        margin-bottom: 1.5em;
+    }
 
-        aside {
-            height: max-content;
-            position: sticky;
-            width: 65vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: var(--bg-Card);
+    .container__profile aside {
+        height: max-content;
+        width: 75vw;
+    }
+
+    .container__profile aside .user img {
+        height: 125px;
+        width: 125px;
+    }
+
+    .middle {
+        height: max-content;
+        width: 75vw;
+        margin-top: 2em;
+    }
+
+    .middle h1 {
+        font-size: 25px;
+        font-weight: 700;
+    }
+
+    .middle #postsContainer .post .user_photo {
+        img {
+            height: 45px;
             border-radius: 10px;
-            padding: 20px;
-            gap: 1em;
-
-            .user {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
-                width: 100%;
-                gap: 0.5em;
-
-                img {
-                    height: 175px;
-                    width: 175px;
-                    border-radius: 50%;
-                }
-
-                .foto-perfil {
-                    cursor: pointer;
-                }
-
-                textarea {
-                    resize: none;
-                    margin-top: 20px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    color: var(--bg-Font);
-                    background: var(--bg-Background);
-                    border-radius: 10px;
-                    padding: 10px;
-                    width: 100%;
-                }
-
-                btns {
-                    display: flex;
-                }
-
-                button {
-                    color: var(--bg-Font);
-                    background: var(--bg-Background);
-                    border-radius: 10px;
-                    padding: 10px;
-                    margin-top: 15px;
-                }
-            }
         }
+    }
 
-        .middle {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 65vw;
-            height: max-content;
-            position: relative;
-            background: var(--bg-Card);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 2em;
-            gap: 1em;
-
-            h1 {
-                font-size: 30px;
-                font-weight: 700;
-            }
-        }
+    .middle #postsContainer .post .dataPost {
+        font-size: 14px;
+        font-weight: 500;
     }
 }
 
@@ -372,89 +316,39 @@ body {
     .container__profile {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        gap: 2%;
-        position: relative;
-        z-index: 1;
-        margin-bottom: 1.5em;
+    }
 
-        aside {
-            height: max-content;
-            position: sticky;
-            width: 65vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: var(--bg-Card);
+    .container__profile aside {
+        height: max-content;
+        width: 75vw;
+    }
+
+    .container__profile aside .user img {
+        height: 125px;
+        width: 125px;
+    }
+
+    .middle {
+        justify-content: flex-start;
+        width: 75vw;
+        height: max-content;
+        margin-top: 2em;
+    }
+
+    .middle h1 {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .middle #postsContainer .post .user_photo {
+        img {
+            height: 45px;
             border-radius: 10px;
-            padding: 20px;
-            gap: 1em;
-
-            .user {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
-                width: 100%;
-                gap: 0.1em;
-
-                img {
-                    height: 125px;
-                    width: 125px;
-                    border-radius: 50%;
-                }
-
-                .foto-perfil {
-                    cursor: pointer;
-                }
-
-                textarea {
-                    resize: none;
-                    margin-top: 20px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    color: var(--bg-Font);
-                    background: var(--bg-Background);
-                    border-radius: 10px;
-                    padding: 10px;
-                    width: 100%;
-                    font-size: 14px;
-                }
-
-                btns {
-                    display: flex;
-                }
-
-                button {
-                    color: var(--bg-Font);
-                    background: var(--bg-Background);
-                    border-radius: 10px;
-                    padding: 10px;
-                    margin-top: 15px;
-                    font-size: 14px;
-                }
-            }
         }
+    }
 
-        .middle {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 65vw;
-            height: max-content;
-            position: relative;
-            background: var(--bg-Card);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 2em;
-            gap: 1em;
-
-            h1 {
-                font-size: 20px;
-                font-weight: 700;
-            }
-        }
+    .middle #postsContainer .post .dataPost {
+        font-size: 12px;
+        font-weight: 500;
     }
 }
