@@ -157,7 +157,6 @@ function montarHTMLPosts(posts) {
 
                 <div class="infos_post">
                     <p class="username">${post.nome_usuario}</p>
-                    <p class="Catg">${post.categoria}</p>
                 </div>
 
                 
@@ -189,7 +188,7 @@ function montarHTMLPosts(posts) {
                 }
             </div>
 
-            <div class="dataPost">
+            <div class="dataPost">${post.categoria} -
                 Data de Publicação:
                 ${new Date(post.data_postagem).toLocaleDateString()}
             </div>
@@ -308,7 +307,7 @@ const observer = new IntersectionObserver(
 );
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await carregarPosts(true);
+    await carregarPosts(true)
 
     const sentinela = document.getElementById("sentinelaPosts")
 

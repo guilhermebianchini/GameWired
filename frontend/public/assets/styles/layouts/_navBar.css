@@ -132,10 +132,10 @@
   flex-direction: column;
   position: fixed;
   height: 100%;
-  width: 50%;
+  width: 100%;
   top: 5em;
   background-color: transparent;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(30px);
   right: 0;
   padding: 1.5rem;
 
