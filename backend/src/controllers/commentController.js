@@ -19,14 +19,7 @@ const commentController = {
 
     async getCommentById(req, res) {
         try {
-            const comentario_id = Number(req.params.comentario_id)
-
-            if (isNaN(comentario_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
+            const comentario_id = req.params.comentario_id
 
             const comentario = await commentRepository.readById(comentario_id)
 
@@ -53,28 +46,7 @@ const commentController = {
     async insertComment(req, res) {
         try {
             const { comentario_conteudo, post_id } = req.body
-            const user_id = Number(req.user_id)
-
-            if (!comentario_conteudo) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Conteúdo do comentário é obrigatório!"
-                })
-            }
-
-            if (isNaN(user_id)) {
-                return res.status(401).json({
-                    ok: false,
-                    message: "Usuário não autenticado!"
-                })
-            }
-
-            if (!post_id) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Post é obrigatório!"
-                })
-            }
+            const user_id = req.user.id
 
             const model = { comentario_conteudo, user_id, post_id }
 
@@ -82,36 +54,22 @@ const commentController = {
 
             res.status(201).json({
                 ok: true,
-                message: 'Comentário inserido com sucesso!',
+                message: "Comentário inserido com sucesso!",
                 data: commentCreated
             })
         } catch (e) {
             console.error(e)
             res.status(500).json({
                 ok: false,
-                message: 'Erro do servidor!'
+                message: "Erro do servidor!"
             })
         }
     },
 
     async getCommentByIdAndUser(req, res) {
         try {
-            const comentario_id = Number(req.params.comentario_id)
-            const user_id = Number(req.user_id)
-
-            if (isNaN(comentario_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
-
-            if (isNaN(user_id)) {
-                return res.status(401).json({
-                    ok: false,
-                    message: "Usuário não autenticado!"
-                })
-            }
+            const comentario_id = req.params.comentario_id
+            const user_id = req.user.id
 
             const comentario = await commentRepository.readByIdAndUser(comentario_id, user_id)
 
@@ -138,29 +96,8 @@ const commentController = {
     async updateComment(req, res) {
         try {
             const model = req.body
-            const comentario_id = Number(req.params.comentario_id)
-            const user_id = Number(req.user_id)
-
-            if (isNaN(comentario_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
-
-            if (isNaN(user_id)) {
-                return res.status(401).json({
-                    ok: false,
-                    message: "Usuário não autenticado!"
-                })
-            }
-
-            if (!model.comentario_conteudo) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Conteúdo do comentário é obrigatório!"
-                })
-            }
+            const comentario_id = req.params.comentario_id
+            const user_id = req.user.id
 
             const existing = await commentRepository.readByIdAndUser(comentario_id, user_id)
 
@@ -179,7 +116,7 @@ const commentController = {
             if (commentUpdated) {
                 return res.status(200).json({
                     ok: true,
-                    message: 'Comentário atualizado com sucesso!',
+                    message: "Comentário atualizado com sucesso!",
                     data: commentUpdated
                 })
             }
@@ -191,7 +128,7 @@ const commentController = {
         } catch (e) {
             res.status(500).json({
                 ok: false,
-                message: 'Erro do servidor!',
+                message: "Erro do servidor!",
                 error: e.message
             })
         }
@@ -199,30 +136,8 @@ const commentController = {
 
     async deleteComment(req, res) {
         try {
-            const comentario_id = Number(req.params.comentario_id)
-            const user_id = Number(req.user_id)
-            const confirma = req.body.key
-
-            if (isNaN(comentario_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
-
-            if (isNaN(user_id)) {
-                return res.status(401).json({
-                    ok: false,
-                    message: "Usuário não autenticado!"
-                })
-            }
-
-            if (confirma !== 'EXCLUIR') {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Confirmação inválida!"
-                })
-            }
+            const comentario_id = req.params.comentario_id
+            const user_id = req.user.id
 
             const existing = await commentRepository.readByIdAndUser(comentario_id, user_id)
 
@@ -238,7 +153,7 @@ const commentController = {
             if (commentDeleted) {
                 return res.status(200).json({
                     ok: true,
-                    message: 'Comentário deletado com sucesso!',
+                    message: "Comentário deletado com sucesso!",
                     data: commentDeleted
                 })
             }
@@ -250,7 +165,7 @@ const commentController = {
         } catch (e) {
             res.status(500).json({
                 ok: false,
-                message: 'Erro do servidor!',
+                message: "Erro do servidor!",
                 error: e.message
             })
         }

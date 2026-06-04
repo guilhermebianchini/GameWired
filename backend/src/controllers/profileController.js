@@ -21,7 +21,8 @@ const profileController = {
     async updateProfile(req, res) {
         try {
             const user_id = req.user.id
-            const { bio } = req.body
+            
+            const bio = req.body.bio?.trim() || null
 
             const fotoUrl = req.file ? req.file.path : null
 

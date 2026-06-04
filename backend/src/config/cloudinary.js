@@ -32,8 +32,22 @@ const storageNews = new CloudinaryStorage({
   }
 })
 
-export const uploadPerfil = multer({ storage: storagePerfil })
-export const uploadPosts = multer({ storage: storagePosts })
-export const uploadNews = multer({ storage: storageNews })
+// TAMANHO MÁXIMO DE 5MB
+
+export const uploadPerfil = multer({
+  storage: storagePerfil, limits: {
+    fileSize: 5 * 1024 * 1024
+  }
+})
+export const uploadPosts = multer({
+  storage: storagePosts, limits: {
+    fileSize: 5 * 1024 * 1024
+  }
+})
+export const uploadNews = multer({
+  storage: storageNews, limits: {
+    fileSize: 5 * 1024 * 1024
+  }
+})
 
 export default cloudinary

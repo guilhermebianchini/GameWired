@@ -30,14 +30,6 @@ const commentRepository = {
 
     async create(comentario) {
 
-        if (!comentario.comentario_conteudo) {
-            throw new Error("Conteúdo do comentário é obrigatório!")
-        }
-
-        if (!comentario.user_id) {
-            throw new Error("Usuário é obrigatório!")
-        }
-
         if (!comentario.post_id) {
             throw new Error("Post é obrigatório!")
         }
@@ -71,13 +63,6 @@ const commentRepository = {
 
     async update(comentario) {
 
-        const existing = await this.readByIdAndUser(comentario.comentario_id, comentario.user_id)
-        if (!existing) throw new Error("Comentário não encontrado ou não pertence ao usuário!")
-
-        if (!comentario.comentario_conteudo) {
-            throw new Error("Conteúdo do comentário é obrigatório!")
-        }
-
         const sql = `UPDATE comentarios
         SET comentario_conteudo=$1
         WHERE comentario_id=$2
@@ -96,9 +81,6 @@ const commentRepository = {
 
     async delete(comentario_id, user_id) {
         
-        const existing = await this.readByIdAndUser(comentario_id, user_id)
-        if (!existing) throw new Error("Comentário não encontrado ou não pertence ao usuário!")
-
         const { rows } = await query(`DELETE FROM comentarios
             WHERE comentario_id=$1
             AND user_id=$2

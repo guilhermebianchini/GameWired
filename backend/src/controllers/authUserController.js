@@ -3,11 +3,11 @@ import bcrypt from 'bcrypt'
 
 const authUserController = {
 
-    login: async (req, res)=>{
+    login: async (req, res) => {
         if(!req.body.email || !req.body.senha){
             res.status(400).json({
                 ok:false,
-                message:'Corpo padrão ausente!'
+                message:"Corpo padrão ausente!"
             })
 
             return

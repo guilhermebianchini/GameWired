@@ -40,20 +40,6 @@ const userController = {
         try {
             const model = req.body
 
-            if (!model.senha || !model.confirmarSenha) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Senha e confirmação são obrigatórias!"
-                })
-            }
-
-            if (model.senha !== model.confirmarSenha) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "As senhas não coincidem!"
-                })
-            }
-
             delete model.confirmarSenha
 
             model.senha = await auth.crypt(model.senha)
@@ -68,7 +54,7 @@ const userController = {
                 })
             }
 
-            res.status(500).json({
+            return res.status(500).json({
                 ok: false,
                 message: 'Erro ao inserir usuário!',
                 email: model.email
@@ -85,13 +71,6 @@ const userController = {
     async login(req, res) {
         try {
             const { email, senha } = req.body
-
-            if (!email || !senha) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Email e Senha são obrigatórios!"
-                })
-            }
 
             const user = await userRepository.findByEmail(email)
 

@@ -16,7 +16,7 @@ const gameController = {
             const games = await gameRepository.readById(games_id)
 
             if (!games) {
-                return res.status(404).json({ mensagem: "Jogo não encontrado" })
+                return res.status(404).json({ mensagem: "Jogo não encontrado!" })
             }
 
             res.json(games)

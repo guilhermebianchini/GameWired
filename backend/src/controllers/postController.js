@@ -1,44 +1,13 @@
 import postRepository from "../repositories/postRepository.js"
 
 const postController = {
-    /*async getAllPosts(req, res) {
-        try {
-            const { games_id } = req.query
-
-            const posts = games_id
-                ? await postRepository.readByGameId(Number(games_id))
-                : await postRepository.readAll()
-
-            res.json(posts)
-        } catch (e) {
-            console.error(e)
-            res.status(500).json({
-                ok: false,
-                message: "Erro ao buscar posts!"
-            })
-        }
-    },*/
 
     async getAllPostsCursor(req, res) {
         try {
 
-            const cursor = req.query.cursor ? parseInt(req.query.cursor) : null
-            const games_id = req.query.games_id ? parseInt(req.query.games_id) : null
+            const cursor = req.query.cursor || null
+            const games_id = req.query.games_id || null
             const limit = 10
-
-            if (req.query.cursor && isNaN(cursor)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Cursor inválido!"
-                })
-            }
-
-            if (req.query.games_id && isNaN(games_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Jogo inválido!"
-                })
-            }
 
             const data = await postRepository.readAllCursor(limit + 1, cursor, games_id)
 
@@ -68,14 +37,7 @@ const postController = {
 
     async getPostById(req, res) {
         try {
-            const post_id = Number(req.params.post_id)
-
-            if (isNaN(post_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
+            const post_id = req.params.post_id
 
             const post = await postRepository.readById(post_id)
 
@@ -145,13 +107,6 @@ const postController = {
             const { titulo_postagem, conteudo_postagem, games_id } = req.body
             const user_id = req.user.id
 
-            if (!titulo_postagem || !conteudo_postagem) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Título, categoria e conteúdo da postagem são obrigatórios!"
-                })
-            }
-
             const foto_postagem = req.file ? req.file.path : null
 
             const model = {
@@ -159,14 +114,14 @@ const postController = {
                 conteudo_postagem,
                 foto_postagem,
                 user_id,
-                games_id: Number(games_id)
+                games_id: games_id
             }
 
             const postCreated = await postRepository.create(model)
 
             res.status(201).json({
                 ok: true,
-                message: 'Postagem inserida com sucesso!',
+                message: "Postagem inserida com sucesso!",
                 data: postCreated
             })
 
@@ -174,29 +129,15 @@ const postController = {
             console.error(e)
             res.status(500).json({
                 ok: false,
-                message: 'Erro do servidor!'
+                message: "Erro do servidor!"
             })
         }
     },
 
     async getPostByIdAndUser(req, res) {
         try {
-            const post_id = Number(req.params.post_id)
-            const user_id = Number(req.user.id)
-
-            if (isNaN(post_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
-
-            if (isNaN(user_id)) {
-                return res.status(401).json({
-                    ok: false,
-                    message: "Usuário não autenticado!"
-                })
-            }
+            const post_id = req.params.post_id
+            const user_id = req.user.id
 
             const post = await postRepository.readByIdAndUser(post_id, user_id)
 
@@ -224,29 +165,8 @@ const postController = {
     async updatePost(req, res) {
         try {
             const model = req.body
-            const post_id = Number(req.params.post_id)
-            const user_id = Number(req.user.id)
-
-            if (isNaN(post_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
-
-            if (isNaN(user_id)) {
-                return res.status(401).json({
-                    ok: false,
-                    message: "Usuário não autenticado!"
-                })
-            }
-
-            if (!model.titulo_postagem || !model.conteudo_postagem) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Título e conteúdo são obrigatórios!"
-                })
-            }
+            const post_id = req.params.post_id
+            const user_id = req.user.id
 
             const existing = await postRepository.readByIdAndUser(post_id, user_id)
 
@@ -259,7 +179,7 @@ const postController = {
 
             model.post_id = post_id
             model.user_id = user_id
-            model.games_id = Number(model.games_id)
+            model.games_id = model.games_id
 
             model.foto_postagem = req.file ? req.file.path : existing.foto_postagem
 
@@ -268,20 +188,20 @@ const postController = {
             if (postUpdated) {
                 return res.status(200).json({
                     ok: true,
-                    message: 'Post atualizado com sucesso!',
+                    message: "Post atualizado com sucesso!",
                     data: postUpdated
                 })
             }
 
             return res.status(400).json({
                 ok: false,
-                message: 'Nenhuma alteração foi realizada!'
+                message: "Nenhuma alteração foi realizada!"
             })
 
         } catch (e) {
             res.status(500).json({
                 ok: false,
-                message: 'Erro do servidor!',
+                message: "Erro do servidor!",
                 error: e.message
             })
         }
@@ -289,37 +209,15 @@ const postController = {
 
     async deletePost(req, res) {
         try {
-            const post_id = Number(req.params.post_id)
-            const user_id = Number(req.user.id)
-            const confirma = req.body?.key
-
-            if (isNaN(post_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
-
-            if (isNaN(user_id)) {
-                return res.status(401).json({
-                    ok: false,
-                    message: "Usuário não autenticado!"
-                })
-            }
-
-            if (confirma !== 'EXCLUIR') {
-                return res.status(400).json({
-                    ok: false,
-                    message: 'Confirmação inválida!',
-                })
-            }
+            const post_id = req.params.post_id
+            const user_id = req.user.id
 
             const postDeleted = await postRepository.delete(post_id, user_id)
 
             if (postDeleted) {
                 return res.status(200).json({
                     ok: true,
-                    message: 'Post deletado com sucesso!',
+                    message: "Post deletado com sucesso!",
                     data: postDeleted
                 })
             }
@@ -333,7 +231,7 @@ const postController = {
 
             res.status(500).json({
                 ok: false,
-                message: 'Erro do servidor!',
+                message: "Erro do servidor!",
                 error: e.message
             })
         }

@@ -41,7 +41,7 @@ form.addEventListener("submit", async (e) => {
     confirmarSenha: document.getElementById("confirmarSenha").value
   }
 
-  const url = "https://gamewired-api.duckdns.org/users/register";
+  const url = "https://gamewired-api.duckdns.org/users/register"
 
   const res = await fetch(url, {
     headers: { "Content-Type": "application/json" },
@@ -52,7 +52,6 @@ form.addEventListener("submit", async (e) => {
   const result = await res.json()
 
   if (res.ok) {
-
     Swal.fire({
       icon: 'success',
       title: `Cadastro realizado com sucesso!`,
@@ -98,13 +97,6 @@ function nome_usuarioIsValid(value) {
   }
 
   const regex = /^[a-zA-Z0-9_]+$/
-
-  //NOME COMPLETO: /^[A-Z][a-z].* [A-Z][a-z].*/
-
-  //if (!regex.test(value)) {
-  //  validator.isValid = false
-  //  validator.errorMessage = 'Preencha o nome completo corretamente'
-  //}
 
   return validator
 }
@@ -172,12 +164,9 @@ function senhaIsSecure(value) {
   if (!regex.test(value)) {
     validator.isValid = false
     validator.errorMessage = `
-            Sua senha deve conter as menos: <br/>
-            8 dígitos; <br/>
-            1 letra minúscula; <br/>
-            1 letra maiúscula; <br/>
-            1 número; <br/>
-            1 caractere especial (@,$ ou #).
+            Sua senha deve conter ao menos 8 dígitos, 1 letra <br>
+            minúscula, 1 letra maiúscula, 1 número e 1 caractere <br>
+            especial (@,$ ou #).
         `
     return validator
   }

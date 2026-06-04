@@ -2,20 +2,26 @@ import newsRepository from "../repositories/newsRepository.js"
 
 const newsController = {
     async getAllNews(req, res) {
-        const news = await newsRepository.readAll()
-        res.json(news)
+        try {
+
+            const news = await newsRepository.readAll()
+
+            res.status(200).json(news)
+
+        } catch (e) {
+
+            console.error(e)
+
+            res.status(500).json({
+                ok: false,
+                message: "Erro ao buscar notícias!"
+            })
+        }
     },
 
     async getNewsById(req, res) {
         try {
-            const news_id = Number(req.params.news_id)
-
-            if (isNaN(news_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
+            const news_id = req.params.news_id
 
             const news = await newsRepository.readById(news_id)
 
@@ -60,14 +66,7 @@ const newsController = {
         try {
             const { titulo, data_publicacao, subtitulo, conteudo, fonte } = req.body
             const img_noticia = req.file?.path
-            const user_id = req.user_id
-
-            if (!titulo || !data_publicacao || !subtitulo || !img_noticia || !conteudo || !fonte) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Os campos de título, data da publicação, subtítulo, imagem, conteúdo e fonte são obrigatórios!"
-                })
-            }
+            const user_id = req.user.id
 
             const model = {
                 titulo,
@@ -97,22 +96,8 @@ const newsController = {
 
     async getNewstByIdAndUser(req, res) {
         try {
-            const news_id = Number(req.params.news_id)
-            const user_id = Number(req.user.id)
-
-            if (isNaN(news_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
-
-            if (isNaN(user_id)) {
-                return res.status(401).json({
-                    ok: false,
-                    message: "Usuário não autenticado!"
-                })
-            }
+            const news_id = req.params.news_id
+            const user_id = req.user.id
 
             const news = await newsRepository.readByIdAndUser(news_id, user_id)
 
@@ -140,29 +125,8 @@ const newsController = {
     async updateNews(req, res) {
         try {
             const model = req.body
-            const news_id = Number(req.params.news_id)
+            const news_id = req.params.news_id
             const user_id = req.user.id
-
-            if (isNaN(news_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
-
-            if (isNaN(user_id)) {
-                return res.status(401).json({
-                    ok: false,
-                    message: "Usuário não autenticado!"
-                })
-            }
-
-            if (!model.titulo || !model.data_publicacao || !model.subtitulo || !model.conteudo || !model.fonte) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Os campos de título, data da publicação, subtítulo, imagem, conteúdo e fonte são obrigatórios!"
-                })
-            }
 
             const existing = await newsRepository.readByIdAndUser(news_id, user_id)
 
@@ -203,30 +167,8 @@ const newsController = {
 
     async deleteNews(req, res) {
         try {
-            const news_id = Number(req.params.news_id)
-            const user_id = Number(req.user.id)
-            const confirma = req.body?.key
-
-            if (isNaN(news_id)) {
-                return res.status(400).json({
-                    ok: false,
-                    message: "ID inválido!"
-                })
-            }
-
-            if (isNaN(user_id)) {
-                return res.status(401).json({
-                    ok: false,
-                    message: "Usuário não autenticado!"
-                })
-            }
-
-            if (confirma !== 'EXCLUIR') {
-                return res.status(400).json({
-                    ok: false,
-                    message: "Confirmação inválida!"
-                })
-            }
+            const news_id = req.params.news_id
+            const user_id = req.user.id
 
             const newsDeleted = await newsRepository.delete(news_id, user_id)
 

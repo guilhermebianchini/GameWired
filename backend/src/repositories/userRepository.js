@@ -45,6 +45,15 @@ const userRepository = {
         return rows[0]
     },
 
+    async findByUsername(nome_usuario) {
+        const { rows } = await query(
+            'SELECT * FROM users WHERE nome_usuario = $1',
+            [nome_usuario]
+        )
+
+        return rows[0]
+    },
+
     async findByEmail(email) {
         const { rows } = await query(
             'SELECT * FROM users WHERE email = $1',

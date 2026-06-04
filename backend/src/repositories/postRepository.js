@@ -2,18 +2,6 @@ import query from "../config/connection.js"
 
 const postRepository = {
 
-    /*async readAll() {
-        const conn = await connect()
-
-        const { recordset } = await conn.query(`SELECT p.post_id, p.titulo_postagem, p.conteudo_postagem, p.data_postagem, p.foto_postagem, p.user_id, p.games_id, u.nome_usuario, u.foto_perfil, g.nome AS categoria
-            FROM Posts p
-            JOIN Users u ON p.user_id = u.user_id
-            JOIN Games g ON p.games_id = g.games_id
-            ORDER BY p.data_postagem DESC`)
-
-        return recordset
-    },*/
-
     async readAllCursor(limit, cursor = null, games_id = null) {
 
         let sql = `
