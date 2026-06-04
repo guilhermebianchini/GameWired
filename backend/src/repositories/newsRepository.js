@@ -4,7 +4,10 @@ const newsRepository = {
 
     async readAll() {
 
-        const { rows } = await query(`SELECT * FROM news`)
+        const { rows } = await query(`
+            SELECT * FROM news
+            ORDER BY n.data_publicacao DESC
+            `)
 
         return rows
     },
@@ -44,10 +47,6 @@ const newsRepository = {
     },
 
     async create(news) {
-
-        if (!news.titulo || !news.data_publicacao || !news.subtitulo || !news.img_noticia || !news.conteudo || !news.fonte) {
-            throw new Error("Os campos de título, data da publicação, subtítulo, imagem, conteúdo e fonte são obrigatórios!")
-        }
 
         const sql = `
         INSERT INTO news (titulo, data_publicacao, subtitulo, img_noticia, conteudo, fonte, user_id)

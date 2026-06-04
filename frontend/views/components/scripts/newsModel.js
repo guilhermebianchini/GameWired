@@ -9,12 +9,15 @@ function fullNotice(news) {
 
         <h2 class="title">${news.titulo}</h2>
 
-        <span class="date"><strong>Editor: </strong>${news.nome_usuario} - <strong>Publicado em: </strong>${new Date(news.data_publicacao).toLocaleDateString('pt-BR')}</span>
+        <span class="date">
+            <strong>Editor: </strong>${news.nome_usuario} <br>
+            <strong>Publicado em: </strong>${new Date(news.data_publicacao).toLocaleDateString('pt-BR')}
+        </span>
 
         <div class="head">
-          <p>${news.subtitulo}</p>
+            <p>${news.subtitulo}</p>
 
-          <img src="${news.img_noticia}" alt="${news.titulo}" class="img" loading="lazy"/>
+            <img src="${news.img_noticia}" alt="${news.titulo}" class="img" loading="lazy"/>
         </div>
 
         <div class="txt-notice">

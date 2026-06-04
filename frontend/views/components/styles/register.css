@@ -67,6 +67,7 @@
         }
 
         .error {
+          text-align: center;
           color: var(--bg-Button);
           font-size: 1rem;
         }

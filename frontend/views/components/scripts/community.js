@@ -125,6 +125,35 @@ form.addEventListener("submit", async (e) => {
 
   const token = localStorage.getItem("token")
 
+  const fields = [
+    { id: 'titulo_postagem', validator: tituloPostagemIsValid },
+    { id: 'conteudo_postagem', validator: conteudoPostagemIsValid },
+    { id: 'categoria_postagem', validator: categoriaPostagemIsValid },
+    { id: 'foto_postagem', validator: fotoPostagemIsValid }
+  ]
+
+  const errorIcon = '<i class="fa-solid fa-triangle-exclamation"></i>'
+
+  fields.forEach(function (field) {
+    const input = document.getElementById(field.id)
+    const inputBox = input.closest('.input-box')
+    const inputValue = input.value
+
+    const errorSpan = inputBox.querySelector('.error')
+    errorSpan.innerHTML = ''
+
+    inputBox.classList.remove('invalid')
+    inputBox.classList.add('valid')
+
+    const fieldValidator = field.validator(inputValue)
+
+    if (!fieldValidator.isValid) {
+      errorSpan.innerHTML = `${errorIcon} ${fieldValidator.errorMessage}`
+      inputBox.classList.add('invalid')
+      inputBox.classList.remove('valid')
+    }
+  })
+
   const titulo = document.getElementById("titulo_postagem").value.trim()
   const conteudo = document.getElementById("conteudo_postagem").value.trim()
   const categoria = document.getElementById("categoria_postagem").value
@@ -135,17 +164,6 @@ form.addEventListener("submit", async (e) => {
       icon: "error",
       title: "Você precisa estar logado!",
       text: "Faça login para criar uma postagem.",
-      confirmButtonColor: "#8863e7",
-      confirmButtonText: "Continuar"
-    })
-    return
-  }
-
-  if (!titulo || !conteudo || !categoria) {
-    Swal.fire({
-      icon: "warning",
-      title: "Preencha todos os dados!",
-      text: "Os campos de título, jogo e conteúdo são obrigatórios.",
       confirmButtonColor: "#8863e7",
       confirmButtonText: "Continuar"
     })
@@ -204,6 +222,115 @@ form.addEventListener("submit", async (e) => {
     console.error("Erro ao criar postagem:", err)
   }
 })
+
+function isEmpty(value) {
+  return value === ''
+}
+
+function tituloPostagemIsValid(value) {
+  const validator = {
+    isValid: true,
+    errorMessage: null
+  }
+
+  if (isEmpty(value)) {
+    validator.isValid = false
+    validator.errorMessage = 'O título é obrigatório!'
+    return validator
+  }
+
+  const min = 5
+
+  if (value.length < min) {
+    validator.isValid = false
+    validator.errorMessage = `O campo deve ter no mínimo ${min} caracteres!`
+    return validator
+  }
+
+  const max = 200
+
+  if (value.length > max) {
+    validator.isValid = false
+    validator.errorMessage = `O campo deve ter no máximo ${max} caracteres!`
+    return validator
+  }
+
+  const regex = /^[^<>]+$/
+
+  if (!regex.test(value)) {
+    validator.isValid = false
+    validator.errorMessage = 'O título não pode conter caracteres "<" ou ">"!'
+    return validator
+  }
+
+  return validator
+}
+
+function conteudoPostagemIsValid(value) {
+  const validator = {
+    isValid: true,
+    errorMessage: null
+  }
+
+  if (isEmpty(value)) {
+    validator.isValid = false
+    validator.errorMessage = 'O conteúdo é obrigatório!'
+    return validator
+  }
+
+  const min = 5
+
+  if (value.length < min) {
+    validator.isValid = false
+    validator.errorMessage = `O campo deve ter no mínimo ${min} caracteres!`
+    return validator
+  }
+
+  const max = 1500
+
+  if (value.length > max) {
+    validator.isValid = false
+    validator.errorMessage = `O campo deve ter no máximo ${max} caracteres!`
+    return validator
+  }
+
+  return validator
+}
+
+function categoriaPostagemIsValid(value) {
+  const validator = {
+    isValid: true,
+    errorMessage: null
+  }
+
+  if (isEmpty(value)) {
+    validator.isValid = false
+    validator.errorMessage = 'A categoria é obrigatória!'
+    return validator
+  }
+
+  return validator
+}
+
+function fotoPostagemIsValid(value) {
+  const validator = {
+    isValid: true,
+    errorMessage: null
+  }
+
+  const fileInput = document.getElementById('foto_postagem')
+
+  const file = fileInput.files[0]
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
+
+  if (!allowedTypes.includes(file.type)) {
+    validator.isValid = false
+    validator.errorMessage = 'Formato inválido! Use JPEG, PNG ou JPG.'
+    return validator
+  }
+
+  return validator
+}
 
 // SELECT COM OS JOGOS (MODAL DE POSTAGEM)
 

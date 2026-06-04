@@ -87,24 +87,11 @@
 
 .modal-content form {
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 10px;
     gap: 1.2rem;
-}
-
-.modal-content form textarea {
-    resize: none;
-    overflow: hidden;
-}
-
-.modal-content form .titleCatg .title {
-    width: 90%;
-    height: 40px;
-    border-radius: 10px;
-    padding: 0.6em 0.6em;
-    background-color: var(--bg-Background);
-    color: var(--bg-Font);
 }
 
 .modal-content form .titleCatg {
@@ -120,20 +107,82 @@
     }
 }
 
+.modal-content form textarea {
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+}
+
+.modal-content form .titleCatg .input-box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: stretch;
+}
+
+.modal-content form .titleCatg .input-box:first-child {
+    flex: 3;
+}
+
+.modal-content form .titleCatg .input-box:last-child {
+    flex: 1.5;
+}
+
+.modal-content form .input-box {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.modal-content form .titleCatg .title {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    padding: 0.6em 0.6em;
+    background-color: var(--bg-Background);
+    color: var(--bg-Font);
+}
+
 .modal-content form .titleCatg .postCategoria {
+    width: 100%;
+    height: 40px;
     border-radius: 10px;
     padding: 0.3em 0.6em;
     background-color: var(--bg-Background);
     color: var(--bg-Font);
 }
 
-.modal-content form .subject {
-    width: 90%;
+.modal-content form .input-box .subject {
+    width: 100%;
     height: 150px;
     border-radius: 10px;
     padding: 0.3em 0.6em;
     background-color: var(--bg-Background);
     color: var(--bg-Font);
+}
+
+.modal-content form .input-box .imgPost {
+    width: 100%;
+    padding: 0.5em 0.5em;
+    border-radius: 10px;
+    background-color: var(--bg-Background);
+}
+
+.modal-content form .error {
+    color: var(--bg-Button);
+    font-size: 1rem;
+}
+
+.input-box.valid textarea {
+  border: 1px solid #74fc6f;
+}
+
+.input-box.valid select {
+  border: 1px solid #74fc6f;
+}
+
+.input-box.valid input {
+  border: 1px solid #74fc6f;
 }
 
 .container__community .left .community-select {
@@ -217,12 +266,14 @@
     gap: 0.8em;
 }
 
-.comment_menu, .post_menu {
+.comment_menu,
+.post_menu {
     position: relative;
     margin-left: auto;
 }
 
-.comment_menu button, .post_menu button {
+.comment_menu button,
+.post_menu button {
     background: none;
     border: none;
     font-size: 25px;
@@ -379,29 +430,29 @@
 }
 
 .loading-posts {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 .loading-posts.hidden {
-  display: none;
+    display: none;
 }
 
 .spinner {
-  width: 32px;
-  height: 32px;
-  border: 4px solid #d9d9d9;
-  border-top: 4px solid #555;
-  border-radius: 50%;
-  animation: girar 0.8s linear infinite;
+    width: 32px;
+    height: 32px;
+    border: 4px solid #d9d9d9;
+    border-top: 4px solid #555;
+    border-radius: 50%;
+    animation: girar 0.8s linear infinite;
 }
 
 @keyframes girar {
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @media screen and (max-width: 1024px) {

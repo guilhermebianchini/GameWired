@@ -1,3 +1,118 @@
+// FORMULÁRIO DE POSTAGEM E VALIDAÇÃO
+
+const form = document.querySelector("#form")
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault()
+
+  const token = localStorage.getItem("token")
+
+  const titulo = document.getElementById("titulo_postagem").value.trim()
+  const conteudo = document.getElementById("conteudo_postagem").value.trim()
+  const categoria = document.getElementById("categoria_postagem").value
+  const fileInput = document.getElementById("foto_postagem")
+
+  if (!token) {
+    Swal.fire({
+      icon: "error",
+      title: "Você precisa estar logado!",
+      text: "Faça login para criar uma postagem.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+    return
+  }
+
+  if (!titulo || !conteudo || !categoria) {
+    Swal.fire({
+      icon: "warning",
+      title: "Preencha todos os dados!",
+      text: "Os campos de título, jogo e conteúdo são obrigatórios.",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    })
+    return
+  }
+
+  const formData = new FormData()
+  formData.append("titulo_postagem", titulo)
+  formData.append("conteudo_postagem", conteudo)
+  formData.append("games_id", categoria)
+
+  if (fileInput.files.length > 0) {
+    formData.append("foto_postagem", fileInput.files[0])
+  }
+
+  let url = "https://gamewired-api.duckdns.org/posts"
+  let method = "POST"
+
+  if (editandoId) {
+    url = `https://gamewired-api.duckdns.org/posts/${editandoId}`
+    method = "PATCH"
+  }
+
+  try {
+    const res = await fetch(url, {
+      method: method,
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formData
+    })
+
+    const result = await res.json()
+
+    if (!res.ok) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro!",
+        text: result.message || "Erro ao criar postagem!",
+        confirmButtonColor: "#8863e7",
+        confirmButtonText: "Continuar"
+      })
+      return
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "Sucesso!",
+      text: result.message || "Postagem feita com sucesso!",
+      confirmButtonColor: "#8863e7",
+      confirmButtonText: "Continuar"
+    }).then(() => {
+      window.location.href = "/perfil"
+    })
+  } catch (err) {
+    console.error("Erro ao criar postagem:", err)
+  }
+})
+
+// SELECT COM OS JOGOS (MODAL DE POSTAGEM)
+
+document.addEventListener("DOMContentLoaded", () => { carregarJogos() })
+
+async function carregarJogos() {
+  try {
+    const res = await fetch("https://gamewired-api.duckdns.org/games/select")
+    const games = await res.json()
+
+    const select = document.getElementById("categoria_postagem")
+
+    select.innerHTML = '<option value="">Selecione um jogo...</option>'
+
+    games.forEach(game => {
+      const option = document.createElement("option")
+      option.value = game.games_id
+      option.textContent = game.nome
+
+      select.appendChild(option)
+    })
+
+  } catch (err) {
+    console.error("Erro ao carregar jogos:", err)
+  }
+}
+
 // CARREGAR FOTO, NOME E BIO - ALTERAÇÃO
 
 document.addEventListener("DOMContentLoaded", () => {

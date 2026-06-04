@@ -26,6 +26,31 @@
 <body>
   <div id="header"></div>
 
+  <div class="create-post">
+    <div class="modal myModal">
+      <div class="modal-content">
+        <form id="form" method="post" class="postForm">
+          <h3>Faça sua postagem na comunidade!</h3>
+          <div class="titleCatg">
+            <textarea name="title" class="title" placeholder="Digite o título do post..."
+              id="titulo_postagem"></textarea>
+            <select name="" class="postCategoria" id="categoria_postagem">
+              <option value=""></option>
+            </select>
+          </div>
+          <textarea name="subject" class="subject" placeholder="Digite o assunto do post..."
+            id="conteudo_postagem"></textarea>
+          <input type="file" id="foto_postagem" accept="image/*">
+
+          <div class="formButtons">
+            <button type="submit" class="sentPost">Enviar</button>
+            <button type="button" class="closeModal">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <main id="profile">
     <section class="container__profile">
       <aside>

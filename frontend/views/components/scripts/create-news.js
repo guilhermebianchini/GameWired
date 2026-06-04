@@ -1,17 +1,57 @@
 // AUTENTICAÇÃO PARA PUBLICAR
 
-function newsAuth() {
+async function newsAuth() {
+
+  console.log("newsAuth executada")
+
   const token = localStorage.getItem("token")
 
-  const newsOff = document.getElementById("newsLoggedOff")
-  const newsIn = document.getElementById("newsLoggedIn")
+  if (!token) {
+    Swal.fire({
+      icon: 'error',
+      title: `Você não está logado!`,
+      text: `Redirecionando para a página de login...`,
+      confirmButtonColor: '#8863e7',
+      confirmButtonText: 'Continuar'
+    }).then(() => {
+      window.location.href = "/login"
+    })
 
-  if (token) {
+    return
+  }
+
+  try {
+    const response = await fetch("https://gamewired-api.duckdns.org/users/me", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    const user = await response.json()
+
+    if (user.user_type !== "admin" && user.user_type !== "editor") {
+      Swal.fire({
+        icon: 'error',
+        title: 'Autenticação inválida!',
+        text: 'Você não é um editor ou administrador para acessar essa página.',
+        confirmButtonColor: '#8863e7',
+        confirmButtonText: 'Continuar'
+      }).then(() => {
+        window.location.href = "/"
+      })
+
+      return
+    }
+
+    const newsOff = document.getElementById("newsLoggedOff")
+    const newsIn = document.getElementById("newsLoggedIn")
+
     newsOff.classList.add("hidden")
     newsIn.classList.remove("hidden")
-  } else {
-    newsOff.classList.remove("hidden")
-    newsIn.classList.add("hidden")
+
+  } catch (error) {
+    console.error("Erro ao autenticar usuário:", error)
+    logout()
   }
 }
 
@@ -184,11 +224,19 @@ function tituloIsValid(value) {
     return validator
   }
 
-  const min = 50
+  const min = 25
 
   if (value.length < min) {
     validator.isValid = false
     validator.errorMessage = `O título deve ter no mínimo ${min} caracteres!`
+    return validator
+  }
+
+  const max = 200
+
+  if (value.length > max) {
+    validator.isValid = false
+    validator.errorMessage = `O título deve ter no máximo ${max} caracteres!`
     return validator
   }
 
@@ -225,11 +273,19 @@ function subtituloIsValid(value) {
     return validator
   }
 
-  const min = 50
+  const min = 25
 
   if (value.length < min) {
     validator.isValid = false
     validator.errorMessage = `O subtítulo deve ter no mínimo ${min} caracteres!`
+    return validator
+  }
+
+  const max = 400
+
+  if (value.length > max) {
+    validator.isValid = false
+    validator.errorMessage = `O subtítulo deve ter no máximo ${max} caracteres!`
     return validator
   }
 
@@ -252,7 +308,7 @@ function imgIsValid(value) {
 
   if (!allowedTypes.includes(file.type)) {
     validator.isValid = false
-    validator.errorMessage = 'Formato inválido! Use JPG, PNG ou JPG.'
+    validator.errorMessage = 'Formato inválido! Use JPEG, PNG ou JPG.'
     return validator
   }
 
@@ -261,11 +317,6 @@ function imgIsValid(value) {
 
 function conteudoIsValid(value) {
   const validator = { isValid: true, errorMessage: null }
-
-  // REMOVE TAGS HTML
-  const text = (value || '')
-    .replace(/<[^>]*>/g, '')
-    .trim()
 
   if (text === '') {
     validator.isValid = false
@@ -278,6 +329,14 @@ function conteudoIsValid(value) {
   if (text.length < min) {
     validator.isValid = false
     validator.errorMessage = `O conteúdo deve ter no mínimo ${min} caracteres!`
+    return validator
+  }
+
+  const max = 3000
+
+  if (text.length > max) {
+    validator.isValid = false
+    validator.errorMessage = `O conteúdo deve ter no máximo ${max} caracteres!`
     return validator
   }
 
@@ -298,6 +357,14 @@ function fonteIsValid(value) {
   if (value.length < min) {
     validator.isValid = false
     validator.errorMessage = `A fonte deve ter no mínimo ${min} caracteres!`
+    return validator
+  }
+
+  const max = 200
+
+  if (text.length > max) {
+    validator.isValid = false
+    validator.errorMessage = `A fonte deve ter no máximo ${max} caracteres!`
     return validator
   }
 
