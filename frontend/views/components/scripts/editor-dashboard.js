@@ -2,8 +2,6 @@
 
 async function newsAuth() {
 
-  console.log("newsAuth executada")
-
   const token = localStorage.getItem("token")
 
   if (!token) {
@@ -51,13 +49,7 @@ async function newsAuth() {
 
   } catch (error) {
     console.error("Erro ao autenticar usuário:", error)
-    logout()
   }
-}
-
-function logout() {
-  localStorage.removeItem("token")
-  window.location.reload()
 }
 
 document.addEventListener("DOMContentLoaded", newsAuth)

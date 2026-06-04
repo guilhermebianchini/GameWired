@@ -37,12 +37,12 @@ async function applyauth() {
             }
         })
 
+        const user = await response.json()
+
         if (!response.ok) {
             logout()
             return
         }
-
-        const user = await response.json()
 
         registerDesktop.style.display = "none"
         registerMobile.style.display = "none"
@@ -66,7 +66,6 @@ async function applyauth() {
         }
 
     } catch (error) {
-
         console.error("Erro ao autenticar usuário:", error)
         logout()
     }
