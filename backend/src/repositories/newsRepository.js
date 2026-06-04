@@ -5,7 +5,7 @@ const newsRepository = {
     async readAll() {
 
         const { rows } = await query(`
-            SELECT * FROM news
+            SELECT * FROM news n
             ORDER BY n.data_publicacao DESC
             `)
 
