@@ -76,8 +76,18 @@ main {
 #preview-imagem {
     display: none;
     max-width: 100%;
-    max-height: 300px;
+    height: auto;
     object-fit: cover;
+    border-radius: 10px;
+    margin: 1em auto;
+}
+
+.hidden {
+    display: none;
+}
+
+#img_noticia {
+  margin-bottom: 0.5em;
 }
 
 #form .input-box .editor {
@@ -95,9 +105,19 @@ main {
   background-color: #1c1c1c;
   color: white;
   font-size: 1rem;
+  outline: none;
+  overflow-wrap: break-word;
+  word-break: break-word;
   vertical-align: top;
   overflow-y: hidden;
   white-space: pre-wrap;
+  overflow-y: auto;
+}
+
+.editor:empty::before {
+  content: attr(data-placeholder);
+  color: #999;
+  pointer-events: none;
 }
 
 .toolbar {

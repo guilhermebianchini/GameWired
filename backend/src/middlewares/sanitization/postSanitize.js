@@ -1,11 +1,22 @@
 import sanitizeHtml from 'sanitize-html'
 
 export const sanitizePost = (req, res, next) => {
-    if (req.body.content) {
-        req.body.content = sanitizeHtml(req.body.content, {
+    if (req.body.titulo_postagem) {
+        req.body.titulo_postagem = sanitizeHtml(
+            req.body.titulo_postagem,
+            {
+                allowedTags: [],
+                allowedAttributes: {}
+            }
+        )
+    }
+
+    if (req.body.conteudo_postagem) {
+        req.body.conteudo_postagem = sanitizeHtml(req.body.conteudo_postagem, {
             allowedTags: [
-                "li", "ol", "ul", "u", "p", "a", "b", "br", "em", "i", "strong", "h2", "h3", "h4", "blockquote"
-            ]
+                "li", "ol", "ul", "u", "p", "a", "b", "br", "em", "i", "strong", "blockquote"
+            ],
+            allowedAttributes: {}
         })
     }
 

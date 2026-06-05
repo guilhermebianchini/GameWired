@@ -63,8 +63,11 @@ export const createNewsValidation = [
         .trim()
         .notEmpty()
         .withMessage("A fonte da notícia é obrigatória!")
-        .isLength({ min: 5, max: 200 })
-        .withMessage("O campo deve ter no mínimo 5 caracteres e no máximo 200 caracteres!")
+        .isURL({
+            protocols: ["http", "https"],
+            require_protocol: true
+        })
+        .withMessage("Informe uma URL válida!")
 ]
 
 export const updateNewsValidation = [
@@ -106,8 +109,11 @@ export const updateNewsValidation = [
         .trim()
         .notEmpty()
         .withMessage("A fonte da notícia é obrigatória!")
-        .isLength({ min: 5, max: 200 })
-        .withMessage("O campo deve ter no mínimo 5 caracteres e no máximo 200 caracteres!")
+        .isURL({
+            protocols: ["http", "https"],
+            require_protocol: true
+        })
+        .withMessage("Informe uma URL válida!")
 ]
 
 export const deleteNewsValidation = [

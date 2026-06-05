@@ -15,7 +15,11 @@
   <link rel="stylesheet" type="text/css"
     href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
 
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
   <link rel="stylesheet" href="/frontend/public/assets/styles/main.css" />
 
@@ -63,19 +67,20 @@
             <div class="input-box">
               <img id="preview-imagem" src="" alt="Imagem da notícia">
               <input type="file" id="img_noticia" accept="image/*">
+              <small id="imagem-info" class="hidden">A imagem acima já está cadastrada. Escolha outra apenas se desejar substituí-la.</small>
               <span class="error"></span>
             </div>
 
-            <div class="toolbar">
-              <p>Barra de Ferramentas: </p>
-              <button type="button" onclick="execCmd('bold')"><b>B</b></button>
-              <button type="button" onclick="execCmd('italic')"><i>I</i></button>
-              <button type="button" onclick="execCmd('underline')"><u>U</u></button>
-              <button type="button" onclick="execCmd('video')">Vídeo</button>
-            </div>
-
             <div class="input-box">
-              <textarea id="conteudo" class="editor" placeholder="Digite o conteúdo da notícia"></textarea>
+              <div class="toolbar">
+                <p>Barra de Ferramentas: </p>
+                <button type="button" onclick="execCmd('bold')"><b>B</b></button>
+                <button type="button" onclick="execCmd('italic')"><i>I</i></button>
+                <button type="button" onclick="execCmd('underline')"><u>U</u></button>
+                <button type="button" onclick="execCmd('video')">Vídeo</button>
+              </div>
+
+              <div id="conteudo" class="editor" contenteditable="true" data-placeholder="Digite o conteúdo da notícia"></div>
               <span class="error"></span>
             </div>
 

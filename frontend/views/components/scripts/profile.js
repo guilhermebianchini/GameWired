@@ -382,6 +382,21 @@ function limparPosts() {
     }
 }
 
+async function recarregarFeed() {
+  observer.disconnect()
+
+  nextCursor = null
+  hasMore = true
+  loading = false
+
+  await carregarPosts(true)
+
+  const sentinela = document.getElementById("sentinelaPosts")
+  if (sentinela) {
+    observer.observe(sentinela)
+  }
+}
+
 function montarHTMLPosts(posts) {
     return posts.map(post => `
         <div class="post">

@@ -407,10 +407,13 @@ async function editarNews(news_id) {
     console.log(news.img_noticia)
 
     const preview = document.getElementById("preview-imagem")
+    const info = document.querySelector(".imagem-info")
 
     if (news.img_noticia) {
       preview.src = news.img_noticia
       preview.style.display = "block"
+
+      info.classList.remove("hidden")
     }
 
     editandoId = news.news_id

@@ -1,5 +1,6 @@
 import { body, param, validationResult } from 'express-validator'
 import postRepository from '../../repositories/postRepository.js'
+import commentRepository from '../../repositories/commentRepository.js'
 
 const postValidation = body("post_id")
     .notEmpty()
@@ -39,26 +40,40 @@ export const createCommentValidation = [
 ]
 
 export const updateCommentValidation = [
-    commentIDValidation,
+    param("comentario_id")
+    .custom(async (value) => {
+        const comment = await commentRepository.readById(value)
+
+        if (!comment) {
+            throw new Error("Comentário não encontrado!")
+        }
+
+        return true
+    }),
 
     body("comentario_conteudo")
         .trim()
         .notEmpty()
         .withMessage("O conteúdo do comentário é obrigatório!")
         .isLength({ min: 5, max: 500 })
-        .withMessage("O campo deve ter no mínimo 5 caracteres e no máximo 500 caracteres!"),
-
-    postValidation
+        .withMessage("O campo deve ter no mínimo 5 caracteres e no máximo 500 caracteres!")
 ]
 
 export const deleteCommentValidation = [
-    commentIDValidation,
+    param("comentario_id")
+    .custom(async (value) => {
+        const comment = await commentRepository.readById(value)
+
+        if (!comment) {
+            throw new Error("Comentário não encontrado!")
+        }
+
+        return true
+    }),
 
     body("key")
         .equals("EXCLUIR")
-        .withMessage("Confirmação inválida!"),
-
-    postValidation
+        .withMessage("Confirmação inválida!")
 ]
 
 export function validateComment(req, res, next) {
