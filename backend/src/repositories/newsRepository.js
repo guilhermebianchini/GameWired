@@ -46,6 +46,23 @@ const newsRepository = {
         return rows
     },
 
+    async readByLatestNews() {
+
+        const { rows } = await query(`
+            SELECT
+                n.news_id,
+                n.titulo,
+                n.data_publicacao,
+                n.subtitulo,
+                n.img_noticia
+            FROM news n
+            ORDER BY n.data_publicacao DESC
+            LIMIT 3
+        `)
+
+        return rows
+    },
+
     async create(news) {
 
         const sql = `

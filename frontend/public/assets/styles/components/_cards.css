@@ -500,7 +500,7 @@
   padding: 1.5em;
   max-height: max-content;
   width: 314px;
-  height: 350px;
+  height: 314px;
   border-radius: 10px;
   margin-top: 1vh;
 
@@ -508,6 +508,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    margin-bottom: 1.2em;
 
     img {
       height: 40px;
@@ -527,6 +528,7 @@
     span {
       color: var(--bg-Button);
       font-size: 1rem;
+      margin-bottom: 0.8em;
     }
 
     p {

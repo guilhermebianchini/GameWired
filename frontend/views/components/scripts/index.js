@@ -51,7 +51,7 @@ function renderizarNews(news) {
 
 async function carregarNoticias() {
   try {
-    const response = await fetch("https://gamewired-api.duckdns.org/news/")
+    const response = await fetch("https://gamewired-api.duckdns.org/news/latest")
 
     const noticias = await response.json()
 
@@ -184,12 +184,6 @@ function previewPosts(posts) {
               <span>${post.categoria}</span>
 
               <p>${resumo}</p>
-            </div>
-
-            <div class="btn-linkCommunity">
-              <a href="/comunidade" class="link-community">
-                Leia mais! <i class="ph ph-arrow-right"></i>
-              </a>
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@
   margin: 2vh 0;
   padding: 4em 0;
 
-    h2 {
+  h2 {
     margin: 1vh 0;
     margin-bottom: 0.5em;
   }
@@ -30,7 +30,7 @@
 .container-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3em;
+  gap: 2.5em;
   justify-items: center;
 }
 
@@ -108,16 +108,28 @@
   height: 100%;
   margin-bottom: 8em;
   width: 80%;
+}
 
-  #postsContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    gap: 4em;
+.community a {
+  font-size: clamp(2rem, 3.5vw + 1rem, 2.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+
+  &:hover {
+    transition: 0.3s;
+    color: var(--bg-Button);
   }
 }
+
+.community #postsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 5em;
+}
+
 
 .developers {
   display: flex;

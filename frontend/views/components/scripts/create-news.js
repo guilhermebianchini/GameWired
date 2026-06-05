@@ -108,10 +108,7 @@ form.addEventListener("submit", async (e) => {
   fields.forEach(function (field) {
     const input = document.getElementById(field.id)
     const inputBox = input.closest('.input-box')
-    const inputValue =
-      field.id === "conteudo"
-        ? input.innerHTML
-        : input.value
+    const inputValue = input.value
 
     const errorSpan = inputBox.querySelector('.error')
     errorSpan.innerHTML = ''
@@ -139,7 +136,7 @@ form.addEventListener("submit", async (e) => {
   const data_publicacao = document.getElementById("data_publicacao").value.trim()
   const subtitulo = document.getElementById("subtitulo").value.trim()
   const fileInput = document.getElementById("img_noticia")
-  const conteudo = document.getElementById("conteudo").innerHTML.trim()
+  const conteudo = document.getElementById("conteudo").value.trim()
   const fonte = document.getElementById("fonte").value
 
   const formData = new FormData()
@@ -310,7 +307,7 @@ function imgIsValid(value) {
 function conteudoIsValid(value) {
   const validator = { isValid: true, errorMessage: null }
 
-  if (text === '') {
+  if (isEmpty(value)) {
     validator.isValid = false
     validator.errorMessage = 'O conteúdo não pode estar vazio!'
     return validator
@@ -318,7 +315,7 @@ function conteudoIsValid(value) {
 
   const min = 200
 
-  if (text.length < min) {
+  if (value.length < min) {
     validator.isValid = false
     validator.errorMessage = `O conteúdo deve ter no mínimo ${min} caracteres!`
     return validator
@@ -326,7 +323,7 @@ function conteudoIsValid(value) {
 
   const max = 3000
 
-  if (text.length > max) {
+  if (value.length > max) {
     validator.isValid = false
     validator.errorMessage = `O conteúdo deve ter no máximo ${max} caracteres!`
     return validator
@@ -354,7 +351,7 @@ function fonteIsValid(value) {
 
   const max = 200
 
-  if (text.length > max) {
+  if (value.length > max) {
     validator.isValid = false
     validator.errorMessage = `A fonte deve ter no máximo ${max} caracteres!`
     return validator
@@ -407,12 +404,21 @@ async function editarNews(news_id) {
 
     const news = result.data
 
+    console.log(news.img_noticia)
+
+    const preview = document.getElementById("preview-imagem")
+
+    if (news.img_noticia) {
+      preview.src = news.img_noticia
+      preview.style.display = "block"
+    }
+
     editandoId = news.news_id
 
     document.getElementById("titulo").value = news.titulo
     document.getElementById("data_publicacao").value = news.data_publicacao.split("T")[0]
     document.getElementById("subtitulo").value = news.subtitulo
-    document.getElementById("conteudo").innerHTML = news.conteudo
+    document.getElementById("conteudo").value = news.conteudo
     document.getElementById("fonte").value = news.fonte
 
     document.querySelector(".btn-publish").textContent = "Salvar alterações"
@@ -420,6 +426,36 @@ async function editarNews(news_id) {
     console.error("Erro ao carregar notícia:", err)
   }
 }
+
+const inputImagem = document.getElementById("img_noticia")
+const preview = document.getElementById("preview-imagem")
+
+inputImagem?.addEventListener("change", () => {
+  const file = inputImagem.files[0]
+
+  if (!file) return
+
+  preview.src = URL.createObjectURL(file)
+  preview.style.display = "block"
+})
+
+// RESIZE TEXTAREA
+
+function autoResizeTextarea(textarea) {
+  textarea.style.height = "auto"
+  textarea.style.height = textarea.scrollHeight + "px"
+}
+
+const contentTextarea = document.getElementById("conteudo")
+
+function ajustarTextareas() {
+  [contentTextarea].forEach(textarea => {
+    autoResizeTextarea(textarea)
+    textarea.addEventListener("input", () => autoResizeTextarea(textarea))
+  })
+}
+
+ajustarTextareas()
 
 // MODAL DE LIMPAR
 

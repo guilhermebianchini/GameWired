@@ -61,6 +61,23 @@ const newsController = {
             })
         }
     },
+    
+    async getByLatestNews(req, res) {
+
+        try {
+
+            const news = await newsRepository.readByLatestNews()
+
+            res.status(200).json(news)
+
+        } catch (e) {
+
+            res.status(500).json({
+                ok: false,
+                message: "Erro do servidor!"
+            })
+        }
+    },
 
     async insertNews(req, res) {
         try {

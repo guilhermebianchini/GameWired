@@ -73,6 +73,13 @@ main {
   }
 }
 
+#preview-imagem {
+    display: none;
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+}
+
 #form .input-box .editor {
   min-height: 200px;
   border-radius: 10px;
@@ -88,20 +95,9 @@ main {
   background-color: #1c1c1c;
   color: white;
   font-size: 1rem;
-
-  outline: none;
-
-  overflow-wrap: break-word;
-  word-break: break-word;
+  vertical-align: top;
+  overflow-y: hidden;
   white-space: pre-wrap;
-
-  overflow-y: auto;
-}
-
-.editor:empty::before {
-  content: attr(data-placeholder);
-  color: #999;
-  pointer-events: none;
 }
 
 .toolbar {

@@ -319,8 +319,12 @@ function fotoPostagemIsValid(value) {
   }
 
   const fileInput = document.getElementById('foto_postagem')
-
   const file = fileInput.files[0]
+
+  if (!file) {
+    return validator
+  }
+
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
   if (!allowedTypes.includes(file.type)) {

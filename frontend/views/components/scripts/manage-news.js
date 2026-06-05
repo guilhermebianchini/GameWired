@@ -247,6 +247,24 @@ async function deletarNews(news_id) {
   }
 }
 
+// RESIZE TEXTAREA
+
+function autoResizeTextarea(textarea) {
+    textarea.style.height = "auto"
+    textarea.style.height = textarea.scrollHeight + "px"
+}
+
+const contentTextarea = document.getElementById("conteudo")
+
+function ajustarTextareas() {
+    [contentTextarea].forEach(textarea => {
+        autoResizeTextarea(textarea)
+        textarea.addEventListener("input", () => autoResizeTextarea(textarea))
+    })
+}
+
+ajustarTextareas()
+
 // MODAL DE LIMPAR
 
 const btnClear = document.querySelector("#btn-clear")

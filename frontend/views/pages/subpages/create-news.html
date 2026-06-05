@@ -61,12 +61,12 @@
             </div>
 
             <div class="input-box">
+              <img id="preview-imagem" src="" alt="Imagem da notícia">
               <input type="file" id="img_noticia" accept="image/*">
               <span class="error"></span>
             </div>
 
-            <div class="input-box">
-              <div class="toolbar">
+            <div class="toolbar">
               <p>Barra de Ferramentas: </p>
               <button type="button" onclick="execCmd('bold')"><b>B</b></button>
               <button type="button" onclick="execCmd('italic')"><i>I</i></button>
@@ -74,7 +74,8 @@
               <button type="button" onclick="execCmd('video')">Vídeo</button>
             </div>
 
-              <div id="conteudo" class="editor" contenteditable="true" data-placeholder="Digite o conteúdo da notícia"></div>
+            <div class="input-box">
+              <textarea id="conteudo" class="editor" placeholder="Digite o conteúdo da notícia"></textarea>
               <span class="error"></span>
             </div>
 
