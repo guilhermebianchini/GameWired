@@ -244,8 +244,10 @@ function dataIsValid(value) {
     return validator
   }
 
-  const selectedDate = new Date(value)
   const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  const selectedDate = new Date(value + "T00:00:00")
 
   if (selectedDate > today) {
     validator.isValid = false
@@ -307,7 +309,7 @@ function imgIsValid(value) {
   return validator
 }
 
-function conteudoIsValid(value) {
+function conteudoIsValid(text) {
   const validator = { isValid: true, errorMessage: null }
 
   if (text === '') {

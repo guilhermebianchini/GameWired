@@ -91,7 +91,7 @@ function previewManageNews(noticias) {
           <img src="${news.img_noticia}" alt="${news.titulo}">
             <div class="news-content">
               <h3>${news.titulo}</h3>
-              <span class="date">${new Date(news.data_publicacao).toLocaleDateString('pt-BR')}</span>
+              <span class="date">${news.data_publicacao.split('T')[0].split('-').reverse().join('/')}</span>
                 <div class="actions">
                   <a class="btn-edit" href="/postagem/${news.news_id}" class="bi bi-pencil"> Editar </a>
 

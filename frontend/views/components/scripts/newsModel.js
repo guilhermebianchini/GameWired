@@ -11,7 +11,7 @@ function fullNotice(news) {
 
         <span class="date">
             <strong>Editor: </strong>${news.nome_usuario} <br>
-            <strong>Publicado em: </strong>${new Date(news.data_publicacao).toLocaleDateString('pt-BR')}
+            <strong>Publicado em: </strong>${news.data_publicacao.split('T')[0].split('-').reverse().join('/')}
         </span>
 
         <div class="head">
