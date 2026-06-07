@@ -93,7 +93,9 @@ function previewManageNews(noticias) {
               <h3>${news.titulo}</h3>
               <span class="date">${news.data_publicacao.split('T')[0].split('-').reverse().join('/')}</span>
                 <div class="actions">
-                  <a class="btn-edit" href="/postagem/${news.news_id}" class="bi bi-pencil"> Editar </a>
+                  <a class="btn-view" href="/noticias/${news.news_id}"> Visualizar </a>
+
+                  <a class="btn-edit" href="/postagem/${news.news_id}"> Editar </a>
 
                   <button class="btn-delete" onclick="abrirModalExclusao(${news.news_id})">
                     Excluir

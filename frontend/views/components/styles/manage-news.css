@@ -72,8 +72,7 @@ main {
   gap: 0.7em;
 }
 
-.btn-edit,
-.btn-delete {
+.btn-view, .btn-edit, .btn-delete {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,7 +87,7 @@ main {
   gap: 0.5em;
 }
 
-.btn-edit {
+.btn-view, .btn-edit {
   background-color: var(--bg-Button);
 }
 

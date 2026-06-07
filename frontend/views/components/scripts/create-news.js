@@ -291,19 +291,30 @@ function imgIsValid(value) {
 
   const fileInput = document.getElementById('img_noticia')
 
-  if (fileInput.files.length === 0) {
+  if (editandoId && fileInput.files.length === 0) {
+    return validator
+  }
+
+  if (!editandoId && fileInput.files.length === 0) {
     validator.isValid = false
     validator.errorMessage = 'A imagem da notícia é obrigatória!'
     return validator
   }
 
-  const file = fileInput.files[0]
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
+  if (fileInput.files.length > 0) {
+    const file = fileInput.files[0]
 
-  if (!allowedTypes.includes(file.type)) {
-    validator.isValid = false
-    validator.errorMessage = 'Formato inválido! Use JPEG, PNG ou JPG.'
-    return validator
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/jpg"
+    ]
+
+    if (!allowedTypes.includes(file.type)) {
+      validator.isValid = false
+      validator.errorMessage =
+        "Formato inválido! Use JPEG, PNG ou JPG."
+    }
   }
 
   return validator
