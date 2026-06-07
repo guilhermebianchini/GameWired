@@ -45,24 +45,11 @@ body {
 
 .modal-content form {
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 10px;
     gap: 1.2rem;
-}
-
-.modal-content form textarea {
-    resize: none;
-    overflow: hidden;
-}
-
-.modal-content form .titleCatg .title {
-    width: 90%;
-    height: 40px;
-    border-radius: 10px;
-    padding: 0.6em 0.6em;
-    background-color: var(--bg-Background);
-    color: var(--bg-Font);
 }
 
 .modal-content form .titleCatg {
@@ -78,20 +65,82 @@ body {
     }
 }
 
+.modal-content form textarea {
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+}
+
+.modal-content form .titleCatg .input-box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: stretch;
+}
+
+.modal-content form .titleCatg .input-box:first-child {
+    flex: 3;
+}
+
+.modal-content form .titleCatg .input-box:last-child {
+    flex: 1.5;
+}
+
+.modal-content form .input-box {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.modal-content form .titleCatg .title {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    padding: 0.6em 0.6em;
+    background-color: var(--bg-Background);
+    color: var(--bg-Font);
+}
+
 .modal-content form .titleCatg .postCategoria {
+    width: 100%;
+    height: 40px;
     border-radius: 10px;
     padding: 0.3em 0.6em;
     background-color: var(--bg-Background);
     color: var(--bg-Font);
 }
 
-.modal-content form .subject {
-    width: 90%;
+.modal-content form .input-box .subject {
+    width: 100%;
     height: 150px;
     border-radius: 10px;
     padding: 0.3em 0.6em;
     background-color: var(--bg-Background);
     color: var(--bg-Font);
+}
+
+.modal-content form .input-box .imgPost {
+    width: 100%;
+    padding: 0.5em 0.5em;
+    border-radius: 10px;
+    background-color: var(--bg-Background);
+}
+
+.modal-content form .error {
+    color: var(--bg-Button);
+    font-size: 1rem;
+}
+
+.input-box.valid textarea {
+  border: 1px solid #74fc6f;
+}
+
+.input-box.valid select {
+  border: 1px solid #74fc6f;
+}
+
+.input-box.valid input {
+  border: 1px solid #74fc6f;
 }
 
 .container__profile {
@@ -198,26 +247,28 @@ body {
 
 .middle::-webkit-scrollbar {
     width: 8px;
+    border-radius: 25px;
 }
 
 .middle::-webkit-scrollbar-track {
-    background: #1f1f1f;
+    background: var(--bg-Background);
+    border-radius: 25px;
 }
 
 .middle::-webkit-scrollbar-thumb {
-    background: #666;
-    border-radius: 10px;
+    background: var(--bg-Font);
+    border-radius: 25px;
 }
 
 .middle::-webkit-scrollbar-thumb:hover {
-    background: #888;
+    background: var(--bg-Eclipse);
 }
 
 .middle #postsContainer {
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    margin-top: 1em;
+    margin-top: 0.5em;
     gap: 0.8em;
 }
 

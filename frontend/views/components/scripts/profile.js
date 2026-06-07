@@ -1,3 +1,36 @@
+// MODAL DE POSTAGEM
+
+document.addEventListener("DOMContentLoaded", () => {
+    const openModal = document.querySelector(".openModal")
+    const modal = document.querySelector(".modal")
+    const closeModal = document.querySelector(".closeModal")
+    const form = document.querySelector(".postForm")
+
+    openModal?.addEventListener("click", () => {
+        modal.style.display = "flex"
+    })
+
+    closeModal?.addEventListener("click", () => {
+        modal.style.display = "none"
+        form.reset()
+        editandoId = null
+
+        document.querySelector(".modal h3").textContent =
+            "Faça sua postagem na comunidade!"
+
+        document.querySelector(".sentPost").textContent =
+            "Enviar"
+    })
+
+    window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none"
+      form.reset()
+      editandoId = null
+    }
+  })
+})
+
 // FORMULÁRIO DE POSTAGEM E VALIDAÇÃO
 
 const form = document.querySelector("#form")
@@ -6,6 +39,7 @@ form.addEventListener("submit", async (e) => {
     e.preventDefault()
 
     const token = localStorage.getItem("token")
+    let formIsValid = true
 
     const fields = [
         { id: 'titulo_postagem', validator: tituloPostagemIsValid },
@@ -30,11 +64,16 @@ form.addEventListener("submit", async (e) => {
         const fieldValidator = field.validator(inputValue)
 
         if (!fieldValidator.isValid) {
+            formIsValid = false
             errorSpan.innerHTML = `${errorIcon} ${fieldValidator.errorMessage}`
             inputBox.classList.add('invalid')
             inputBox.classList.remove('valid')
         }
     })
+
+    if (!formIsValid) {
+        return
+    }
 
     const titulo = document.getElementById("titulo_postagem").value.trim()
     const conteudo = document.getElementById("conteudo_postagem").value.trim()
@@ -383,18 +422,18 @@ function limparPosts() {
 }
 
 async function recarregarFeed() {
-  observer.disconnect()
+    observer.disconnect()
 
-  nextCursor = null
-  hasMore = true
-  loading = false
+    nextCursor = null
+    hasMore = true
+    loading = false
 
-  await carregarPosts(true)
+    await carregarPosts(true)
 
-  const sentinela = document.getElementById("sentinelaPosts")
-  if (sentinela) {
-    observer.observe(sentinela)
-  }
+    const sentinela = document.getElementById("sentinelaPosts")
+    if (sentinela) {
+        observer.observe(sentinela)
+    }
 }
 
 function montarHTMLPosts(posts) {

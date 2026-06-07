@@ -124,6 +124,7 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault()
 
   const token = localStorage.getItem("token")
+  let formIsValid = true
 
   const fields = [
     { id: 'titulo_postagem', validator: tituloPostagemIsValid },
@@ -148,11 +149,16 @@ form.addEventListener("submit", async (e) => {
     const fieldValidator = field.validator(inputValue)
 
     if (!fieldValidator.isValid) {
+      formIsValid = false
       errorSpan.innerHTML = `${errorIcon} ${fieldValidator.errorMessage}`
       inputBox.classList.add('invalid')
       inputBox.classList.remove('valid')
     }
   })
+
+  if (!formIsValid) {
+    return
+  }
 
   const titulo = document.getElementById("titulo_postagem").value.trim()
   const conteudo = document.getElementById("conteudo_postagem").value.trim()
@@ -515,7 +521,11 @@ function montarHTMLPosts(posts, comentarios, userIdLogado) {
         </div>
 
         <form class="comments" data-post-id="${post.post_id}">
-          <textarea class="commentContent" placeholder="Escreva seu comentário..."></textarea>
+          <div class="input-box">
+            <textarea class="commentContent" placeholder="Escreva seu comentário..."></textarea>
+            <span class="error"></span>
+          </div>
+
           <button type="submit" class="commentBtn">Comentar</button>
         </form>
       </div>
@@ -805,6 +815,8 @@ document.addEventListener("submit", async (e) => {
 
   const token = localStorage.getItem("token")
   const textarea = form.querySelector(".commentContent")
+  const inputBox = textarea.closest(".input-box")
+  const errorSpan = inputBox?.querySelector(".error")
   const comentario_conteudo = textarea.value.trim()
   const post_id = Number(form.dataset.postId)
 
@@ -819,16 +831,24 @@ document.addEventListener("submit", async (e) => {
     return
   }
 
-  if (!comentario_conteudo) {
-    Swal.fire({
-      icon: "warning",
-      title: "Preencha todos os dados!",
-      text: "O conteúdo do comentário não pode ficar vazio.",
-      confirmButtonColor: "#8863e7",
-      confirmButtonText: "Continuar"
-    })
+  if (errorSpan) {
+    errorSpan.innerHTML = ""
+  }
+
+  inputBox?.classList.remove("invalid")
+  inputBox?.classList.remove("valid")
+
+  const result = comentarioIsValid(comentario_conteudo)
+
+  if (!result.isValid) {
+    errorSpan.innerHTML = result.errorMessage
+
+    inputBox.classList.add("invalid")
+
     return
   }
+
+  inputBox.classList.add("valid")
 
   let url = "https://gamewired-api.duckdns.org/comentarios"
   let method = "POST"
@@ -893,6 +913,39 @@ document.addEventListener("submit", async (e) => {
     })
   }
 })
+
+function comentarioIsValid(value) {
+  const validator = {
+    isValid: true,
+    errorMessage: null
+  }
+
+  if (!value) {
+    validator.isValid = false
+    validator.errorMessage = "O conteúdo do comentário é obrigatório!"
+    return validator
+  }
+
+  const max = 500
+
+  if (value.length > max) {
+    validator.isValid = false
+    validator.errorMessage = "O comentário deve ter no máximo 500 caracteres!"
+    return validator
+  }
+
+  const regex = /^[^<>]+$/
+
+  if (!regex.test(value)) {
+    validator.isValid = false
+    validator.errorMessage =
+      "O comentário não pode conter os caracteres '<' ou '>'."
+
+    return validator
+  }
+
+  return validator
+}
 
 // EDITAR COMENTÁRIO
 

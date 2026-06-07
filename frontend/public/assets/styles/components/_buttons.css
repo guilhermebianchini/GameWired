@@ -63,7 +63,7 @@
 }
 
 .commentBtn {
-  width: 130px;
+  width: 100%;
   background-color: var(--bg-Button);
   color: white;
   border-radius: 10px;

@@ -32,15 +32,28 @@
         <form id="form" method="post" class="postForm">
           <h3>Faça sua postagem na comunidade!</h3>
           <div class="titleCatg">
-            <textarea name="title" class="title" placeholder="Digite o título do post..."
-              id="titulo_postagem"></textarea>
-            <select name="" class="postCategoria" id="categoria_postagem">
-              <option value=""></option>
-            </select>
+            <div class="input-box">
+              <textarea name="title" class="title" placeholder="Digite o título do post..." id="titulo_postagem"></textarea>
+              <span class="error"></span>
+            </div>
+
+            <div class="input-box">
+              <select name="" class="postCategoria" id="categoria_postagem">
+                <option value=""></option>
+              </select>
+              <span class="error"></span>
+            </div>
           </div>
-          <textarea name="subject" class="subject" placeholder="Digite o assunto do post..."
-            id="conteudo_postagem"></textarea>
-          <input type="file" id="foto_postagem" accept="image/*">
+
+          <div class="input-box">
+            <textarea name="subject" class="subject" placeholder="Digite o assunto do post..." id="conteudo_postagem"></textarea>
+            <span class="error"></span>
+          </div>
+
+          <div class="input-box">
+            <input type="file" class="imgPost" id="foto_postagem" accept="image/*">
+            <span class="error"></span>
+          </div>
 
           <div class="formButtons">
             <button type="submit" class="sentPost">Enviar</button>

@@ -168,7 +168,7 @@
     background-color: var(--bg-Background);
 }
 
-.modal-content form .error {
+.error {
     color: var(--bg-Button);
     font-size: 1rem;
 }
@@ -414,11 +414,18 @@
 
 .middle .comments {
     display: flex;
-    flex-direction: row;
-    gap: 1em;
+    flex-direction: column;
+    gap: 0.5em;
 }
 
-.middle .comments .commentContent {
+.middle .comments .input-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.middle .comments .input-box .commentContent {
     resize: none;
     overflow: hidden;
     width: 100%;
@@ -547,7 +554,7 @@
         flex-direction: column;
     }
 
-    .middle .comments button {
+    .middle .comments .input-box button {
         width: 100%;
     }
 
@@ -624,7 +631,7 @@
         padding: 5px;
     }
 
-    .middle .comments .commentContent {
+    .middle .comments .input-box .commentContent {
         font-size: 14px;
     }
 }
