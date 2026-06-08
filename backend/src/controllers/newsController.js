@@ -112,16 +112,15 @@ const newsController = {
     async insertNews(req, res) {
         try {
             const { titulo, data_publicacao, subtitulo, conteudo, fonte } = req.body
+            const img_noticia = req.file?.path
             const user_id = req.user.id
 
-            if (!req.file) {
+            if (!img_noticia) {
                 return res.status(400).json({
                     ok: false,
                     message: "A imagem da notícia é obrigatória!"
                 })
             }
-
-            const img_noticia = req.file.path
 
             const model = {
                 titulo,
@@ -141,10 +140,11 @@ const newsController = {
                 data: newsCreated
             })
         } catch (e) {
-            console.error(e)
+            console.error("Erro ao criar a notícia:", e)
+            
             res.status(500).json({
                 ok: false,
-                message: "Erro do servidor!"
+                message: e.message
             })
         }
     },
