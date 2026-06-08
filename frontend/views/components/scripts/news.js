@@ -142,7 +142,7 @@ function renderizarPaginacao() {
   btnProximo.disabled = paginaAtual === totalPaginas
 
   btnProximo.addEventListener("click", () => {
-    await carregarNoticias(i)
+    carregarNoticias(i)
     rolarParaTopo()
   })
 

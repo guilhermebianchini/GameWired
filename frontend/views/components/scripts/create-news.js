@@ -291,10 +291,6 @@ function imgIsValid(value) {
 
   const fileInput = document.getElementById('img_noticia')
 
-  if (editandoId && fileInput.files.length === 0) {
-    return validator
-  }
-
   if (!editandoId && fileInput.files.length === 0) {
     validator.isValid = false
     validator.errorMessage = 'A imagem da notícia é obrigatória!'
@@ -381,12 +377,10 @@ function fonteIsValid(value) {
 let newsId = null
 
 const path = window.location.pathname
-
-const parts = path.split("/")
-
+const parts = path.split("/").filter(Boolean)
 const lastPart = parts[parts.length - 1]
 
-if (!isNaN(lastPart)) {
+if (/^\d+$/.test(lastPart)) {
   newsId = lastPart
 }
 
