@@ -152,6 +152,7 @@
 
 .pag-arrow {
   font-size: 1.1em;
+  padding: 0;
 }
 
 @media (max-width: 480px) {

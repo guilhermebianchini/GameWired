@@ -132,15 +132,15 @@ body {
 }
 
 .input-box.valid textarea {
-  border: 1px solid #74fc6f;
+    border: 1px solid #74fc6f;
 }
 
 .input-box.valid select {
-  border: 1px solid #74fc6f;
+    border: 1px solid #74fc6f;
 }
 
 .input-box.valid input {
-  border: 1px solid #74fc6f;
+    border: 1px solid #74fc6f;
 }
 
 .container__profile {
@@ -474,6 +474,21 @@ body {
         img {
             height: 45px;
             border-radius: 10px;
+        }
+    }
+
+    .middle #postsContainer .post .infos_post {
+        .username {
+            font-size: 18px;
+        }
+    }
+
+    .middle #postsContainer .post .content_post {
+        font-size: 12px;
+        font-weight: 500;
+
+        h4 {
+            font-size: 18px;
         }
     }
 

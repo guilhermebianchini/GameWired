@@ -1,7 +1,7 @@
 import newsRepository from "../repositories/newsRepository.js"
 
 const newsController = {
-    async getAllNews(req, res) {
+    /*async getAllNews(req, res) {
         try {
 
             const news = await newsRepository.readAll()
@@ -17,8 +17,38 @@ const newsController = {
                 message: "Erro ao buscar notícias!"
             })
         }
-    },
+    },*/
 
+    async getByNewsPage(req, res) {
+        try {
+
+            const page = Number(req.query.page) || 1
+            const limit = 9
+
+            const [news, totalNews] = await Promise.all([
+                newsRepository.readByNewsPage(page),
+                newsRepository.countNews()
+            ])
+
+            const totalPages = Math.ceil(totalNews / limit)
+
+            res.status(200).json({
+                ok: true,
+                page,
+                limit,
+                totalNews,
+                totalPages,
+                data: news
+            })
+        } catch (e) {
+            console.error(e)
+            res.status(500).json({
+                ok: false,
+                message: "Erro ao buscar notícias!"
+            })
+        }
+    },
+    
     async getNewsById(req, res) {
         try {
             const news_id = req.params.news_id
@@ -61,7 +91,7 @@ const newsController = {
             })
         }
     },
-    
+
     async getByLatestNews(req, res) {
 
         try {
@@ -82,7 +112,7 @@ const newsController = {
     async insertNews(req, res) {
         try {
             const { titulo, data_publicacao, subtitulo, conteudo, fonte } = req.body
-            const img_noticia = req.file?.path
+            const img_noticia = req.file ? req.file.path : null
             const user_id = req.user.id
 
             const model = {

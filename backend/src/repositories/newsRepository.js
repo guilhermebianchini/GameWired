@@ -2,12 +2,33 @@ import query from "../config/connection.js"
 
 const newsRepository = {
 
-    async readAll() {
+    /*async readAll() {
 
         const { rows } = await query(`
             SELECT * FROM news n
             ORDER BY n.data_publicacao DESC
             `)
+
+        return rows
+    },*/
+
+    async readByNewsPage(page) {
+
+        const limit = 9
+        const offset = (page - 1) * limit
+
+        const { rows } = await query(`
+            SELECT
+                n.news_id,
+                n.titulo,
+                n.data_publicacao,
+                n.subtitulo,
+                n.img_noticia
+            FROM news n
+            ORDER BY n.data_publicacao DESC
+            LIMIT $1
+            OFFSET $2
+        `, [limit, offset])
 
         return rows
     },
@@ -61,6 +82,16 @@ const newsRepository = {
         `)
 
         return rows
+    },
+
+    async countNews() {
+
+        const { rows } = await query(`
+        SELECT COUNT(*) AS total
+        FROM news
+    `)
+
+        return Number(rows[0].total)
     },
 
     async create(news) {

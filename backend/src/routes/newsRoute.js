@@ -11,7 +11,7 @@ newsRouter.get('/news/latest', newsController.getByLatestNews)
 
 newsRouter.get('/news/me', verifyToken, newsController.getNewsByUser)
 
-newsRouter.get('/news', newsController.getAllNews)
+newsRouter.get('/news', newsController.getByNewsPage)
 
 newsRouter.get('/news/:news_id', newsIDValidation, validateNews, newsController.getNewsById)
 
