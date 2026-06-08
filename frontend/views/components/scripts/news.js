@@ -108,7 +108,7 @@ function renderizarPaginacao() {
   btnAnterior.disabled = paginaAtual === 1
 
   btnAnterior.addEventListener("click", () => {
-    await carregarNoticias(i)
+    carregarNoticias(i)
     rolarParaTopo()
   })
 

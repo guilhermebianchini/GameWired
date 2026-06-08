@@ -48,7 +48,7 @@ const newsController = {
             })
         }
     },
-    
+
     async getNewsById(req, res) {
         try {
             const news_id = req.params.news_id
@@ -112,8 +112,16 @@ const newsController = {
     async insertNews(req, res) {
         try {
             const { titulo, data_publicacao, subtitulo, conteudo, fonte } = req.body
-            const img_noticia = req.file ? req.file.path : null
             const user_id = req.user.id
+
+            if (!req.file) {
+                return res.status(400).json({
+                    ok: false,
+                    message: "A imagem da notícia é obrigatória!"
+                })
+            }
+
+            const img_noticia = req.file.path
 
             const model = {
                 titulo,
