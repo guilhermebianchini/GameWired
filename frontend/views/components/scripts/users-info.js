@@ -82,7 +82,7 @@ async function carregarStats() {
 
     try {
         const res = await fetch(url, {
-            method: method,
+            method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -116,7 +116,7 @@ async function carregarRanking() {
 
     try {
         const res = await fetch(url, {
-            method: method,
+            method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
             }
