@@ -21,4 +21,6 @@ export async function query(text, params) {
   return result
 }
 
+export { pool }
+
 export default query

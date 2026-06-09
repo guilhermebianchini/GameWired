@@ -162,10 +162,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
-    console.log("TOKEN:", token)
-    console.log("URL:", url)
-    console.log("METHOD:", method)
-
+    
     const res = await fetch(url, {
       method: method,
       headers: {

@@ -132,7 +132,7 @@ const newsController = {
                 user_id
             }
 
-            const newsCreated = await newsRepository.create(model)
+            const newsCreated = await newsRepository.createWithTransaction(model)
 
             res.status(201).json({
                 ok: true,

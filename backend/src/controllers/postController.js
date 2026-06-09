@@ -117,7 +117,7 @@ const postController = {
                 games_id: games_id
             }
 
-            const postCreated = await postRepository.create(model)
+            const postCreated = await postRepository.createWithTransaction(model)
 
             res.status(201).json({
                 ok: true,
