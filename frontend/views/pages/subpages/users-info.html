@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" sizes="16x16 32x32 48x48" type="image/png"
+        href="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logo_ojcaft.svg" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="/frontend/public/assets/styles/main.css" />
+
+    <link rel="stylesheet" href="/frontend/views/components/styles/users-info.css">
+
+    <title>GameWired | Quadro de Informações</title>
+</head>
+<body>
+    <div id="header"></div>
+
+    <main class="infosBlog">
+        <section class="search-container">
+            <h2>Quadro de Informações</h2>
+        </section>
+
+        <section class="stats-container">
+            <div class="cardInfos">
+                <h3>Usuários</h3>
+                <p id="usersInfo"></p>
+            </div>
+
+            <div class="cardInfos">
+                <h3>Jogos</h3>
+                <p id="gamesInfo"></p>
+            </div>
+
+            <div class="cardInfos">
+                <h3>Notícias</h3>
+                <p id="newsInfo"></p>
+            </div>
+
+            <div class="cardInfos">
+                <h3>Posts</h3>
+                <p id="postsInfo"></p>
+            </div>
+
+            <div class="cardInfos">
+                <h3>Comentários</h3>
+                <p id="commentsInfo"></p>
+            </div>
+        </section>
+
+
+            <h2 class="top10">Top 10 Usuários Mais Ativos</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Usuário</th>
+                        <th>Posts</th>
+                        <th>Comentários</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-body">
+                </tbody>
+            </table>
+    </main>
+
+    <footer id="footer"></footer>
+
+    <script src="/frontend/views/components/scripts/users-info.js"></script>
+    <script src="/frontend/views/components/global/global-js/global-footer-header.js"></script>
+    <script src="/frontend/public/assets/scripts/_temas.js"></script>
+    <script src="/frontend/public/assets/scripts/_navBar.js"></script>
+</body>
+</html>

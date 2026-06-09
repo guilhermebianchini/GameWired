@@ -1,4 +1,5 @@
 import query from "../config/connection.js"
+import { pool } from "../config/connection.js"
 
 const postRepository = {
 
@@ -48,13 +49,21 @@ const postRepository = {
 
     async readById(post_id) {
 
-        const { rows } = await query(`SELECT p.post_id, p.titulo_postagem, p.conteudo_postagem, p.data_postagem, p.foto_postagem, u.nome_usuario, u.foto_perfil, COALESCE(g.nome, 'Sem categoria') AS categoria
+        const { rows } = await query(`
+        SELECT
+            p.post_id,
+            p.titulo_postagem,
+            p.conteudo_postagem,
+            p.data_postagem,
+            p.foto_postagem,
+            u.nome_usuario,
+            u.foto_perfil,
+            COALESCE(g.nome, 'Sem categoria') AS categoria
         FROM posts p
         JOIN users u ON p.user_id = u.user_id
         LEFT JOIN games g ON p.games_id = g.games_id
         WHERE p.post_id = $1
-        `,
-            [post_id])
+        `, [post_id])
 
         if (rows.length === 0) {
             return null
@@ -66,13 +75,29 @@ const postRepository = {
     async readByGameId(games_id) {
 
         const { rows } = await query(`
-            SELECT g.games_id, g.nome, g.plataforma, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos, p.post_id, p.titulo_postagem, p.conteudo_postagem, p.data_postagem, p.foto_postagem, p.games_id, u.nome_usuario, u.foto_perfil, g.nome AS categoria
-            FROM posts p
-            JOIN users u ON p.user_id = u.user_id
-            JOIN games g ON p.games_id = g.games_id
-            WHERE p.games_id = $1
-            ORDER BY p.data_postagem DESC
-            `, [games_id])
+        SELECT
+            g.games_id,
+            g.nome,
+            g.plataforma,
+            g.descricao, g.genero,
+            g.desenvolvedora,
+            g.tipo, g.download,
+            g.requisitos,
+            p.post_id,
+            p.titulo_postagem,
+            p.conteudo_postagem,
+            p.data_postagem,
+            p.foto_postagem,
+            p.games_id,
+            u.nome_usuario,
+            u.foto_perfil,
+            g.nome AS categoria
+        FROM posts p
+        JOIN users u ON p.user_id = u.user_id
+        JOIN games g ON p.games_id = g.games_id
+        WHERE p.games_id = $1
+        ORDER BY p.data_postagem DESC
+        `, [games_id])
 
         return rows[0]
     },
@@ -95,7 +120,7 @@ const postRepository = {
         JOIN users u ON p.user_id = u.user_id
         JOIN games g ON p.games_id = g.games_id
         WHERE p.user_id = $1
-    `
+        `
 
         if (cursor) {
             sql += ` AND p.post_id < $2`
@@ -121,23 +146,25 @@ const postRepository = {
     async readByLatestPosts() {
 
         const { rows } = await query(`
-            SELECT
-                p.post_id,
-                p.conteudo_postagem,
-                u.nome_usuario,
-                u.foto_perfil,
-                g.nome AS categoria
-            FROM posts p
-            JOIN users u ON p.user_id = u.user_id
-            JOIN games g ON p.games_id = g.games_id
-            ORDER BY p.data_postagem DESC
-            LIMIT 3
+        SELECT
+            p.post_id,
+            p.conteudo_postagem,
+            u.nome_usuario,
+            u.foto_perfil,
+            g.nome AS categoria
+        FROM posts p
+        JOIN users u ON p.user_id = u.user_id
+        JOIN games g ON p.games_id = g.games_id
+        ORDER BY p.data_postagem DESC
+        LIMIT 3
         `)
 
         return rows
     },
 
-    async create(post) {
+    // CREATE NORMAL
+
+    /*async create(post) {
 
         if (!post.titulo_postagem || !post.conteudo_postagem) {
             throw new Error("Título e conteúdo são obrigatórios!")
@@ -158,6 +185,72 @@ const postRepository = {
         ])
 
         return rows[0]
+    },*/
+
+    // CREATE COM TRANSAÇÃO
+
+    async createWithTransaction(post) {
+        const client = await pool.connect()
+
+        try {
+            await client.query("BEGIN")
+
+            const postResult = await client.query(
+                `
+                INSERT INTO posts
+                (
+                    titulo_postagem,
+                    conteudo_postagem,
+                    foto_postagem,
+                    user_id,
+                    games_id
+                )
+                VALUES ($1, $2, $3, $4, $5)
+                RETURNING *
+                `,
+                [
+                    post.titulo_postagem,
+                    post.conteudo_postagem,
+                    post.foto_postagem,
+                    post.user_id,
+                    post.games_id
+                ]
+            )
+
+            await client.query(
+                `
+                INSERT INTO news
+                (
+                    titulo,
+                    data_publicacao,
+                    conteudo,
+                    user_id,
+                    games_id
+                )
+                VALUES ($1, CURRENT_DATE, $2, $3, $4)
+                `,
+                [
+                    `[POST] ${post.titulo_postagem}`,
+                    post.conteudo_postagem,
+                    post.user_id,
+                    post.games_id
+                ]
+            )
+
+            await client.query("COMMIT")
+
+            return postResult.rows[0]
+
+        } catch (error) {
+
+            await client.query("ROLLBACK")
+            throw error
+
+        } finally {
+
+            client.release()
+
+        }
     },
 
     async readByIdAndUser(post_id, user_id) {
@@ -180,7 +273,7 @@ const postRepository = {
 
         return rows[0] || null
     },
-
+    
     async update(post) {
 
         const existing = await this.readByIdAndUser(post.post_id, post.user_id)

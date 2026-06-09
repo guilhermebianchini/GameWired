@@ -63,6 +63,10 @@
     {
       "source": "/gerenciamento",
       "destination": "/frontend/views/pages/subpages/manage-news.html"
+    },
+    {
+      "source": "/quadro",
+      "destination": "/frontend/views/pages/subpages/manage-news.html"
     }
   ]
 }

@@ -450,7 +450,7 @@ body {
 
     .container__profile aside {
         height: max-content;
-        width: 75vw;
+        width: 90vw;
     }
 
     .container__profile aside .user img {
@@ -460,7 +460,7 @@ body {
 
     .middle {
         justify-content: flex-start;
-        width: 75vw;
+        width: 90vw;
         height: max-content;
         margin-top: 2em;
     }

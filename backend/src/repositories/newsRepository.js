@@ -1,4 +1,5 @@
 import query from "../config/connection.js"
+import { pool } from "../config/connection.js"
 
 const newsRepository = {
 
@@ -94,7 +95,9 @@ const newsRepository = {
         return Number(rows[0].total)
     },
 
-    async create(news) {
+    // CREATE NORMAL
+
+    /*async create(news) {
 
         const sql = `
         INSERT INTO news (titulo, data_publicacao, subtitulo, img_noticia, conteudo, fonte, user_id)
@@ -113,6 +116,56 @@ const newsRepository = {
         ])
 
         return rows[0]
+    },*/
+
+    async createWithTransaction(news) {
+
+        const client = await pool.connect()
+
+        try {
+
+            await client.query("BEGIN")
+
+            const { rows } = await client.query(
+                `
+            INSERT INTO news
+            (
+                titulo,
+                data_publicacao,
+                subtitulo,
+                img_noticia,
+                conteudo,
+                fonte,
+                user_id
+            )
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            RETURNING *
+            `,
+                [
+                    news.titulo,
+                    news.data_publicacao,
+                    news.subtitulo,
+                    news.img_noticia,
+                    news.conteudo,
+                    news.fonte,
+                    news.user_id
+                ]
+            )
+
+            await client.query("COMMIT")
+
+            return rows[0]
+
+        } catch (error) {
+
+            await client.query("ROLLBACK")
+            throw error
+
+        } finally {
+
+            client.release()
+
+        }
     },
 
     async readByIdAndUser(news_id, user_id) {

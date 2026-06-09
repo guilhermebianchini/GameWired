@@ -501,7 +501,11 @@
 @media screen and (max-width: 640px) {
     #community {
         padding: 0 1em;
-        top: 3em;
+        top: 4em;
+    }
+
+    .container__community {
+        width: 90%;
     }
 
     .container__community .left .profile {

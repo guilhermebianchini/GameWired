@@ -9,6 +9,7 @@ import newsRouter from './src/routes/newsRoute.js'
 import postRouter from "./src/routes/postRoute.js"
 import gameRouter from "./src/routes/gameRoute.js"
 import commentRouter from './src/routes/commentRoute.js'
+import dashboardRouter from './src/routes/dashboardRoutes.js'
 
 import globalMiddleware from "./src/middlewares/globalMiddleware.js"
 
@@ -35,6 +36,7 @@ app.use(newsRouter)
 app.use(postRouter)
 app.use(commentRouter)
 app.use(gameRouter)
+app.use(dashboardRouter)
 
 app.listen(port, "0.0.0.0", () => {
   console.log(`Servidor rodando na porta: ${port}`)
