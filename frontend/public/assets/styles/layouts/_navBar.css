@@ -219,8 +219,8 @@
     .nav__logo {
 
       img {
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 60px;
       }
     }
 
@@ -251,10 +251,6 @@
 }
 
 @media screen and (max-width: 640px) {
-  .main-header {
-    width: 95%;
-  }
-
   .main-nav {
     padding: 0 2em;
 
@@ -265,11 +261,5 @@
         height: 55px;
       }
     }
-  }
-}
-
-@media screen and (max-width: 490px) {
-  .main-header {
-    width: 90%;
   }
 }

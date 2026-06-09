@@ -174,15 +174,15 @@
 }
 
 .input-box.valid textarea {
-  border: 1px solid #74fc6f;
+    border: 1px solid #74fc6f;
 }
 
 .input-box.valid select {
-  border: 1px solid #74fc6f;
+    border: 1px solid #74fc6f;
 }
 
 .input-box.valid input {
-  border: 1px solid #74fc6f;
+    border: 1px solid #74fc6f;
 }
 
 .container__community .left .community-select {
@@ -463,7 +463,6 @@
 }
 
 @media screen and (max-width: 1024px) {
-
     #community {
         padding: 0 2em;
     }
@@ -478,6 +477,14 @@
         position: relative;
     }
 
+    .container__community .left .profile .infos .user-img img {
+        width: 140px;
+    }
+
+    .container__community .left .community-select #catg-select .community-filter #select-button option {
+        width: 75%;
+    }
+
     .middle {
         width: 100%;
     }
@@ -486,18 +493,12 @@
         width: 90%;
     }
 
-    .container__community .left .profile .infos .user-img img {
-        width: 140px;
-        height: 120px;
-    }
-
     .middle #postsContainer .post .infos_post .username {
         font-size: 22px;
     }
 }
 
 @media screen and (max-width: 640px) {
-
     #community {
         padding: 0 1em;
         top: 3em;
@@ -524,14 +525,17 @@
         height: 120px;
     }
 
-    .container__community .left .community-select #catg-select .community-filter {
-        flex-direction: column;
-        gap: 1em;
+    .container__community .left .community-select #catg-select .community-filter #select-button option {
+        width: 50%;
     }
 
-    .container__community .left .community-select #catg-select .community-filter select,
-    .container__community .left .community-select #catg-select .community-filter button {
-        width: 100%;
+    .container__community .left .community-select #catg-select .community-filter {
+        flex-direction: row;
+        gap: 1em;
+
+        select {
+            width: 75%;
+        }
     }
 
     .middle {
@@ -540,6 +544,18 @@
 
     .middle #postsContainer .post .post_origem {
         flex-wrap: wrap;
+    }
+
+    .middle #postsContainer .post .content_post h3 {
+        font-size: 18px;
+    }
+
+    .middle #postsContainer .post .content_post p {
+        font-size: 16px;
+    }
+
+    .middle #postsContainer .post .dataPost {
+        font-size: 14px;
     }
 
     .middle #postsContainer .post .infos_post .username {
@@ -559,17 +575,20 @@
     }
 
     .modal-content {
-        width: 95%;
+        width: 90%;
         padding: 20px;
+    }
+
+    .modal-content form .input-box {
+        width: 90%;
+    }
+
+    .modal-content form .titleCatg .input-box {
+        width: 100%;
     }
 
     .modal-content form .titleCatg {
         flex-direction: column;
-    }
-
-    .modal-content form .titleCatg .title,
-    .modal-content form .titleCatg .postCategoria {
-        width: 100%;
     }
 
     .menu_options {
@@ -577,8 +596,7 @@
     }
 }
 
-@media screen and (max-width: 490px) {
-
+@media screen and (max-width: 480px) {
     #community {
         padding: 0 0.5em;
     }
@@ -619,16 +637,6 @@
     .comment_menu button,
     .post_menu button {
         font-size: 22px;
-    }
-
-    .modal-content {
-        width: 100%;
-        border-radius: 0;
-        min-height: 100vh;
-    }
-
-    .modal-content form {
-        padding: 5px;
     }
 
     .middle .comments .input-box .commentContent {

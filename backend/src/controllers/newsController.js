@@ -140,11 +140,11 @@ const newsController = {
                 data: newsCreated
             })
         } catch (e) {
-            console.error("Erro ao criar a notícia:", e)
-            
+            console.error(e)
+
             res.status(500).json({
                 ok: false,
-                message: e.message
+                message: "Erro do servidor!"
             })
         }
     },

@@ -123,49 +123,17 @@
     letter-spacing: 0.5px;
     transition: 0.3s;
     font-size: 14px;
-
-    i {
-      display: none;
-    }
   }
 }
 
 @media screen and (max-width: 640px) {
   .community-button {
-    width: 25%;
-    border-radius: 10px;
-    background: var(--bg-Card);
-    padding: 0.6em 1.2em;
-    text-align: center;
-    color: var(--bg-Font);
-    cursor: pointer;
-    letter-spacing: 0.5px;
-    transition: 0.3s;
-    font-size: 0;
-
-    i {
-      display: flex;
-      font-size: 1rem;
-    }
+    font-size: 14px;
   }
 }
 
-@media screen and (max-width: 490px) {
+@media screen and (max-width: 480px) {
   .community-button {
-    width: 25%;
-    border-radius: 10px;
-    background: var(--bg-Card);
-    padding: 0.6em 1.2em;
-    text-align: center;
-    color: var(--bg-Font);
-    cursor: pointer;
-    letter-spacing: 0.5px;
-    transition: 0.3s;
-    font-size: 0;
-
-    i {
-      display: flex;
-      font-size: 1rem;
-    }
+    font-size: 14px;
   }
 }
