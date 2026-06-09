@@ -1,212 +1,232 @@
-#home {
+* {
+  box-sizing: border-box;
+}
+
+#home,
+.welcome,
+.news,
+.games,
+.community,
+.developers {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#home {
   justify-content: center;
   width: 100%;
   margin: 2vh 0;
   padding: 4em 0;
+}
 
-  h2 {
-    margin: 1vh 0;
-    margin-bottom: 0.5em;
-  }
+#home h2 {
+  margin: 1vh 0 0.5em;
 }
 
 .welcome {
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-
-  span {
-    font-size: clamp(2.85rem, 5vw + 1rem, 4.5rem);
-    font-weight: 800;
-    color: var(--bg-Button);
-  }
+  height: 80vh;
+  margin-bottom: 5em;
 }
 
-.container-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.welcome span {
+  font-size: clamp(2.85rem, 5vw + 1rem, 4.5rem);
+  font-weight: 800;
+  color: var(--bg-Button);
+}
+
+.news {
+  justify-content: flex-start;
+  margin: 5em 0 8em;
+}
+
+.container-cards-news {
   gap: 2.5em;
   justify-items: center;
 }
 
-.news {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100%;
+#newsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5em;
+  justify-items: center;
   width: 100%;
-  margin-bottom: 8em;
-  margin-top: 5em;
 }
 
 .games {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: flex-start;
-  height: 75vh;
   width: 100%;
+  height: 75vh;
   margin-bottom: 8em;
+}
 
-  h2 {
-    margin: 1vh 0;
-    margin-bottom: 1.5em;
-    padding: 1px 5px;
-  }
+.games h2 {
+  margin: 1vh 0 1.5em;
+  padding: 1px 5px;
+}
 
-  .carousel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 90%;
-    margin: 0 auto;
-  }
+.games .carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+}
 
-  .arrow {
-    position: absolute;
-    transform: translateY(-50%);
-    background: rgba(27, 20, 46, 0.4);
-    align-items: center;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-    padding: 10px;
-    border-radius: 10%;
-    z-index: 5;
-  }
+.games .carousel-wrapper {
+  display: flex;
+  width: 100%;
+  height: 65vh;
+  padding: 0;
+  overflow: hidden;
+}
 
-  .arrow.left {
-    left: -40px;
-  }
+.games .arrow {
+  position: absolute;
+  transform: translateY(-50%);
+  background: rgba(27, 20, 46, 0.4);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 10%;
+  z-index: 5;
+}
 
-  .arrow.right {
-    right: -40px;
-  }
+.games .arrow.left {
+  left: -40px;
+}
 
-  .carousel-wrapper {
-    display: flex;
-    height: 65vh;
-    width: 100%;
-    padding: 0;
-    overflow: hidden;
-  }
+.games .arrow.right {
+  right: -40px;
 }
 
 .community {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: flex-start;
+  width: 100%;
   height: 100%;
-  margin-bottom: 8em;
-  width: 80%;
+  margin-bottom: 5em;
 }
 
 .community a {
   font-size: clamp(2rem, 3.5vw + 1rem, 2.75rem);
   font-weight: 600;
   line-height: 1.2;
+}
 
-  &:hover {
-    transition: 0.3s;
-    color: var(--bg-Button);
-  }
+.community a:hover {
+  transition: 0.3s;
+  color: var(--bg-Button);
 }
 
 .community #postsContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 314px);
+  justify-content: center;
+  gap: 2em;
   width: 100%;
-  gap: 5em;
+  max-width: 1200px;
+  margin: 2vh auto;
+  overflow: hidden;
 }
 
-
 .developers {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: flex-start;
+  width: 80%;
+  max-width: 1200px;
   height: 100%;
   margin-bottom: 2em;
-  width: 80%;
 }
 
 @media screen and (max-width: 1024px) {
-  .news {
-    height: 100%;
-    margin-bottom: 5vh;
+  .games .carousel {
+    width: 90%;
   }
 
-  .games {
-    .carousel {
-      width: 80%;
-
-      .carousel-wrapper {
-        display: flex;
-        align-items: center;
-      }
-    }
+  .games .carousel-wrapper {
+    align-items: center;
   }
 
   .community {
-    width: 100%;
+    overflow: hidden;
+  }
 
-    .community-wrapper {
-      flex: 0 0 100%;
-      display: flex;
-      gap: 1.5em;
-      height: auto;
-      width: 100%;
-      scroll-snap-type: x mandatory;
-      overflow-x: scroll;
-      padding: 1rem;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
+  .community #postsContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 560px;
+    max-width: 90vw;
+    gap: 0;
+    margin: 2vh auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .community #postsContainer::-webkit-scrollbar {
+    display: none;
+  }
+
+  .community #postsContainer>.container-community {
+    flex: 0 0 100%;
+    min-width: 100%;
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+  }
+
+  .community #postsContainer .community-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .community #postsContainer .card-community {
+    width: 514px;
+    height: 254px;
   }
 }
 
 @media screen and (max-width: 640px) {
-  .news {
-    height: 100%;
-    width: 90%;
-    margin-bottom: 5vh;
-  }
-
   .games {
-    .carousel {
-      width: 80%;
-
-      .carousel-wrapper {
-        display: flex;
-        align-items: center;
-        height: 100%;
-      }
-    }
+    margin-bottom: 0.5em;
   }
 
-  .community {
-    .community-wrapper {
-      flex: 0 0 100%;
-      display: flex;
-      gap: 4em;
-      height: auto;
-      width: 100%;
-      scroll-snap-type: x mandatory;
-      overflow-x: scroll;
-      padding: 1rem;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
+  .games .carousel {
+    width: 85%;
+  }
+
+  .games .carousel-wrapper {
+    height: 100%;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+
+  .games .carousel-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .games .arrow {
+    display: none;
+  }
+
+  .community #postsContainer .card-community {
+    width: 80%;
+    height: 314px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .games .carousel {
+    width: 80%;
   }
 }

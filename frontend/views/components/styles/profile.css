@@ -441,7 +441,7 @@ body {
     }
 }
 
-@media screen and (max-width: 490px) {
+@media screen and (max-width: 480px) {
 
     .container__profile {
         display: flex;
