@@ -140,6 +140,7 @@ form.addEventListener("submit", async (e) => {
   const subtitulo = document.getElementById("subtitulo").value.trim()
   const fileInput = document.getElementById("img_noticia")
   const conteudo = document.getElementById("conteudo").innerHTML.trim()
+  console.log("ENVIANDO:", JSON.stringify(conteudo))
   const fonte = document.getElementById("fonte").value
 
   const formData = new FormData()
