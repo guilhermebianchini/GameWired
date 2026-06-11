@@ -217,26 +217,6 @@ const postRepository = {
                 ]
             )
 
-            await client.query(
-                `
-                INSERT INTO news
-                (
-                    titulo,
-                    data_publicacao,
-                    conteudo,
-                    user_id,
-                    games_id
-                )
-                VALUES ($1, CURRENT_DATE, $2, $3, $4)
-                `,
-                [
-                    `[POST] ${post.titulo_postagem}`,
-                    post.conteudo_postagem,
-                    post.user_id,
-                    post.games_id
-                ]
-            )
-
             await client.query("COMMIT")
 
             return postResult.rows[0]
@@ -273,7 +253,7 @@ const postRepository = {
 
         return rows[0] || null
     },
-    
+
     async update(post) {
 
         const existing = await this.readByIdAndUser(post.post_id, post.user_id)

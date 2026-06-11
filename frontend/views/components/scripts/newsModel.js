@@ -21,7 +21,7 @@ function fullNotice(news) {
         </div>
 
         <div class="txt-notice">
-            <p>${news.conteudo}</p>
+            ${news.conteudo}
 
             <p>Mais informações em: <a href="${news.fonte}" target="_blank">${news.fonte}</a></p>
         </div>
