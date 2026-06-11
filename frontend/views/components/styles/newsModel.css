@@ -47,6 +47,7 @@
             margin: 1em 0;
 
             p {
+                white-space: pre-line;
                 padding: 0.6em 0;
 
                 a {

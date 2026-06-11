@@ -22,11 +22,9 @@ export const sanitizeNews = (req, res, next) => {
     }
 
     if (req.body.conteudo) {
-        console.log("ANTES:", req.body.conteudo)
-
         req.body.conteudo = sanitizeHtml(req.body.conteudo, {
             allowedTags: [
-                "li", "ol", "ul", "u", "p", "a", "b", "br", "em", "i", "strong", "h2", "h3", "h4", "blockquote", "iframe"
+                "div", "li", "ol", "ul", "u", "p", "a", "b", "br", "em", "i", "strong", "h2", "h3", "h4", "blockquote", "iframe"
             ],
 
             allowedAttributes: {
@@ -45,8 +43,6 @@ export const sanitizeNews = (req, res, next) => {
                 'www.youtube.com', 'youtube.com', 'www.youtube-nocookie.com', 'youtube-nocookie.com'
             ]
         })
-
-        console.log("DEPOIS:", req.body.conteudo)
     }
 
     if (req.body.fonte) {
