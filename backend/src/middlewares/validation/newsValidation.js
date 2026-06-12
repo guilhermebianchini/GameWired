@@ -1,4 +1,5 @@
 import { body, param, validationResult } from 'express-validator'
+import sanitizeHtml from "sanitize-html"
 
 const imageValidation = body("img_noticia")
     .custom((value, { req }) => {
@@ -56,8 +57,20 @@ export const createNewsValidation = [
         .trim()
         .notEmpty()
         .withMessage("O conteúdo da notícia é obrigatório!")
-        .isLength({ min: 200, max: 3000 })
-        .withMessage("O campo deve ter no mínimo 200 caracteres e no máximo 3000 caracteres!"),
+        .custom((value) => {
+            const textoPuro = sanitizeHtml(value, {
+                allowedTags: [],
+                allowedAttributes: {}
+            }).trim()
+
+            if (textoPuro.length < 200 || textoPuro.length > 3000) {
+                throw new Error(
+                    "O campo deve ter no mínimo 200 caracteres e no máximo 3000 caracteres!"
+                )
+            }
+
+            return true
+        }),
 
     body("fonte")
         .trim()
@@ -102,8 +115,20 @@ export const updateNewsValidation = [
         .trim()
         .notEmpty()
         .withMessage("O conteúdo da notícia é obrigatório!")
-        .isLength({ min: 200, max: 3000 })
-        .withMessage("O campo deve ter no mínimo 200 caracteres e no máximo 3000 caracteres!"),
+        .custom((value) => {
+            const textoPuro = sanitizeHtml(value, {
+                allowedTags: [],
+                allowedAttributes: {}
+            }).trim()
+
+            if (textoPuro.length < 200 || textoPuro.length > 3000) {
+                throw new Error(
+                    "O campo deve ter no mínimo 200 caracteres e no máximo 3000 caracteres!"
+                )
+            }
+
+            return true
+        }),
 
     body("fonte")
         .trim()

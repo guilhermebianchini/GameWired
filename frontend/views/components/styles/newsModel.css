@@ -45,10 +45,12 @@
 
         .txt-notice {
             margin: 1em 0;
+            font-size: 18px;
 
             p {
                 white-space: pre-line;
                 padding: 0.6em 0;
+                margin-top: 0.5em;
 
                 a {
                     color: var(--bg-Button);

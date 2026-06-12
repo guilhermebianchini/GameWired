@@ -555,7 +555,7 @@
     }
 
     .middle #postsContainer .post .content_post p {
-        white-space: pre-line;
+        white-space: pre-wrap;
         font-size: 16px;
     }
 

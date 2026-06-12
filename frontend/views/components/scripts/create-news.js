@@ -316,6 +316,11 @@ function imgIsValid(value) {
 function conteudoIsValid(text) {
   const validator = { isValid: true, errorMessage: null }
 
+  const temp = document.createElement("div")
+  temp.innerHTML = html
+
+  const text = temp.textContent.trim()
+
   if (text === '') {
     validator.isValid = false
     validator.errorMessage = 'O conteúdo não pode estar vazio!'
