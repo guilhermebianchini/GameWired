@@ -313,7 +313,7 @@ function imgIsValid(value) {
   return validator
 }
 
-function conteudoIsValid(text) {
+function conteudoIsValid(html) {
   const validator = { isValid: true, errorMessage: null }
 
   const temp = document.createElement("div")
