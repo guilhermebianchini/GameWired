@@ -63,9 +63,9 @@ export const createNewsValidation = [
                 allowedAttributes: {}
             }).trim()
 
-            if (textoPuro.length < 200 || textoPuro.length > 3000) {
+            if (textoPuro.length < 200 || textoPuro.length > 6000) {
                 throw new Error(
-                    "O campo deve ter no mínimo 200 caracteres e no máximo 3000 caracteres!"
+                    "O campo deve ter no mínimo 200 caracteres e no máximo 6000 caracteres!"
                 )
             }
 
@@ -121,9 +121,9 @@ export const updateNewsValidation = [
                 allowedAttributes: {}
             }).trim()
 
-            if (textoPuro.length < 200 || textoPuro.length > 3000) {
+            if (textoPuro.length < 200 || textoPuro.length > 6000) {
                 throw new Error(
-                    "O campo deve ter no mínimo 200 caracteres e no máximo 3000 caracteres!"
+                    "O campo deve ter no mínimo 200 caracteres e no máximo 6000 caracteres!"
                 )
             }
 

@@ -335,7 +335,7 @@ function conteudoIsValid(html) {
     return validator
   }
 
-  const max = 3000
+  const max = 6000
 
   if (text.length > max) {
     validator.isValid = false

@@ -506,7 +506,7 @@ function montarHTMLPosts(posts, comentarios, userIdLogado) {
 
         <div class="content_post">
           <h3>${post.titulo_postagem}</h3>
-          <p>${post.conteudo_postagem}</p>
+          <p>${post.conteudo_postagem.replace(/\r?\n/g, "<br>")}</p>
           ${post.foto_postagem ? `<img src="${post.foto_postagem}" alt="Imagem do post">` : ""}
         </div>
 
