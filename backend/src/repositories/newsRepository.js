@@ -13,7 +13,7 @@ const newsRepository = {
         return rows
     },*/
 
-    async readByNewsPage(page) {
+    async readByNewsPage(page, limit) {
 
         const offset = (page - 1) * limit
 
