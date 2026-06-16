@@ -285,8 +285,8 @@
 .menu_options {
     display: none;
     position: absolute;
-    right: 15px;
-    top: 0;
+    right: 0;
+    top: 30px;
     width: 150px;
     background: var(--bg-Card);
     border-radius: 10px;
@@ -490,6 +490,10 @@
         width: 100%;
     }
 
+    .middle #postsContainer .post .content_post h3 {
+        font-size: 20px;
+    }
+
     .modal-content {
         width: 90%;
     }
@@ -549,10 +553,6 @@
 
     .middle #postsContainer .post .post_origem {
         flex-wrap: wrap;
-    }
-
-    .middle #postsContainer .post .content_post h3 {
-        font-size: 20px;
     }
 
     .middle #postsContainer .post .content_post p {
@@ -647,11 +647,6 @@
     .middle #postsContainer .post .dataPost,
     .middle .comments_list .comment .dataComment {
         font-size: 14px;
-    }
-
-    .comment_menu button,
-    .post_menu button {
-        font-size: 18px;
     }
 
     .middle .comments .input-box .commentContent {

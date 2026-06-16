@@ -93,7 +93,6 @@ async function carregarNoticias(page = 1) {
 // PAGINAÇÃO
 
 function renderizarPaginacao() {
-
   const paginacao = document.getElementById("paginacao")
 
   if (!paginacao) return
@@ -102,10 +101,8 @@ function renderizarPaginacao() {
 
   if (totalPaginas <= 1) return
 
-  // BOTÃO ANTERIOR
-
   const btnAnterior = document.createElement("button")
-
+  btnAnterior.classList.add("pag-btn", "pag-arrow")
   btnAnterior.innerHTML = '<i class="bi bi-chevron-left"></i>'
   btnAnterior.disabled = paginaAtual === 1
 
@@ -116,12 +113,9 @@ function renderizarPaginacao() {
 
   paginacao.appendChild(btnAnterior)
 
-  // NÚMEROS DA PÁGINA
-
   for (let i = 1; i <= totalPaginas; i++) {
-
     const btn = document.createElement("button")
-
+    btn.classList.add("pag-btn")
     btn.textContent = i
 
     if (i === paginaAtual) {
@@ -136,10 +130,8 @@ function renderizarPaginacao() {
     paginacao.appendChild(btn)
   }
 
-  // BOTÃO PRÓXIMO
-
   const btnProximo = document.createElement("button")
-
+  btnProximo.classList.add("pag-btn", "pag-arrow")
   btnProximo.innerHTML = '<i class="bi bi-chevron-right"></i>'
   btnProximo.disabled = paginaAtual === totalPaginas
 

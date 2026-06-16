@@ -69,48 +69,47 @@
 
     .container {
         width: 80%;
+    }
 
-        .title {
-            font-size: 28px;
+    .container .notice .title {
+        font-size: 28px;
+    }
+
+    .container .notice .date {
+        font-size: 18px;
+    }
+
+    .container .notice .head {
+        .img {
+            width: 100%;
+            height: auto;
         }
+    }
 
-        .notice {
-            .date {
-                font-size: 18px;
-            }
-
-            .head {
-                .img {
-                    width: 100%;
-                    height: auto;
-                }
-            }
-
-            .txt-notice {
-                font-size: 18px;
-            }
-        }
+    .container .notice .txt-notice {
+        font-size: 18px;
     }
 }
 
 @media screen and (max-width: 640px) {
-    .container {
-        .title {
-            font-size: 26px;
-        }
+    .container .title {
+        font-size: 26px;
+    }
 
-        .notice {
-            .date {
-                font-size: 16px;
-            }
+    .notice .date {
+        font-size: 16px;
+    }
 
-            .head {
-                font-size: 16px;
-            }
+    .notice .head {
+        font-size: 16px;
+    }
 
-            .txt-notice {
-                font-size: 16px;
-            }
-        }
+    .notice .txt-notice {
+        font-size: 16px;
+    }
+
+    .notice .txt-notice p,
+    .notice .txt-notice a {
+        font-size: 16px;
     }
 }
