@@ -15,7 +15,6 @@ const newsRepository = {
 
     async readByNewsPage(page) {
 
-        const limit = 9
         const offset = (page - 1) * limit
 
         const { rows } = await query(`

@@ -22,11 +22,11 @@ const newsController = {
     async getByNewsPage(req, res) {
         try {
 
-            const page = Number(req.query.page) || 1
+            const page = Math.max(Number(req.query.page) || 1, 1)
             const limit = 9
 
             const [news, totalNews] = await Promise.all([
-                newsRepository.readByNewsPage(page),
+                newsRepository.readByNewsPage(page, limit),
                 newsRepository.countNews()
             ])
 
@@ -38,6 +38,8 @@ const newsController = {
                 limit,
                 totalNews,
                 totalPages,
+                hasPrevious: page > 1,
+                hasNext: page < totalPages,
                 data: news
             })
         } catch (e) {

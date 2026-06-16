@@ -71,24 +71,24 @@
         width: 80%;
 
         .title {
-            font-size: 26px;
+            font-size: 28px;
         }
 
         .notice {
             .date {
                 font-size: 18px;
             }
-        }
 
-        .head {
-            .img {
-                width: 100%;
-                height: auto;
+            .head {
+                .img {
+                    width: 100%;
+                    height: auto;
+                }
             }
-        }
 
-        .txt-notice {
-            font-size: 18px;
+            .txt-notice {
+                font-size: 18px;
+            }
         }
     }
 }
@@ -96,17 +96,21 @@
 @media screen and (max-width: 640px) {
     .container {
         .title {
-            font-size: 22px;
+            font-size: 26px;
         }
 
         .notice {
             .date {
                 font-size: 16px;
             }
-        }
 
-        .txt-notice {
-            font-size: 16px;
+            .head {
+                font-size: 16px;
+            }
+
+            .txt-notice {
+                font-size: 16px;
+            }
         }
     }
 }

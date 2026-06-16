@@ -1,19 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .main-header {
   background: transparent;
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   min-height: 60px;
   z-index: 100;
 }
 
 .main-nav {
-  height: 100%;
   width: 100%;
+  max-width: 100%;
+  min-height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2em;
+  padding: 0 1em;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 
@@ -68,9 +80,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 10%;
-    gap: 1.5em;
-    padding-right: 2em;
+    width: auto;
+    gap: 1em;
+    padding-right: 0;
+  flex-shrink: 0;
 
     .ph,
     .bi {
@@ -133,7 +146,6 @@
   position: fixed;
   height: 100%;
   width: 100%;
-  top: 5em;
   background-color: transparent;
   backdrop-filter: blur(30px);
   right: 0;

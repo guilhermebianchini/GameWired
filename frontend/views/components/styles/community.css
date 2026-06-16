@@ -350,12 +350,13 @@
 .middle #postsContainer .post .content_post {
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 1.5em;
 }
 
 .middle #postsContainer .post .dataPost {
     font-size: 16px;
     font-weight: 500;
+    margin-top: 0.5em;
 }
 
 .middle .comments_list {
@@ -551,7 +552,7 @@
     }
 
     .middle #postsContainer .post .content_post h3 {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .middle #postsContainer .post .content_post p {
@@ -610,6 +611,15 @@
         padding: 10px;
     }
 
+    .middle #postsContainer .post .content_post h3 {
+        font-size: 18px;
+    }
+
+    .middle #postsContainer .post .content_post p {
+        white-space: pre-wrap;
+        font-size: 14px;
+    }
+
     .container__community .left .profile {
         padding: 15px;
     }
@@ -641,7 +651,7 @@
 
     .comment_menu button,
     .post_menu button {
-        font-size: 22px;
+        font-size: 18px;
     }
 
     .middle .comments .input-box .commentContent {
