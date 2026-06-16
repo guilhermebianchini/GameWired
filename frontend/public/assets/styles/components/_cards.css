@@ -141,8 +141,8 @@
       }
 
       .sourceDownload {
-          word-break: break-word;
-        }
+        word-break: break-all;
+      }
     }
   }
 
@@ -410,14 +410,16 @@
     }
 
     .modal-content {
-      width: 80%;
+      width: 90%;
 
       h2 {
         font-size: 25px;
       }
 
-      p {
-        font-size: 12px;
+      .game-content {
+        p {
+          font-size: 14px;
+        }
       }
     }
   }

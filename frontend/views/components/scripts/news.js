@@ -96,6 +96,8 @@ function renderizarPaginacao() {
 
   const paginacao = document.getElementById("paginacao")
 
+  if (!paginacao) return
+
   paginacao.innerHTML = ""
 
   if (totalPaginas <= 1) return
@@ -108,7 +110,7 @@ function renderizarPaginacao() {
   btnAnterior.disabled = paginaAtual === 1
 
   btnAnterior.addEventListener("click", () => {
-    carregarNoticias(i)
+    carregarNoticias(paginaAtual - 1)
     rolarParaTopo()
   })
 
@@ -142,7 +144,7 @@ function renderizarPaginacao() {
   btnProximo.disabled = paginaAtual === totalPaginas
 
   btnProximo.addEventListener("click", () => {
-    carregarNoticias(i)
+    carregarNoticias(paginaAtual + 1)
     rolarParaTopo()
   })
 
