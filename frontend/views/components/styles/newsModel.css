@@ -71,45 +71,49 @@
         width: 80%;
     }
 
-    .container .notice .title {
-        font-size: 28px;
+    .notice .title {
+        font-size: 28px !important;
     }
 
-    .container .notice .date {
-        font-size: 18px;
+    .notice .date,
+    .notice .date strong {
+        font-size: 18px !important;
     }
 
-    .container .notice .head {
+    .notice .head {
         .img {
             width: 100%;
             height: auto;
         }
     }
 
-    .container .notice .txt-notice {
-        font-size: 18px;
+    .notice .txt-notice,
+    .notice .txt-notice *,
+    .notice .txt-notice p,
+    .notice .txt-notice a {
+        font-size: 18px !important;
     }
 }
 
 @media screen and (max-width: 640px) {
     .container .title {
-        font-size: 26px;
+        font-size: 26px !important;
     }
 
-    .notice .date {
-        font-size: 16px;
+    .notice .date,
+    .notice .date strong {
+        font-size: 16px !important;
     }
 
-    .notice .head {
-        font-size: 16px;
+    .notice .head,
+    .notice .head p {
+        font-size: 16px !important;
     }
 
-    .notice .txt-notice {
-        font-size: 16px;
-    }
-
+    .notice .txt-notice,
+    .notice .txt-notice *,
     .notice .txt-notice p,
     .notice .txt-notice a {
-        font-size: 16px;
+        font-size: 16px !important;
     }
 }

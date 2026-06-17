@@ -20,13 +20,29 @@ const dashboardRepository = {
       SELECT
         u.user_id,
         u.nome_usuario,
-        COUNT(DISTINCT p.post_id) AS total_posts,
-        COUNT(DISTINCT c.comentario_id) AS total_comentarios
+        COALESCE(p.total_posts, 0) AS total_posts,
+        COALESCE(c.total_comentarios, 0) AS total_comentarios
       FROM users u
-      LEFT JOIN posts p ON u.user_id = p.user_id
-      LEFT JOIN comentarios c ON u.user_id = c.user_id
-      GROUP BY u.user_id, u.nome_usuario
-      ORDER BY total_posts DESC, total_comentarios DESC
+
+      LEFT JOIN (
+        SELECT
+          user_id,
+          COUNT(*) AS total_posts
+        FROM posts
+        GROUP BY user_id
+      ) p ON u.user_id = p.user_id
+
+      LEFT JOIN (
+        SELECT
+          user_id,
+          COUNT(*) AS total_comentarios
+        FROM comentarios
+        GROUP BY user_id
+      ) c ON u.user_id = c.user_id
+
+      ORDER BY total_posts DESC,
+      total_comentarios DESC
+
       LIMIT 10
     `)
 
