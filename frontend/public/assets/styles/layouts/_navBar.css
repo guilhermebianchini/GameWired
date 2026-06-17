@@ -2,7 +2,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   max-width: 100%;
   overflow-x: hidden;
 }
@@ -44,10 +45,15 @@ html, body {
     position: relative;
     display: flex;
     flex-direction: row;
+    color: var(--bg-Font);
 
     a {
       border: none;
       cursor: pointer;
+    }
+
+    button {
+      color: var(--bg-Font);
     }
 
     .platforms-list {
@@ -83,7 +89,7 @@ html, body {
     width: auto;
     gap: 1em;
     padding-right: 0;
-  flex-shrink: 0;
+    flex-shrink: 0;
 
     .ph,
     .bi {
@@ -255,10 +261,32 @@ html, body {
     }
   }
 
-  .nav__mobile {
-    .bi {
-      font-size: 2.25em;
-    }
+  .nav__mobile .bi {
+    font-size: 2.25em;
+  }
+
+  .nav__mobile .platformsMobile .platforms-items {
+    display: none;
+    list-style: none;
+  }
+
+  .nav__mobile .platformsMobile .platforms-items.open {
+    display: block;
+  }
+
+  .nav__mobile .platformsMobile .platforms-btn {
+    width: 100%;
+    border: none;
+    background: none;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.6em;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 

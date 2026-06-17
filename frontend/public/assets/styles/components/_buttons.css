@@ -1,6 +1,8 @@
 .linkNews {
   display: flex;
-  justify-content: flex-end;
+  position: absolute;
+  top: 340px;
+  right: 0;
 
   .link-card {
     display: flex;
@@ -111,6 +113,10 @@
 }
 
 @media screen and (max-width: 1024px) {
+  .linkNews {
+    top: 310px;
+  }
+
   .community-button {
     width: 100%;
     text-wrap: nowrap;
@@ -127,12 +133,20 @@
 }
 
 @media screen and (max-width: 640px) {
+  .linkNews {
+    top: 280px;
+  }
+
   .community-button {
     font-size: 14px;
   }
 }
 
 @media screen and (max-width: 480px) {
+  .linkNews {
+    top: 315px;
+  }
+
   .community-button {
     font-size: 14px;
   }

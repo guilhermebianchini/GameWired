@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/frontend/public/assets/styles/main.css" />
     <title>Header</title>
 </head>
-
 <body>
     <div class="eclipse"></div>
 
@@ -15,9 +13,11 @@
         <nav class="main-nav">
             <div class="nav__logo">
                 <a href="/">
-                    <img src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logo_ojcaft.svg" data-theme-image
+                    <img src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logo_ojcaft.svg"
+                        data-theme-image
                         data-dark-src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logo_ojcaft.svg"
-                        data-light-src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logolight_qkhi1k.svg" alt="GameWired Logo" />
+                        data-light-src="https://res.cloudinary.com/dtno5yrwl/image/upload/v1777414614/Logolight_qkhi1k.svg"
+                        alt="GameWired Logo" />
                 </a>
             </div>
 
@@ -26,8 +26,7 @@
                     <li> <a id="dashboardBtn" href="/dashboard" class="abas" style="display:none;"> Dashboard </a> </li>
                     <li> <a href="/noticias" class="abas"> Notícias </a> </li>
                     <li>
-                        <a href="" class="abas"> Plataformas </a>
-                        <i class="arrow"></i>
+                        <button class="abas"> Plataformas </button>
                         <ul class="platforms-list">
                             <li><a href="/computador" class="abas" onclick="carregarJogosPorPlataforma(1)">PC</a></li>
                             <li><a href="/console" class="abas" onclick="carregarJogosPorPlataforma(2)">Console</a></li>
@@ -69,11 +68,20 @@
             <ul>
                 <li><a href="/noticias" class="abas-mobile"> Notícias </a></li>
 
-                <li><a href="/computador" class="abas-mobile" onclick="carregarJogosPorPlataforma(1)"> PC </a></li>
+                <li class="platformsMobile">
+                    <button type="button" class="platforms-btn abas-mobile"> Plataformas
+                        <span class="arrow">▼</span>
+                    </button>
 
-                <li><a href="/console" class="abas-mobile" onclick="carregarJogosPorPlataforma(2)"> Console </a></li>
-
-                <li><a href="/mobile" class="abas-mobile" onclick="carregarJogosPorPlataforma(3)"> Mobile </a></li>
+                    <ul class="platforms-items">
+                        <li><a href="/computador" class="abas-mobile" onclick="carregarJogosPorPlataforma(1)"> PC </a>
+                        </li>
+                        <li><a href="/console" class="abas-mobile" onclick="carregarJogosPorPlataforma(2)"> Console </a>
+                        </li>
+                        <li><a href="/mobile" class="abas-mobile" onclick="carregarJogosPorPlataforma(3)"> Mobile </a>
+                        </li>
+                    </ul>
+                </li>
 
                 <li><a href="/comunidade" class="abas-mobile"> Comunidade </a></li>
             </ul>
@@ -87,7 +95,7 @@
             <a id="logoutBtnMobile" style="display:none;" href="/login"> <i class="bi bi-door-closed"></i> </a>
         </div>
     </header>
-
+    
     <script src="/frontend/public/assets/scripts/_navBar.js"></script>
     <script src="/frontend/public/assets/scripts/_temas.js"></script>
     <script src="/frontend/views/components/scripts/platforms.js"></script>

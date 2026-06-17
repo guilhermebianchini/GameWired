@@ -185,6 +185,7 @@
 
   .container-cards #newsContainer .news {
     width: 325px;
+    height: 90%;
   }
 
   .container-cards #newsContainer .news .img-card img {
