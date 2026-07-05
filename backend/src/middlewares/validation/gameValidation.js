@@ -65,8 +65,6 @@ const gameFieldsValidation = [
 
     body("requisitos")
         .trim()
-        .notEmpty()
-        .withMessage("Os requisitos do jogo são obrigatórios!")
         .isLength({ min: 25, max: 1000 })
         .withMessage("O campo deve ter no mínimo 25 caracteres e no máximo 1000 caracteres!"),
 

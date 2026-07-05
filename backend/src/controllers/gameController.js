@@ -30,13 +30,22 @@ const gameController = {
             const games = await gameRepository.readById(games_id)
 
             if (!games) {
-                return res.status(404).json({ mensagem: "Jogo não encontrado!" })
+                return res.status(404).json({
+                    ok: false,
+                    mensagem: "Jogo não encontrado!"
+                })
             }
 
-            res.json(games)
+            return res.status(200).json({
+                ok: true,
+                data: games
+            })
 
         } catch (err) {
-            res.status(500).json({ erro: err.message })
+            res.status(500).json({
+                ok: false,
+                message: err.message
+            })
         }
     },
 
