@@ -54,7 +54,7 @@ const gameController = {
 
     async insertGame(req, res) {
         try {
-            const { nome, descricao, genero, desenvolvedora, tipo, download, requisitos, publicadora, classificacao, plataformas } = req.body
+            const { nome, descricao, genero, desenvolvedora, tipo, download, requisitos, publicadora, classificacao } = req.body
 
             const plataformas = Array.isArray(req.body.plataformas)
                 ? req.body.plataformas
