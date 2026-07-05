@@ -67,6 +67,10 @@
     {
       "source": "/quadro",
       "destination": "/frontend/views/pages/subpages/users-info.html"
+    },
+    {
+      "source": "/postagem-de-jogos",
+      "destination": "/frontend/views/pages/subpages/create-game.html"
     }
   ]
 }

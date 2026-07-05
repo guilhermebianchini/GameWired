@@ -50,6 +50,127 @@ const gameController = {
         } catch (err) {
             res.status(500).json({ erro: err.message })
         }
+    },
+
+    async insertGame(req, res) {
+        try {
+            const { nome, descricao, genero, desenvolvedora, tipo, download, requisitos, publicadora, classificacao, plataformas } = req.body
+
+            const plataformas = Array.isArray(req.body.plataformas)
+                ? req.body.plataformas
+                : req.body.plataformas
+                    ? [req.body.plataformas]
+                    : []
+
+            const game_img = req.file?.path
+
+            if (!game_img) {
+                return res.status(400).json({
+                    ok: false,
+                    message: "A imagem do jogo é obrigatória!"
+                })
+            }
+
+            const model = {
+                nome,
+                descricao,
+                genero,
+                desenvolvedora,
+                tipo,
+                download,
+                requisitos,
+                game_img,
+                publicadora,
+                classificacao,
+                plataformas
+            }
+
+            const gameCreated = await gameRepository.create(model)
+
+            res.status(201).json({
+                ok: true,
+                message: "Jogo adicionado com sucesso!",
+                data: gameCreated
+            })
+        } catch (e) {
+            console.error(e)
+
+            res.status(500).json({
+                ok: false,
+                message: "Erro do servidor!"
+            })
+        }
+    },
+
+    async updateGame(req, res) {
+        try {
+            const model = req.body
+            const games_id = req.params.games_id
+
+            const existing = await gameRepository.readById(games_id)
+
+            if (!existing) {
+                return res.status(404).json({
+                    ok: false,
+                    message: "Jogo não encontrado!"
+                })
+            }
+
+            const model = {
+                ...req.body,
+                games_id,
+                game_img: req.file ? req.file.path : existing.game_img
+            }
+
+            const gameUpdated = await gameRepository.update(model)
+
+            if (gameUpdated) {
+                return res.status(200).json({
+                    ok: true,
+                    message: "Jogo atualizado com sucesso!",
+                    data: gameUpdated
+                })
+            }
+        } catch (e) {
+            res.status(500).json({
+                ok: false,
+                message: 'Erro do servidor!',
+                error: e.message
+            })
+        }
+    },
+
+    async deleteGame(req, res) {
+        try {
+            const games_id = req.params.games_id
+
+            const existing = await gameRepository.readById(games_id)
+
+            if (!existing) {
+                return res.status(404).json({
+                    ok: false,
+                    message: "Jogo não encontrado!"
+                })
+            }
+
+            const gameDeleted = await gameRepository.delete(games_id)
+
+            if (gameDeleted) {
+                return res.status(200).json({
+                    ok: true,
+                    message: "Jogo deletado com sucesso!",
+                    data: gameDeleted
+                })
+            }
+        } catch (e) {
+            console.error("Erro ao deletar jogo:", e)
+
+            res.status(500).json({
+                ok: false,
+                message: 'Erro do servidor!',
+                error: e.message
+            })
+        }
     }
 }
 
