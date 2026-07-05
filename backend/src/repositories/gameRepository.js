@@ -9,7 +9,9 @@ const gameRepository = {
         FROM games g
         JOIN game_platform gp ON gp.games_id = g.games_id
         JOIN platforms pl ON pl.platform_id = gp.platform_id
-        ORDER BY g.nome ASC`)
+        GROUP BY g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.publicadora, g.classificacao, g.tipo, g.download, g.requisitos, g.game_img
+        ORDER BY g.nome ASC
+        `)
 
         return rows
     },
