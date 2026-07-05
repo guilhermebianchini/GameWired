@@ -32,6 +32,14 @@ const storageNews = new CloudinaryStorage({
   }
 })
 
+const storageGames = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "gamewired/games",
+    allowed_formats: ["jpg", "png", "jpeg"]
+  }
+})
+
 // TAMANHO MÁXIMO DE 5MB
 
 export const uploadPerfil = multer({
@@ -39,13 +47,21 @@ export const uploadPerfil = multer({
     fileSize: 5 * 1024 * 1024
   }
 })
+
 export const uploadPosts = multer({
   storage: storagePosts, limits: {
     fileSize: 5 * 1024 * 1024
   }
 })
+
 export const uploadNews = multer({
   storage: storageNews, limits: {
+    fileSize: 5 * 1024 * 1024
+  }
+})
+
+export const uploadGames = multer({
+  storage: storageGames, limits: {
     fileSize: 5 * 1024 * 1024
   }
 })

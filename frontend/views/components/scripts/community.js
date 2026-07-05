@@ -300,6 +300,14 @@ function conteudoPostagemIsValid(value) {
     return validator
   }
 
+  const regex = /(https?:\/\/|www\.|[a-zA-Z0-9-]+\.[a-zA-Z]{2,})(\/\S*)?/
+
+  if (!regex.test(value)) {
+    validator.isValid = false
+    validator.errorMessage = 'Não é permitido postar links na comunidade!'
+    return validator
+  }
+
   return validator
 }
 
