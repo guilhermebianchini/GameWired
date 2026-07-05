@@ -1,5 +1,19 @@
 import gameRepository from "../repositories/gameRepository.js"
 
+function normalizarPlataformas(plataformas) {
+    if (!plataformas) {
+        return []
+    }
+
+    const lista = Array.isArray(plataformas)
+        ? plataformas
+        : [plataformas]
+
+    return lista
+        .map(Number)
+        .filter(Number.isInteger)
+}
+
 const gameController = {
     async getAllGames(req, res) {
         try {
@@ -12,7 +26,7 @@ const gameController = {
 
     async getGameById(req, res) {
         try {
-            const games_id = req.params.id
+            const games_id = req.params.games_id
             const games = await gameRepository.readById(games_id)
 
             if (!games) {
@@ -56,11 +70,7 @@ const gameController = {
         try {
             const { nome, descricao, genero, desenvolvedora, tipo, download, requisitos, publicadora, classificacao } = req.body
 
-            const plataformas = Array.isArray(req.body.plataformas)
-                ? req.body.plataformas
-                : req.body.plataformas
-                    ? [req.body.plataformas]
-                    : []
+            const plataformas = normalizarPlataformas(req.body.plataformas)
 
             const game_img = req.file?.path
 
@@ -104,7 +114,8 @@ const gameController = {
 
     async updateGame(req, res) {
         try {
-            const model = req.body
+            const plataformas = normalizarPlataformas(req.body.plataformas)
+
             const games_id = req.params.games_id
 
             const existing = await gameRepository.readById(games_id)
@@ -119,6 +130,7 @@ const gameController = {
             const model = {
                 ...req.body,
                 games_id,
+                plataformas,
                 game_img: req.file ? req.file.path : existing.game_img
             }
 

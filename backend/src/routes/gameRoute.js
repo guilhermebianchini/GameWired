@@ -11,7 +11,7 @@ gameRouter.get('/games', gameController.getAllGames)
 
 gameRouter.get('/games/select', gameController.getGameBySelect)
 
-gameRouter.get('/games/:id', gameIDValidation, validateGame, gameController.getGameById)
+gameRouter.get('/games/:games_id', gameIDValidation, validateGame, gameController.getGameById)
 
 gameRouter.get('/games/platform/:platform_id', platformValidation, validateGame, gameController.getGameByPlatform)
 
