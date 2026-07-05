@@ -159,7 +159,7 @@ form.addEventListener("submit", async (e) => {
     formData.append("game_img", fileInput.files[0])
   }
 
-  let url = "http://localhost:3000/games"
+  let url = "https://gamewired-api.duckdns.org/games"
   let method = "POST"
 
   if (editandoId) {
