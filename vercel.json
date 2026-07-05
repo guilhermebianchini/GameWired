@@ -53,15 +53,15 @@
       "destination": "/frontend/views/pages/subpages/editor-dashboard.html"
     },
     {
-      "source": "/postagem",
+      "source": "/postagem-noticias",
       "destination": "/frontend/views/pages/subpages/create-news.html"
     },
     {
-      "source": "/postagem/:id",
+      "source": "/postagem-noticias/:id",
       "destination": "/frontend/views/pages/subpages/create-news.html"
     },
     {
-      "source": "/gerenciamento",
+      "source": "/gerenciamento-noticias",
       "destination": "/frontend/views/pages/subpages/manage-news.html"
     },
     {
@@ -69,8 +69,12 @@
       "destination": "/frontend/views/pages/subpages/users-info.html"
     },
     {
-      "source": "/postagem-de-jogos",
+      "source": "/postagem-jogos",
       "destination": "/frontend/views/pages/subpages/create-game.html"
+    },
+    {
+      "source": "/gerenciamento-jogos",
+      "destination": "/frontend/views/pages/subpages/manage-games.html"
     }
   ]
 }

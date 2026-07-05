@@ -39,6 +39,8 @@ async function carregarJogosPorPlataforma(platform_id) {
                   <p>${game.descricao}</p>
                   <p><strong>Gênero:</strong> ${game.genero}</p>
                   <p><strong>Desenvolvedor(a):</strong> ${game.desenvolvedora}</p>
+                  <p><strong>Publicador(a):</strong> ${game.publicadora}</p>
+                  <p><strong>Classificação Indicativa:</strong> ${game.classificacao}</p>
                   <p><strong>Tipo:</strong> ${game.tipo}</p>
                   <p class="sourceDownload"><strong>Download:</strong> ${game.download}</p>
                   <p><strong>Requisitos:</strong> ${game.requisitos}</p>

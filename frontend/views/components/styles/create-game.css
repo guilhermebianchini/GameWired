@@ -106,8 +106,8 @@ input[type="checkbox"] {
 
 #preview-imagem {
     display: none;
-    max-width: 90%;
-    height: auto;
+    height: 100%;
+    max-height: 300px;
     object-fit: cover;
     border-radius: 10px;
     margin: 1em auto;
@@ -196,6 +196,10 @@ input[type="checkbox"] {
 }
 
 .input-box.valid input {
+    border: 1px solid #74fc6f;
+}
+
+.input-box.valid textarea {
     border: 1px solid #74fc6f;
 }
 

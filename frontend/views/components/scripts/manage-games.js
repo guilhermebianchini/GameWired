@@ -27,11 +27,11 @@ async function userAuth() {
 
     const user = await response.json()
 
-    if (user.user_type !== "admin" && user.user_type !== "editor") {
+    if (user.user_type !== "admin") {
       Swal.fire({
         icon: 'error',
         title: 'Autenticação inválida!',
-        text: 'Você não é um editor ou administrador para acessar essa página.',
+        text: 'Você não é um administrador para acessar essa página.',
         confirmButtonColor: '#8863e7',
         confirmButtonText: 'Continuar'
       }).then(() => {
@@ -73,31 +73,34 @@ function getUserIdFromToken() {
   }
 }
 
-// CARREGAMENTO DE NOTÍCIAS DO USUÁRIO
+// CARREGAMENTO DE JOGOS
 
-function limparManageNews() {
-  const container = document.getElementById("manageNewsContainer")
+function limparManageGames() {
+  const container = document.getElementById("manageGamesContainer")
   if (container) container.innerHTML = ""
 }
 
-function previewManageNews(noticias) {
+function previewManageGames(jogos) {
   let html = ""
 
-  noticias.forEach(news => {
+  jogos.forEach(games => {
+
+    const resumo =
+    games.descricao.length > 300
+      ? games.descricao.slice(0, 300) + "..."
+      : games.descricao
 
     html += `
-      <div class="news-list">
-        <div class="news-card">
-          <img src="${news.img_noticia}" alt="${news.titulo}">
-            <div class="news-content">
-              <h3>${news.titulo}</h3>
-              <span class="date">${news.data_publicacao.split('T')[0].split('-').reverse().join('/')}</span>
+      <div class="games-list">
+        <div class="games-card">
+          <img src="${games.game_img}" alt="${games.nome}">
+            <div class="games-content">
+              <h3>${games.nome}</h3>
+              <span class="description">${resumo}</span>
                 <div class="actions">
-                  <a class="btn-view" href="/noticias/${news.news_id}"> Visualizar </a>
+                  <a class="btn-edit" href="/postagem-jogos/${games.games_id}"> Editar </a>
 
-                  <a class="btn-edit" href="/postagem-noticias/${news.news_id}"> Editar </a>
-
-                  <button class="btn-delete" onclick="abrirModalExclusao(${news.news_id})">
+                  <button class="btn-delete" onclick="abrirModalExclusao(${games.games_id})">
                     Excluir
                   </button>
                 </div>
@@ -110,24 +113,24 @@ function previewManageNews(noticias) {
   return html
 }
 
-function renderizarManageNews(news) {
-  const container = document.getElementById("manageNewsContainer")
+function renderizarManageGames(games) {
+  const container = document.getElementById("manageGamesContainer")
 
   if (!container) {
-    console.error("Container das notícias não encontrado!")
+    console.error("Container dos jogos não encontrado!")
     return
   }
 
-  const html = previewManageNews(news)
+  const html = previewManageGames(games)
 
   container.innerHTML = html
 }
 
-async function carregarGerenciamentoNoticias() {
+async function carregarGerenciamentoJogos() {
   try {
     const token = localStorage.getItem("token")
 
-    const response = await fetch(`https://gamewired-api.duckdns.org/news/me`,
+    const response = await fetch(`https://gamewired-api.duckdns.org/games`,
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -135,23 +138,23 @@ async function carregarGerenciamentoNoticias() {
       }
     )
 
-    const noticias = await response.json()
+    const jogos = await response.json()
 
-    renderizarManageNews(noticias)
+    renderizarManageGames(jogos)
   } catch (error) {
     console.error(error)
   }
 }
 
-carregarGerenciamentoNoticias()
+carregarGerenciamentoJogos()
 
 // FUNÇÃO DO BOTÃO DE DELETAR
 
-let newsIdParaExcluir = null
+let gamesIdParaExcluir = null
 
-function abrirModalExclusao(news_id) {
+function abrirModalExclusao(games_id) {
 
-  newsIdParaExcluir = news_id
+  gamesIdParaExcluir = games_id
 
   document
     .getElementById("delete-modal")
@@ -173,25 +176,25 @@ document
   .getElementById("confirm-delete")
   .addEventListener("click", async () => {
 
-    if (!newsIdParaExcluir) return
+    if (!gamesIdParaExcluir) return
 
-    await deletarNews(newsIdParaExcluir)
+    await deletarGame(gamesIdParaExcluir)
 
     fecharModalExclusao()
   })
 
 window.abrirModalExclusao = abrirModalExclusao
 
-// DELETAR NOTÍCIA
+// DELETAR JOGO
 
-async function deletarNews(news_id) {
+async function deletarGame(games_id) {
   const token = localStorage.getItem("token")
 
   if (!token) {
     Swal.fire({
       icon: "error",
       title: "Você precisa estar logado!",
-      text: "Faça login para deletar uma postagem.",
+      text: "Faça login para deletar um jogo.",
       confirmButtonColor: "#8863e7",
       confirmButtonText: "Continuar"
     })
@@ -199,7 +202,7 @@ async function deletarNews(news_id) {
   }
 
   try {
-    const res = await fetch(`https://gamewired-api.duckdns.org/news/${news_id}`, {
+    const res = await fetch(`https://gamewired-api.duckdns.org/games/${games_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -216,7 +219,7 @@ async function deletarNews(news_id) {
       Swal.fire({
         icon: "error",
         title: "Erro!",
-        text: result.message || "Erro ao deletar notícia!",
+        text: result.message || "Erro ao deletar jogo!",
         confirmButtonColor: "#8863e7",
         confirmButtonText: "Continuar"
       })
@@ -226,7 +229,7 @@ async function deletarNews(news_id) {
     Swal.fire({
       icon: "success",
       title: "Sucesso!",
-      text: result.message || "Notícia deletada com sucesso!",
+      text: result.message || "Jogo deletado com sucesso!",
       confirmButtonColor: "#8863e7",
       confirmButtonText: "Continuar"
     })
@@ -235,14 +238,14 @@ async function deletarNews(news_id) {
       .getElementById("delete-modal")
       .classList.add("hidden")
 
-    await carregarGerenciamentoNoticias()
+    await carregarGerenciamentoJogos()
 
   } catch (err) {
-    console.error("Erro ao deletar notícia:", err)
+    console.error("Erro ao deletar jogo:", err)
     Swal.fire({
       icon: "error",
       title: "Erro!",
-      text: "Erro de conexão ao deletar a notícia.",
+      text: "Erro de conexão ao deletar o jogo.",
       confirmButtonColor: "#8863e7",
       confirmButtonText: "Continuar"
     })

@@ -1,0 +1,161 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 2vh 0;
+  padding: 2em 0;
+
+  .info-manage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 35vh;
+
+    h1 {
+      font-size: 40px;
+      font-weight: 700;
+    }
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 2em;
+  margin-top: -1em;
+  background-color: var(--bg-Card);
+  padding: 1.25em;
+  border-radius: 10px;
+}
+
+.games-list {
+  margin: 1.5em;
+}
+
+.games-card {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  background-color: var(--bg-Background);
+  padding: 1rem;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.games-card img {
+  width: 150px;
+  height: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.games-content {
+  flex: 1;
+}
+
+.games-content h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  margin-bottom: 1.4em;
+}
+
+.games-content .description {
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  margin-top: 0.2rem;
+  display: flex;
+  gap: 0.7em;
+}
+
+.btn-view, .btn-edit, .btn-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5em;
+  color: white;
+  padding: 0.5rem 1.4em;
+  border-radius: 10px;
+  border: none;
+  font-size: 1em;
+  text-decoration: none;
+  cursor: pointer;
+  gap: 0.5em;
+}
+
+.btn-view, .btn-edit {
+  background-color: var(--bg-Button);
+}
+
+.btn-delete {
+  background-color: var(--bg-ButtonCancel);
+}
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-color: var(--bg-Card);
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.modal-content h4 {
+  margin-bottom: 0.7em;
+}
+
+.modal-content p {
+  margin-bottom: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-confirm {
+  display: flex;
+  margin-top: 1.5em;
+  background-color: var(--bg-ButtonCancel);
+  color: white;
+  padding: 0.8rem 1.4em;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  display: flex;
+  margin-top: 1.5em;
+  background-color: var(--bg-FooterFont);
+  color: white;
+  padding: 0.8rem 1.4em;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}

@@ -1,6 +1,6 @@
 // AUTENTICAÇÃO
 
-async function newsAuth() {
+async function userAuth() {
 
     const token = localStorage.getItem("token")
 
@@ -52,7 +52,7 @@ async function newsAuth() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", newsAuth)
+document.addEventListener("DOMContentLoaded", userAuth)
 
 // PEGANDO O ID DO USUÁRIO COM O JWT
 

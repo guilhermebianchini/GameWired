@@ -1,11 +1,14 @@
 import query from "../config/connection.js"
+import { pool } from "../config/connection.js"
 
 const gameRepository = {
 
     async readAll() {
         const { rows } = await query(`
-            SELECT g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos, g.game_img
+            SELECT g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.publicadora, g.classificacao, g.tipo, g.download, g.requisitos, g.game_img, ARRAY_AGG(gp.platform_id ORDER BY gp.platform_id) AS plataformas, ARRAY_AGG(pl.platform_nome ORDER BY gp.platform_id) AS plataformas_nome
         FROM games g
+        JOIN game_platform gp ON gp.games_id = g.games_id
+        JOIN platforms pl ON pl.platform_id = gp.platform_id
         ORDER BY g.nome ASC`)
 
         return rows
@@ -13,9 +16,12 @@ const gameRepository = {
 
     async readById(games_id) {
         const { rows } = await query(`
-                SELECT g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos, g.game_img
+                SELECT g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.publicadora, g.classificacao, g.tipo, g.download, g.requisitos, g.game_img, ARRAY_AGG(gp.platform_id ORDER BY gp.platform_id) AS plataformas, ARRAY_AGG(pl.platform_nome ORDER BY gp.platform_id) AS plataformas_nome
                 FROM games g
+                JOIN game_platform gp ON gp.games_id = g.games_id
+                JOIN platforms pl ON pl.platform_id = gp.platform_id
                 WHERE g.games_id = $1
+                GROUP BY g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.publicadora, g.classificacao, g.tipo, g.download, g.requisitos, g.game_img
                 `, [games_id]
         )
 
@@ -32,7 +38,7 @@ const gameRepository = {
 
     async readByPlatform(platform_id) {
         const { rows } = await query(`
-            SELECT g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.tipo, g.download, g.requisitos, g.game_img, pl.platform_nome
+            SELECT g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.publicadora, g.classificacao, g.tipo, g.download, g.requisitos, g.game_img, pl.platform_nome
             FROM games g
             JOIN game_platform gp ON gp.games_id = g.games_id
             JOIN platforms pl ON pl.platform_id = gp.platform_id
@@ -95,16 +101,14 @@ const gameRepository = {
 
         } catch (err) {
             await client.query("ROLLBACK")
-            throw err;
+
+            throw err
         } finally {
             client.release()
         }
     },
 
     async update(games) {
-        const existing = await this.readById(games.games_id)
-
-        if (!existing) throw new Error("Jogo não encontrado!")
 
         const client = await pool.connect()
 
@@ -127,7 +131,7 @@ const gameRepository = {
                 RETURNING *
                 `
 
-            const { rows } = await query(sql, [
+            const { rows } = await client.query(sql, [
                 games.nome,
                 games.descricao,
                 games.genero,
@@ -142,6 +146,10 @@ const gameRepository = {
             ])
 
             const gameId = rows[0].games_id
+
+            if (rows.length === 0) {
+                throw new Error("Jogo não encontrado!")
+            }
 
             await client.query(
                 `DELETE FROM game_platform WHERE games_id = $1`,
@@ -172,10 +180,6 @@ const gameRepository = {
 
     async delete(games_id) {
 
-        const existing = await this.readById(games_id)
-
-        if (!existing) throw new Error("Jogo não encontrado!")
-
         const client = await pool.connect()
 
         try {
@@ -187,7 +191,7 @@ const gameRepository = {
                 [games_id]
             )
 
-            const { rows } = await query(`
+            const { rows } = await client.query(`
                 DELETE FROM games
                 WHERE games_id = $1
                 RETURNING *

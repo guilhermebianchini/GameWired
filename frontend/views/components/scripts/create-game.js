@@ -1,6 +1,6 @@
 // AUTENTICAÇÃO PARA PUBLICAR
 
-async function newsAuth() {
+async function userAuth() {
 
   const token = localStorage.getItem("token")
 
@@ -52,7 +52,7 @@ async function newsAuth() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", newsAuth)
+document.addEventListener("DOMContentLoaded", userAuth)
 
 // PEGANDO O ID DO USUÁRIO COM O JWT
 
@@ -106,7 +106,7 @@ form.addEventListener("submit", async (e) => {
     const input = document.getElementById(field.id)
     const inputBox = input.closest('.input-box')
     const inputValue = input.value
-    
+
     const fieldValidator = field.id === "game_platforms"
       ? field.validator()
       : field.validator(inputValue)
@@ -159,7 +159,7 @@ form.addEventListener("submit", async (e) => {
     formData.append("game_img", fileInput.files[0])
   }
 
-  let url = "https://gamewired-api.duckdns.org/games"
+  let url = "http://localhost:3000/games"
   let method = "POST"
 
   if (editandoId) {
@@ -452,26 +452,26 @@ function requisitosIsValid(value) {
   return validator
 }
 
-// EDIÇÃO DE NOTÍCIAS
+// EDIÇÃO DE JOGOS
 
-let newsId = null
+let gamesId = null
 
 const path = window.location.pathname
 const parts = path.split("/").filter(Boolean)
 const lastPart = parts[parts.length - 1]
 
 if (/^\d+$/.test(lastPart)) {
-  newsId = lastPart
+  gamesId = lastPart
 }
 
-if (newsId) {
-  editarNews(newsId)
+if (gamesId) {
+  editarGames(gamesId)
 }
 
-async function editarNews(news_id) {
+async function editarGames(games_id) {
   const token = localStorage.getItem("token")
 
-  const res = await fetch(`https://gamewired-api.duckdns.org/news/${news_id}/me`, {
+  const res = await fetch(`https://gamewired-api.duckdns.org/games/${games_id}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -484,7 +484,7 @@ async function editarNews(news_id) {
       Swal.fire({
         icon: "error",
         title: "Erro!",
-        text: "Erro ao carregar notícia.",
+        text: "Erro ao carregar jogo.",
         confirmButtonColor: "#8863e7",
         confirmButtonText: "Continuar"
       })
@@ -492,33 +492,45 @@ async function editarNews(news_id) {
       return
     }
 
-    const news = result.data
+    const games = result.data
 
     const preview = document.getElementById("preview-imagem")
     const info = document.getElementById("imagem-info")
 
-    if (news.img_noticia) {
-      preview.src = news.img_noticia
+    if (games.game_img) {
+      preview.src = games.game_img
       preview.style.display = "block"
 
       info.classList.remove("hidden")
     }
 
-    editandoId = news.news_id
+    editandoId = games.games_id
 
-    document.getElementById("titulo").value = news.titulo
-    document.getElementById("data_publicacao").value = news.data_publicacao.split("T")[0]
-    document.getElementById("subtitulo").value = news.subtitulo
-    document.getElementById("conteudo").innerHTML = news.conteudo
-    document.getElementById("fonte").value = news.fonte
+    const plataformas = (games.plataformas || []).map(Number)
+
+    document
+      .querySelectorAll('input[name="platforms"]')
+      .forEach(checkbox => {
+        checkbox.checked = plataformas.includes(Number(checkbox.value))
+      })
+
+    document.getElementById("game_name").value = games.nome
+    document.getElementById("game_description").value = games.descricao
+    document.getElementById("game_genre").value = games.genero
+    document.getElementById("game_developer").value = games.desenvolvedora
+    document.getElementById("game_publisher").value = games.publicadora
+    document.getElementById("game_classification").value = games.classificacao
+    document.getElementById("game_type").value = games.tipo
+    document.getElementById("game_download").value = games.download
+    document.getElementById("game_requirements").value = games.requisitos
 
     document.querySelector(".btn-publish").textContent = "Salvar alterações"
   } catch (err) {
-    console.error("Erro ao carregar notícia:", err)
+    console.error("Erro ao carregar jogo:", err)
   }
 }
 
-const inputImagem = document.getElementById("img_noticia")
+const inputImagem = document.getElementById("game_img")
 const preview = document.getElementById("preview-imagem")
 
 inputImagem?.addEventListener("change", () => {
@@ -537,10 +549,11 @@ function autoResizeTextarea(textarea) {
   textarea.style.height = textarea.scrollHeight + "px"
 }
 
-const contentTextarea = document.getElementById("conteudo")
+const descriptionTextarea = document.getElementById("game_description")
+const requirementsTextarea = document.getElementById("game_requirements")
 
 function ajustarTextareas() {
-  [contentTextarea].forEach(textarea => {
+  [descriptionTextarea, requirementsTextarea].forEach(textarea => {
     autoResizeTextarea(textarea)
     textarea.addEventListener("input", () => autoResizeTextarea(textarea))
   })
@@ -566,28 +579,27 @@ btnCancelClear.addEventListener("click", () => {
 btnConfirmClear.addEventListener("click", () => {
   form.reset()
 
-  document.getElementById("conteudo").innerHTML = ""
-
   const preview = document.getElementById("preview-imagem")
-
-  if (preview) {
-    preview.src = ""
-    preview.style.display = "none"
-  }
-
+  const inputImagem = document.getElementById("game_img")
   const info = document.getElementById("imagem-info")
 
-  if (info) {
-    info.style.display = "none"
-  }
+  inputImagem.value = ""
 
-  document.querySelectorAll('.input-box').forEach(box => {
-    box.classList.remove('invalid', 'valid')
+  preview.removeAttribute("src")
+  preview.style.display = "none"
 
-    const error = box.querySelector('.error')
+  info.classList.add("hidden")
 
+  document.querySelectorAll('input[name="platforms"]').forEach(checkbox => {
+    checkbox.checked = false
+  })
+
+  document.querySelectorAll(".input-box").forEach(box => {
+    box.classList.remove("invalid", "valid")
+
+    const error = box.querySelector(".error")
     if (error) {
-      error.innerHTML = ''
+      error.textContent = ""
     }
   })
 

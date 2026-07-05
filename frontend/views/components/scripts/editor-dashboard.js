@@ -1,6 +1,6 @@
 // AUTENTICAÇÃO
 
-async function newsAuth() {
+async function userAuth() {
 
   const token = localStorage.getItem("token")
 
@@ -41,18 +41,18 @@ async function newsAuth() {
       return
     }
 
-    const newsOff = document.getElementById("newsLoggedOff")
-    const newsIn = document.getElementById("newsLoggedIn")
+    const loggedOff = document.getElementById("loggedOff")
+    const loggedIn = document.getElementById("loggedIn")
 
-    newsOff.classList.add("hidden")
-    newsIn.classList.remove("hidden")
+    loggedOff.classList.add("hidden")
+    loggedIn.classList.remove("hidden")
 
   } catch (error) {
     console.error("Erro ao autenticar usuário:", error)
   }
 }
 
-document.addEventListener("DOMContentLoaded", newsAuth)
+document.addEventListener("DOMContentLoaded", userAuth)
 
 // PEGANDO O ID DO USUÁRIO COM O JWT
 
