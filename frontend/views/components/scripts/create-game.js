@@ -426,6 +426,12 @@ function downloadIsValid(value) {
 
 function requisitosIsValid(value) {
   const validator = { isValid: true, errorMessage: null }
+
+  if (isEmpty(value)) {
+    validator.isValid = false
+    validator.errorMessage = 'Os requisitos do jogo são obrigatórios!'
+    return validator
+  }
   
   const min = 25
 
