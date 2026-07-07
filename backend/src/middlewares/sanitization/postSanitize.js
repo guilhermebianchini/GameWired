@@ -14,7 +14,7 @@ export const sanitizePost = (req, res, next) => {
     if (req.body.conteudo_postagem) {
         req.body.conteudo_postagem = sanitizeHtml(req.body.conteudo_postagem, {
             allowedTags: [
-                "li", "ol", "ul", "u", "p", "a", "b", "br", "em", "i", "strong", "blockquote"
+                "li", "ol", "ul", "u", "p", "b", "br", "em", "i", "strong", "blockquote"
             ],
             allowedAttributes: {}
         })
