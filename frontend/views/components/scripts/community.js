@@ -269,6 +269,35 @@ function tituloPostagemIsValid(value) {
     return validator
   }
 
+  const regexLinks = /(https?:\/\/|www\.|[a-zA-Z0-9-]+\.(com|net|org|gg|io|br|xyz|me|tv|co))/i
+
+  if (regexLinks.test(value)) {
+    validator.isValid = false
+    validator.errorMessage = 'Não é permitido postar links na comunidade!'
+    return validator
+  }
+
+  const palavrasProibidas = [
+    "porra", "caralho", "cu", "filho da puta", "vai se fuder", "viado", "vsf", "fdp", "vai tomar no cu", "vtnc", "tnc", "fuck", "shit"
+  ]
+
+  const textoNormalizado = value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+
+  const contemPalavra = palavrasProibidas.some((palavra) => {
+    const regex = new RegExp(`\\b${palavra}\\b`, "i")
+    return regex.test(textoNormalizado)
+  })
+
+  if (contemPalavra) {
+    validator.isValid = false
+    validator.errorMessage =
+      "Sua publicação contém linguagem inadequada!"
+    return validator
+  }
+
   return validator
 }
 
@@ -300,11 +329,32 @@ function conteudoPostagemIsValid(value) {
     return validator
   }
 
-  const regex = /(https?:\/\/|www\.|[a-zA-Z0-9-]+\.[a-zA-Z]{2,})(\/\S*)?/
+  const regexLinks = /(https?:\/\/|www\.|[a-zA-Z0-9-]+\.(com|net|org|gg|io|br|xyz|me|tv|co))/i
 
-  if (!regex.test(value)) {
+  if (regexLinks.test(value)) {
     validator.isValid = false
     validator.errorMessage = 'Não é permitido postar links na comunidade!'
+    return validator
+  }
+
+  const palavrasProibidas = [
+    "porra", "caralho", "cu", "filho da puta", "vai se fuder", "viado", "vsf", "fdp", "vai tomar no cu", "vtnc", "tnc", "fuck", "shit"
+  ]
+
+  const textoNormalizado = value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+
+  const contemPalavra = palavrasProibidas.some((palavra) => {
+    const regex = new RegExp(`\\b${palavra}\\b`, "i")
+    return regex.test(textoNormalizado)
+  })
+
+  if (contemPalavra) {
+    validator.isValid = false
+    validator.errorMessage =
+      "Sua publicação contém linguagem inadequada!"
     return validator
   }
 
