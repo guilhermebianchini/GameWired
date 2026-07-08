@@ -52,7 +52,7 @@ function renderizarNews(news) {
   }
 
   if (!news.length) {
-    container.innerHTML = "<p>Nenhuma notícia encontrada.</p>"
+    container.innerHTML = '<p class="empty-news">Nenhuma notícia encontrada.</p>'
     return
   }
 
@@ -177,8 +177,7 @@ if (filtro) {
 
   filtro.addEventListener("change", () => {
     
-    ordemAtual = "data-new"
-    filtro.value = "data-new"
+    ordemAtual = filtro.value || "data-new"
 
     carregarNoticias(
       1,

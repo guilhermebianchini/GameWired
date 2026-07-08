@@ -81,6 +81,11 @@
   margin-top: 0.5em;
 }
 
+.empty-news {
+  margin-top: 2em;
+  font-size: 1.1em;
+}
+
 .container-cards #newsContainer .news {
   width: 350px;
   height: 95%;
