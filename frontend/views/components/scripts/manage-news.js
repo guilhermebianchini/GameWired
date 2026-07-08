@@ -191,7 +191,7 @@ async function deletarNews(news_id) {
     Swal.fire({
       icon: "error",
       title: "Você precisa estar logado!",
-      text: "Faça login para deletar uma postagem.",
+      text: "Faça login para deletar uma notícia.",
       confirmButtonColor: "#8863e7",
       confirmButtonText: "Continuar"
     })

@@ -26,64 +26,106 @@ main {
   flex-direction: column;
   align-items: center;
   width: 100%;
+}
 
-  .input-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    text-wrap: nowrap;
-    padding-bottom: 0.8em;
+#form .input-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-wrap: nowrap;
+  padding-bottom: 0.8em;
+}
 
-    input {
-      width: 90%;
-      height: 45px;
-      padding: .7rem;
-      border-radius: 10px;
-      background-color: var(--bg-Background);
-      color: var(--bg-Font);
-      font-size: 1rem;
-    }
+#form .input-box input[type="file"], input[type="text"] {
+  width: 90%;
+  height: 45px;
+  padding: .7rem;
+  border-radius: 10px;
+  background-color: var(--bg-Background);
+  color: var(--bg-Font);
+  font-size: 1rem;
+}
 
-    .editor {
-      width: 90%;
-      background-color: var(--bg-Background);
-    }
+#form .input-box .editor {
+  width: 90%;
+  background-color: var(--bg-Background);
+}
 
-    .error {
-      color: var(--bg-Button);
-      font-size: 1rem;
-    }
-  }
+#form .input-box .error {
+  color: var(--bg-Button);
+  font-size: 1rem;
+}
 
-  .login {
-    display: flex;
-    align-items: center;
+#form .login {
+  display: flex;
+  align-items: center;
+}
 
-    p,
-    a {
-      font-size: 1rem;
-    }
+#form .login p,
+a {
+  font-size: 1rem;
+}
 
-    a {
-      color: var(--bg-Button);
-      text-decoration: none;
-      padding: 0 0.5em;
-    }
-  }
+#form .login a {
+  color: var(--bg-Button);
+  text-decoration: none;
+  padding: 0 0.5em;
+}
+
+#form .input-box .checkbox-news {
+  display: block;
+  font-size: 1rem;
+  background-color: var(--bg-Background);
+  border-radius: 10px;
+  padding: .7rem;
+  width: 90%;
+}
+
+#form .input-box .checkbox-news p {
+  font-size: 1rem;
+  margin-bottom: 1em;
+}
+
+#form .input-box .checkbox-news .catgGrid {
+  display: grid;
+  grid-template-columns: repeat(5, max-content);
+  justify-content: space-between;
+  gap: 0.6em;
+}
+
+#form .input-box .checkbox-news .catgGrid label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.5em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#form .input-box .checkbox-news .catgGrid .catgItem {
+  display: flex;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  height: auto;
+  margin: 0;
+  transform: scale(1);
 }
 
 #preview-imagem {
-    display: none;
-    max-width: 90%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 1em auto;
+  display: none;
+  max-width: 90%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 1em auto;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 #img_noticia {

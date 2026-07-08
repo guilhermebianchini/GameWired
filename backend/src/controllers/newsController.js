@@ -1,5 +1,19 @@
 import newsRepository from "../repositories/newsRepository.js"
 
+function normalizarCategorias(categorias) {
+    if (!categorias) {
+        return []
+    }
+
+    const lista = Array.isArray(categorias)
+        ? categorias
+        : [categorias]
+
+    return lista
+        .map(Number)
+        .filter(Number.isInteger)
+}
+
 const newsController = {
     /*async getAllNews(req, res) {
         try {
@@ -25,9 +39,11 @@ const newsController = {
             const page = Math.max(Number(req.query.page) || 1, 1)
             const limit = 9
 
+            const categoria = Number(req.query.categoria) || 0
+
             const [news, totalNews] = await Promise.all([
-                newsRepository.readByNewsPage(page, limit),
-                newsRepository.countNews()
+                newsRepository.readByNewsPage(page, limit, categoria),
+                newsRepository.countNews(categoria)
             ])
 
             const totalPages = Math.ceil(totalNews / limit)
@@ -54,7 +70,6 @@ const newsController = {
     async getNewsById(req, res) {
         try {
             const news_id = req.params.news_id
-
             const news = await newsRepository.readById(news_id)
 
             if (!news) {
@@ -80,10 +95,12 @@ const newsController = {
     async getNewsByUser(req, res) {
 
         try {
-
             const news = await newsRepository.readByUser(req.user.id)
 
-            res.status(200).json(news)
+            res.status(200).json({
+                ok: true,
+                data: news
+            })
 
         } catch (e) {
             console.error(e)
@@ -97,7 +114,6 @@ const newsController = {
     async getByLatestNews(req, res) {
 
         try {
-
             const news = await newsRepository.readByLatestNews()
 
             res.status(200).json(news)
@@ -113,8 +129,12 @@ const newsController = {
 
     async insertNews(req, res) {
         try {
-            const { titulo, data_publicacao, subtitulo, conteudo, fonte } = req.body
+            const { titulo, subtitulo, conteudo, fonte } = req.body
+
+            const categorias = normalizarCategorias(req.body.categorias)
+
             const img_noticia = req.file?.path
+
             const user_id = req.user.id
 
             if (!img_noticia) {
@@ -126,11 +146,11 @@ const newsController = {
 
             const model = {
                 titulo,
-                data_publicacao,
                 subtitulo,
                 img_noticia,
                 conteudo,
                 fonte,
+                categorias,
                 user_id
             }
 
@@ -151,7 +171,7 @@ const newsController = {
         }
     },
 
-    async getNewstByIdAndUser(req, res) {
+    async getNewsByIdAndUser(req, res) {
         try {
             const news_id = req.params.news_id
             const user_id = req.user.id
@@ -181,8 +201,10 @@ const newsController = {
 
     async updateNews(req, res) {
         try {
-            const model = req.body
+            const categorias = normalizarCategorias(req.body.categorias)
+
             const news_id = req.params.news_id
+
             const user_id = req.user.id
 
             const existing = await newsRepository.readByIdAndUser(news_id, user_id)
@@ -194,11 +216,13 @@ const newsController = {
                 })
             }
 
-            model.news_id = news_id
-            model.user_id = user_id
-
-            model.img_noticia = req.file ? req.file.path : existing.img_noticia
-
+            const model = {
+                ...req.body,
+                categorias,
+                news_id,
+                user_id,
+                img_noticia: req.file ? req.file.path : existing.img_noticia
+            }
             const newsUpdated = await newsRepository.update(model)
 
             if (newsUpdated) {

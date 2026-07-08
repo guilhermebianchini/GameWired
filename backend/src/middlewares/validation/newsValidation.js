@@ -21,6 +21,74 @@ const imageValidation = body("img_noticia")
         return true
     })
 
+const newsFieldValidation = [
+    body("titulo")
+        .trim()
+        .notEmpty()
+        .withMessage("O título da notícia é obrigatório!")
+        .isLength({ min: 25, max: 200 })
+        .withMessage("O campo deve ter no mínimo 25 caracteres e no máximo 200 caracteres!"),
+
+    body("subtitulo")
+        .trim()
+        .notEmpty()
+        .withMessage("O subtítulo da notícia é obrigatório!")
+        .isLength({ min: 25, max: 400 })
+        .withMessage("O campo deve ter no mínimo 25 caracteres e no máximo 400 caracteres!"),
+
+    imageValidation,
+
+    body("conteudo")
+        .trim()
+        .notEmpty()
+        .withMessage("O conteúdo da notícia é obrigatório!")
+        .custom((value) => {
+            const textoPuro = sanitizeHtml(value, {
+                allowedTags: [],
+                allowedAttributes: {}
+            }).trim()
+
+            if (textoPuro.length < 200 || textoPuro.length > 6000) {
+                throw new Error(
+                    "O campo deve ter no mínimo 200 caracteres e no máximo 6000 caracteres!"
+                )
+            }
+
+            return true
+        }),
+
+    body("fonte")
+        .trim()
+        .notEmpty()
+        .withMessage("A fonte da notícia é obrigatória!")
+        .isURL({
+            protocols: ["http", "https"],
+            require_protocol: true
+        })
+        .withMessage("Informe uma URL válida!"),
+
+    body("categorias")
+        .custom((value) => {
+            if (!value) {
+                throw new Error("É preciso selecionar ao menos uma categoria!")
+            }
+
+            const categorias = Array.isArray(value) ? value : [value]
+
+            const MAX_CATEGORY_ID = 10;
+
+            for (const categoria of categorias) {
+                const id = Number(categoria)
+
+                if (!Number.isInteger(id) || id < 1 || id > MAX_CATEGORY_ID) {
+                    throw new Error("Categoria inválida!")
+                }
+            }
+
+            return true
+        })
+]
+
 export const newsIDValidation = [
     param("news_id")
         .notEmpty()
@@ -31,56 +99,7 @@ export const newsIDValidation = [
 ]
 
 export const createNewsValidation = [
-    body("titulo")
-        .trim()
-        .notEmpty()
-        .withMessage("O título da notícia é obrigatório!")
-        .isLength({ min: 25, max: 200 })
-        .withMessage("O campo deve ter no mínimo 25 caracteres e no máximo 200 caracteres!"),
-
-    body("data_publicacao")
-        .notEmpty()
-        .withMessage("A data da publicação é obrigatória!")
-        .isDate()
-        .withMessage("Informe uma data válida!"),
-
-    body("subtitulo")
-        .trim()
-        .notEmpty()
-        .withMessage("O subtítulo da notícia é obrigatório!")
-        .isLength({ min: 25, max: 400 })
-        .withMessage("O campo deve ter no mínimo 25 caracteres e no máximo 400 caracteres!"),
-
-    imageValidation,
-
-    body("conteudo")
-        .trim()
-        .notEmpty()
-        .withMessage("O conteúdo da notícia é obrigatório!")
-        .custom((value) => {
-            const textoPuro = sanitizeHtml(value, {
-                allowedTags: [],
-                allowedAttributes: {}
-            }).trim()
-
-            if (textoPuro.length < 200 || textoPuro.length > 6000) {
-                throw new Error(
-                    "O campo deve ter no mínimo 200 caracteres e no máximo 6000 caracteres!"
-                )
-            }
-
-            return true
-        }),
-
-    body("fonte")
-        .trim()
-        .notEmpty()
-        .withMessage("A fonte da notícia é obrigatória!")
-        .isURL({
-            protocols: ["http", "https"],
-            require_protocol: true
-        })
-        .withMessage("Informe uma URL válida!")
+    ...newsFieldValidation
 ]
 
 export const updateNewsValidation = [
@@ -89,56 +108,7 @@ export const updateNewsValidation = [
         .toInt()
         .withMessage("ID inválido!"),
 
-    body("titulo")
-        .trim()
-        .notEmpty()
-        .withMessage("O título da notícia é obrigatório!")
-        .isLength({ min: 25, max: 200 })
-        .withMessage("O campo deve ter no mínimo 25 caracteres e no máximo 200 caracteres!"),
-
-    body("data_publicacao")
-        .notEmpty()
-        .withMessage("A data da publicação é obrigatória!")
-        .isDate()
-        .withMessage("Informe uma data válida!"),
-
-    body("subtitulo")
-        .trim()
-        .notEmpty()
-        .withMessage("O subtítulo da notícia é obrigatório!")
-        .isLength({ min: 25, max: 400 })
-        .withMessage("O campo deve ter no mínimo 25 caracteres e no máximo 400 caracteres!"),
-
-    imageValidation,
-
-    body("conteudo")
-        .trim()
-        .notEmpty()
-        .withMessage("O conteúdo da notícia é obrigatório!")
-        .custom((value) => {
-            const textoPuro = sanitizeHtml(value, {
-                allowedTags: [],
-                allowedAttributes: {}
-            }).trim()
-
-            if (textoPuro.length < 200 || textoPuro.length > 6000) {
-                throw new Error(
-                    "O campo deve ter no mínimo 200 caracteres e no máximo 6000 caracteres!"
-                )
-            }
-
-            return true
-        }),
-
-    body("fonte")
-        .trim()
-        .notEmpty()
-        .withMessage("A fonte da notícia é obrigatória!")
-        .isURL({
-            protocols: ["http", "https"],
-            require_protocol: true
-        })
-        .withMessage("Informe uma URL válida!")
+    ...newsFieldValidation
 ]
 
 export const deleteNewsValidation = [

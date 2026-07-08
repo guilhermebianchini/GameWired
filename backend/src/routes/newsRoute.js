@@ -15,7 +15,7 @@ newsRouter.get('/news', newsController.getByNewsPage)
 
 newsRouter.get('/news/:news_id', newsIDValidation, validateNews, newsController.getNewsById)
 
-newsRouter.get('/news/:news_id/me', verifyToken, newsIDValidation, validateNews, newsController.getNewstByIdAndUser)
+newsRouter.get('/news/:news_id/me', verifyToken, newsIDValidation, validateNews, newsController.getNewsByIdAndUser)
 
 newsRouter.post('/news', verifyToken, uploadNews.single("img_noticia"), createNewsValidation, validateNews, sanitizeNews, newsController.insertNews)
 
