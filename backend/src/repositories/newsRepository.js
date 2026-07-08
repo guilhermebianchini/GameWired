@@ -121,7 +121,7 @@ const newsRepository = {
         return rows
     },
 
-    async countNews() {
+    async countNews(categoria = 0) {
 
         const { rows } = await query(`
         SELECT COUNT(*) AS total
