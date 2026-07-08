@@ -13,7 +13,7 @@ const newsRepository = {
         return rows
     },*/
 
-    async readByNewsPage(page, limit, categoria = 0) {
+    async readByNewsPage(page, limit, categoria = 0, ordem = "data-new") {
 
         const offset = (page - 1) * limit
 
@@ -54,10 +54,36 @@ const newsRepository = {
                 n.data_publicacao,
                 n.subtitulo,
                 n.img_noticia
-            ORDER BY n.data_publicacao DESC
+            ORDER BY
+            CASE 
+                WHEN $4 = 'data-old' THEN n.data_publicacao
+            END ASC,
+
+            CASE
+                WHEN $4 = 'data-new' THEN n.data_publicacao
+            END DESC,
+
+            CASE
+                WHEN $4 = 'a-z' THEN LOWER(n.titulo)
+            END ASC,
+
+            CASE
+                WHEN $4 = 'z-a' THEN LOWER(n.titulo)
+            END DESC,
+
+            CASE
+                WHEN $4 = 'data-old' THEN n.news_id
+            END ASC,
+
+            CASE
+                WHEN $4 = 'data-new' THEN n.news_id
+            END DESC,
+
+            n.news_id DESC
+
             LIMIT $1
             OFFSET $2
-        `, [limit, offset, categoria])
+        `, [limit, offset, categoria, ordem])
 
         return rows
     },
