@@ -1,6 +1,7 @@
 let paginaAtual = 1
 let totalPaginas = 1
 let categoriaAtual = 0
+let ordemAtual = "data-new"
 
 // MODELO DO CONTAINER DAS NOTÍCIAS
 
@@ -62,10 +63,10 @@ function renderizarNews(news) {
 
 // CARREGAMENTO DAS NOTÍCIAS
 
-async function carregarNoticias(page = 1, categoria = categoriaAtual) {
+async function carregarNoticias(page = 1, categoria = categoriaAtual, ordem = ordemAtual) {
   try {
     const response = await fetch(
-      `https://gamewired-api.duckdns.org/news?page=${page}&categoria=${categoria}`
+      `https://gamewired-api.duckdns.org/news?page=${page}&categoria=${categoria}&ordem=${ordem}`
     )
 
     if (!response.ok) {
@@ -81,6 +82,7 @@ async function carregarNoticias(page = 1, categoria = categoriaAtual) {
     paginaAtual = result.page
     totalPaginas = result.totalPages
     categoriaAtual = categoria
+    ordemAtual = ordem
 
     renderizarNews(result.data)
     renderizarPaginacao()
@@ -109,7 +111,7 @@ function renderizarPaginacao() {
   btnAnterior.disabled = paginaAtual === 1
 
   btnAnterior.addEventListener("click", () => {
-    carregarNoticias(paginaAtual - 1, categoriaAtual)
+    carregarNoticias(paginaAtual - 1, categoriaAtual, ordemAtual)
     rolarParaTopo()
   })
 
@@ -125,7 +127,7 @@ function renderizarPaginacao() {
     }
 
     btn.addEventListener("click", () => {
-      carregarNoticias(i, categoriaAtual)
+      carregarNoticias(i, categoriaAtual, ordemAtual)
       rolarParaTopo()
     })
 
@@ -138,16 +140,14 @@ function renderizarPaginacao() {
   btnProximo.disabled = paginaAtual === totalPaginas
 
   btnProximo.addEventListener("click", () => {
-    carregarNoticias(paginaAtual + 1, categoriaAtual)
+    carregarNoticias(paginaAtual + 1, categoriaAtual, ordemAtual)
     rolarParaTopo()
   })
 
   paginacao.appendChild(btnProximo)
 }
 
-function rolarParaTopo() {
-  document.getElementById("news").scrollIntoView({ behavior: "smooth" })
-}
+// FILTRO DE CATEGORIA
 
 document
   .querySelectorAll(".newsCatgFilter button")
@@ -168,6 +168,35 @@ document
     })
 
   })
+
+// FILTRO DE ORDENAÇÃO
+const filtro = document.getElementById("filter")
+
+if (filtro) {
+  filtro.addEventListener("change", () => {
+    ordemAtual = filtro.value || "data-new"
+    carregarNoticias(
+      1,
+      categoriaAtual,
+      ordemAtual
+    )
+  })
+}
+
+// VOLTAR PARA O TOPO
+
+function rolarParaTopo() {
+  
+  const news = document.getElementById("news")
+
+  if (news) {
+    news.scrollIntoView({
+
+      behavior: "smooth"
+
+    })
+  }
+}
 
 // INICIALIZAÇÃO
 

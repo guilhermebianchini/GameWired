@@ -47,12 +47,7 @@
   opacity: 0.9;
 }
 
-.container-top .newsCatgFilter button:hover {
-  color: var(--bg-FooterFont);
-  transition: 0.3s;
-}
-
-.filter-info {
+.filterInfo {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -63,17 +58,20 @@
   opacity: 0.9;
 }
 
-.filter-info select {
-  padding: 0.6em;
+.filterInfo p {
+  font-size: 1em;
+}
+
+.filterInfo select {
+  padding: 0.7em;
   border-radius: 10px;
   transition: 0.4s;
   cursor: pointer;
-}
-
-#filter {
   background: var(--bg-Eclipse);
   color: var(--bg-Font);
-  width: 25%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .container-cards #newsContainer {

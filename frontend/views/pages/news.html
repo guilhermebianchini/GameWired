@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,6 +24,7 @@
 
   <title>GameWired | Notícias</title>
 </head>
+
 <body>
   <div id="header"></div>
 
@@ -44,18 +46,17 @@
         <button data-category="10">Filmes/Séries</button>
       </div>
 
-      <div class="filter-info">
-        <label for="">Filtro:</label>
+      <div class="filterInfo">
+        <p>Filtro:</p>
 
-        <select id="filter">
-          <option value="" disable selected hidden>Selecione</option>
-
-          <option value="data-new">Mais Recentes</option>
-          <option value="data-old">Mais Antigos</option>
-          <option value="relevance">Mais Relevantes</option>
-          <option value="a-z">Ordem Ascendente (A-Z)</option>
-          <option value="z-a">Ordem Descrescente (Z-A)</option>
-        </select>
+        <div class="newsFilter">
+          <select id="filter">
+            <option value="data-new">Mais Recentes</option>
+            <option value="data-old">Mais Antigas</option>
+            <option value="a-z">Ordem Ascendente (A-Z)</option>
+            <option value="z-a">Ordem Descrescente (Z-A)</option>
+          </select>
+        </div>
       </div>
     </section>
 
@@ -74,4 +75,5 @@
   <script src="/frontend/public/assets/scripts/_navBar.js"></script>
   <script src="/frontend/public/assets/scripts/_news-pages.js"></script>
 </body>
+
 </html>
