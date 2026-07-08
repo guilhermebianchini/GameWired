@@ -163,30 +163,36 @@ document
 
       categoriaAtual = Number(button.dataset.category)
 
-      carregarNoticias(1, categoriaAtual)
+      carregarNoticias(1, categoriaAtual, ordemAtual)
 
     })
 
   })
 
 // FILTRO DE ORDENAÇÃO
+
 const filtro = document.getElementById("filter")
 
 if (filtro) {
+
   filtro.addEventListener("change", () => {
-    ordemAtual = filtro.value || "data-new"
+    
+    ordemAtual = "data-new"
+    filtro.value = "data-new"
+
     carregarNoticias(
       1,
       categoriaAtual,
       ordemAtual
     )
+    
   })
 }
 
 // VOLTAR PARA O TOPO
 
 function rolarParaTopo() {
-  
+
   const news = document.getElementById("news")
 
   if (news) {
