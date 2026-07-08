@@ -276,16 +276,38 @@ const newsRepository = {
 
         const existing = await this.readByIdAndUser(news_id, user_id)
 
-        if (!existing) throw new Error("Notícia não encontrada ou não pertence ao editor!")
+        if (!existing) {
+            throw new Error("Notícia não encontrada ou não pertence ao editor!")
+        }
 
-        const { rows } = await query(`
-            DELETE FROM news
-            WHERE news_id = $1
-            AND user_id = $2
-            RETURNING *
+        const client = await pool.connect()
+
+        try {
+            await client.query("BEGIN")
+
+            await client.query(
+                `DELETE FROM news_categories
+                WHERE news_id = $1`,
+                [news_id]
+            )
+
+            const { rows } = await client.query(`
+                DELETE FROM news
+                WHERE news_id = $1
+                AND user_id = $2
+                RETURNING *
             `, [news_id, user_id])
 
-        return rows[0]
+            await client.query("COMMIT")
+
+            return rows[0]
+
+        } catch (err) {
+            await client.query("ROLLBACK")
+            throw err;
+        } finally {
+            client.release()
+        }
     }
 }
 
