@@ -41,8 +41,10 @@ const newsController = {
 
             const categoria = Number(req.query.categoria) || 0
 
+            const ordem = req.query.ordem || "data-new"
+
             const [news, totalNews] = await Promise.all([
-                newsRepository.readByNewsPage(page, limit, categoria),
+                newsRepository.readByNewsPage(page, limit, categoria, ordem),
                 newsRepository.countNews(categoria)
             ])
 
