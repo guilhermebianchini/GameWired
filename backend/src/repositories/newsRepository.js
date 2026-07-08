@@ -30,7 +30,7 @@ const newsRepository = {
                     '{}'
                 ) AS categorias,
                 COALESCE(
-                    ARRAY_AGG(DISTINCT c.category_name ORDER BY c.category_id)
+                    ARRAY_AGG(DISTINCT c.category_name ORDER BY c.category_name)
                         FILTER (WHERE c.category_id IS NOT NULL),
                     '{}'
                 ) AS categorias_nome
@@ -64,7 +64,7 @@ const newsRepository = {
 
     async readById(news_id) {
 
-        const { rows } = await query(`SELECT n.news_id, n.titulo, n.data_publicacao, n.subtitulo, n.img_noticia, n.conteudo, n.fonte, u.nome_usuario, COALESCE( ARRAY_AGG(DISTINCT c.category_id ORDER BY c.category_id) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias, COALESCE( ARRAY_AGG(DISTINCT c.category_name ORDER BY c.category_id) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias_nome
+        const { rows } = await query(`SELECT n.news_id, n.titulo, n.data_publicacao, n.subtitulo, n.img_noticia, n.conteudo, n.fonte, u.nome_usuario, COALESCE( ARRAY_AGG(DISTINCT c.category_id ORDER BY c.category_id) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias, COALESCE( ARRAY_AGG(DISTINCT c.category_name ORDER BY c.category_name) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias_nome
             FROM news n
             JOIN users u ON n.user_id = u.user_id
             LEFT JOIN news_categories nc
@@ -88,7 +88,7 @@ const newsRepository = {
 
         const { rows } = await query(`
         SELECT
-            n.news_id, n.titulo, n.data_publicacao, n.subtitulo, n.img_noticia, n.conteudo, n.fonte, COALESCE( ARRAY_AGG(DISTINCT c.category_id ORDER BY c.category_id) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias, COALESCE( ARRAY_AGG(DISTINCT c.category_name ORDER BY c.category_id) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias_nome
+            n.news_id, n.titulo, n.data_publicacao, n.subtitulo, n.img_noticia, n.conteudo, n.fonte, COALESCE( ARRAY_AGG(DISTINCT c.category_id ORDER BY c.category_id) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias, COALESCE( ARRAY_AGG(DISTINCT c.category_name ORDER BY c.category_name) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias_nome
         FROM news n
         LEFT JOIN news_categories nc
             ON n.news_id = nc.news_id
@@ -107,7 +107,7 @@ const newsRepository = {
 
         const { rows } = await query(`
             SELECT
-                n.news_id, n.titulo, n.data_publicacao, n.subtitulo, n.img_noticia, COALESCE( ARRAY_AGG(DISTINCT c.category_id ORDER BY c.category_id) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias, COALESCE( ARRAY_AGG(DISTINCT c.category_name ORDER BY c.category_id) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias_nome
+                n.news_id, n.titulo, n.data_publicacao, n.subtitulo, n.img_noticia, COALESCE( ARRAY_AGG(DISTINCT c.category_id ORDER BY c.category_id) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias, COALESCE( ARRAY_AGG(DISTINCT c.category_name ORDER BY c.category_name) FILTER (WHERE c.category_id IS NOT NULL), '{}' ) AS categorias_nome
             FROM news n
             LEFT JOIN news_categories nc
                 ON n.news_id = nc.news_id

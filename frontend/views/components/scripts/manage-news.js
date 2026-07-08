@@ -135,9 +135,13 @@ async function carregarGerenciamentoNoticias() {
       }
     )
 
-    const noticias = await response.json()
+    const result = await response.json()
 
-    renderizarManageNews(noticias)
+    if (!response.ok) {
+      throw new Error(result.message)
+    }
+
+    renderizarManageNews(result.data)
   } catch (error) {
     console.error(error)
   }
@@ -252,17 +256,17 @@ async function deletarNews(news_id) {
 // RESIZE TEXTAREA
 
 function autoResizeTextarea(textarea) {
-    textarea.style.height = "auto"
-    textarea.style.height = textarea.scrollHeight + "px"
+  textarea.style.height = "auto"
+  textarea.style.height = textarea.scrollHeight + "px"
 }
 
 const contentTextarea = document.getElementById("conteudo")
 
 function ajustarTextareas() {
-    [contentTextarea].forEach(textarea => {
-        autoResizeTextarea(textarea)
-        textarea.addEventListener("input", () => autoResizeTextarea(textarea))
-    })
+  [contentTextarea].forEach(textarea => {
+    autoResizeTextarea(textarea)
+    textarea.addEventListener("input", () => autoResizeTextarea(textarea))
+  })
 }
 
 ajustarTextareas()
