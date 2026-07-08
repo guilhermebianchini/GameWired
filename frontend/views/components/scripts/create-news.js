@@ -94,7 +94,7 @@ form.addEventListener("submit", async (e) => {
 
   const fields = [
     { id: 'titulo', validator: tituloIsValid },
-    { id: 'data_publicacao', validator: dataIsValid },
+    { id: 'news_categories', validator: categoriaIsValid },
     { id: 'subtitulo', validator: subtituloIsValid },
     { id: 'img_noticia', validator: imgIsValid },
     { id: 'conteudo', validator: conteudoIsValid },
@@ -108,10 +108,14 @@ form.addEventListener("submit", async (e) => {
   fields.forEach(function (field) {
     const input = document.getElementById(field.id)
     const inputBox = input.closest('.input-box')
-    const inputValue =
-      field.id === "conteudo"
-        ? input.innerHTML
-        : input.value
+
+    let inputValue = null
+
+    if (field.id === "conteudo") {
+      inputValue = input.innerHTML
+    } else if (field.id !== "news_categories") {
+      inputValue = input.value
+    }
 
     const errorSpan = inputBox.querySelector('.error')
     errorSpan.innerHTML = ''
@@ -136,7 +140,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   const titulo = document.getElementById("titulo").value.trim()
-  const data_publicacao = document.getElementById("data_publicacao").value.trim()
+  const categorias = [...document.querySelectorAll('input[name="newsCategories"]:checked')].map(checkbox => checkbox.value)
   const subtitulo = document.getElementById("subtitulo").value.trim()
   const fileInput = document.getElementById("img_noticia")
   const conteudo = document.getElementById("conteudo").innerHTML.trim()
@@ -144,7 +148,7 @@ form.addEventListener("submit", async (e) => {
 
   const formData = new FormData()
   formData.append("titulo", titulo)
-  formData.append("data_publicacao", data_publicacao)
+  categorias.forEach(categoria => { formData.append("categorias", categoria) })
   formData.append("subtitulo", subtitulo)
   formData.append("conteudo", conteudo)
   formData.append("fonte", fonte)
@@ -162,7 +166,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
-    
+
     const res = await fetch(url, {
       method: method,
       headers: {
@@ -232,24 +236,17 @@ function tituloIsValid(value) {
   return validator
 }
 
-function dataIsValid(value) {
+function categoriaIsValid() {
   const validator = { isValid: true, errorMessage: null }
 
-  if (isEmpty(value)) {
+  const categorias = document.querySelectorAll(
+    'input[name="newsCategories"]:checked'
+  )
+
+  if (categorias.length === 0) {
     validator.isValid = false
-    validator.errorMessage = 'A data é obrigatória!'
-    return validator
-  }
-
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
-
-  const selectedDate = new Date(value + "T00:00:00")
-
-  if (selectedDate > today) {
-    validator.isValid = false
-    validator.errorMessage = 'A data não pode ser futura!'
-    return validator
+    validator.errorMessage =
+      "É preciso escolher ao menos uma categoria para a notícia!"
   }
 
   return validator
@@ -428,8 +425,15 @@ async function editarNews(news_id) {
 
     editandoId = news.news_id
 
+    const categorias = (news.categorias || []).map(Number)
+
+    document
+      .querySelectorAll('input[name="newsCategories"]')
+      .forEach(checkbox => {
+        checkbox.checked = categorias.includes(Number(checkbox.value))
+      })
+
     document.getElementById("titulo").value = news.titulo
-    document.getElementById("data_publicacao").value = news.data_publicacao.split("T")[0]
     document.getElementById("subtitulo").value = news.subtitulo
     document.getElementById("conteudo").innerHTML = news.conteudo
     document.getElementById("fonte").value = news.fonte

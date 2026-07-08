@@ -54,8 +54,88 @@
               <span class="error"></span>
             </div>
 
-            <div class="input-box">
+            <!--<div class="input-box">
               <input type="date" id="data_publicacao">
+              <span class="error"></span>
+            </div>-->
+
+            <div class="input-box">
+              <div id="newsCatg" class="checkbox-news">
+                <p>Escolha a(s) categoria(s) da notícia:</p>
+                
+                <div id="news_categories" class="catgGrid">
+                  <div class="catgItem">
+                    <label for="jogos">
+                      <input type="checkbox" id="jogos" name="newsCategories" value="1">
+                      Jogos
+                    </label>
+                  </div>
+
+                  <div class="catgItem">
+                    <label for="lancamentos">
+                      <input type="checkbox" id="lancamentos" name="newsCategories" value="2">
+                      Lançamentos
+                    </label>
+                  </div>
+
+                  <div class="catgItem">
+                    <label for="eventos">
+                      <input type="checkbox" id="eventos" name="newsCategories" value="3">
+                      Eventos
+                    </label>
+                  </div>
+
+                  <div class="catgItem">
+                    <label for="saude">
+                      <input type="checkbox" id="saude" name="newsCategories" value="4">
+                      Saúde
+                    </label>
+                  </div>
+
+                  <div class="catgItem">
+                    <label for="educacao">
+                      <input type="checkbox" id="educacao" name="newsCategories" value="5">
+                      Educação
+                    </label>
+                  </div>
+                  
+                  <div class="catgItem">
+                    <label for="politica">
+                      <input type="checkbox" id="politica" name="newsCategories" value="6">
+                      Política
+                    </label>
+                  </div>
+
+                  <div class="catgItem">
+                    <label for="tecnologia">
+                      <input type="checkbox" id="tecnologia" name="newsCategories" value="7">
+                      Tecnologia
+                    </label>
+                  </div>
+
+                  <div class="catgItem">
+                    <label for="industria">
+                      <input type="checkbox" id="industria" name="newsCategories" value="8">
+                      Indústria
+                    </label>
+                  </div>
+
+                  <div class="catgItem">
+                    <label for="esports">
+                      <input type="checkbox" id="esports" name="newsCategories" value="9">
+                      eSports
+                    </label>
+                  </div>
+
+                  <div class="catgItem">
+                    <label for="filmes-series">
+                      <input type="checkbox" id="filmes-series" name="newsCategories" value="10">
+                      Filmes/Séries
+                    </label>
+                  </div>
+                </div>
+              </div>
+
               <span class="error"></span>
             </div>
 
@@ -67,7 +147,8 @@
             <div class="input-box">
               <img id="preview-imagem" src="" alt="Imagem da notícia">
               <input type="file" id="img_noticia" accept="image/*">
-              <small id="imagem-info" class="hidden">A imagem acima já está cadastrada. Escolha outra apenas se desejar substituí-la.</small>
+              <small id="imagem-info" class="hidden">A imagem acima já está cadastrada. Escolha outra apenas se desejar
+                substituí-la.</small>
               <span class="error"></span>
             </div>
 
@@ -80,7 +161,8 @@
                 <button type="button" onclick="execCmd('video')">Vídeo</button>
               </div>
 
-              <div id="conteudo" class="editor" contenteditable="true" data-placeholder="Digite o conteúdo da notícia"></div>
+              <div id="conteudo" class="editor" contenteditable="true" data-placeholder="Digite o conteúdo da notícia">
+              </div>
               <span class="error"></span>
             </div>
 

@@ -1,5 +1,6 @@
 let paginaAtual = 1
 let totalPaginas = 1
+let categoriaAtual = 0
 
 // MODELO DO CONTAINER DAS NOTÍCIAS
 
@@ -61,10 +62,10 @@ function renderizarNews(news) {
 
 // CARREGAMENTO DAS NOTÍCIAS
 
-async function carregarNoticias(page = 1) {
+async function carregarNoticias(page = 1, categoria = categoriaAtual) {
   try {
     const response = await fetch(
-      `https://gamewired-api.duckdns.org/news?page=${page}`
+      `https://gamewired-api.duckdns.org/news?page=${page}&categoria=${categoria}`
     )
 
     if (!response.ok) {
@@ -79,6 +80,7 @@ async function carregarNoticias(page = 1) {
 
     paginaAtual = result.page
     totalPaginas = result.totalPages
+    categoriaAtual = categoria
 
     renderizarNews(result.data)
     renderizarPaginacao()
@@ -107,7 +109,7 @@ function renderizarPaginacao() {
   btnAnterior.disabled = paginaAtual === 1
 
   btnAnterior.addEventListener("click", () => {
-    carregarNoticias(paginaAtual - 1)
+    carregarNoticias(paginaAtual - 1, categoriaAtual)
     rolarParaTopo()
   })
 
@@ -123,7 +125,7 @@ function renderizarPaginacao() {
     }
 
     btn.addEventListener("click", () => {
-      carregarNoticias(i)
+      carregarNoticias(i, categoriaAtual)
       rolarParaTopo()
     })
 
@@ -136,7 +138,7 @@ function renderizarPaginacao() {
   btnProximo.disabled = paginaAtual === totalPaginas
 
   btnProximo.addEventListener("click", () => {
-    carregarNoticias(paginaAtual + 1)
+    carregarNoticias(paginaAtual + 1, categoriaAtual)
     rolarParaTopo()
   })
 
@@ -146,6 +148,26 @@ function renderizarPaginacao() {
 function rolarParaTopo() {
   document.getElementById("news").scrollIntoView({ behavior: "smooth" })
 }
+
+document
+  .querySelectorAll(".newsCatgFilter button")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      document
+        .querySelectorAll(".newsCatgFilter button")
+        .forEach(btn => btn.classList.remove("ativo"))
+
+      button.classList.add("ativo")
+
+      categoriaAtual = Number(button.dataset.category)
+
+      carregarNoticias(1, categoriaAtual)
+
+    })
+
+  })
 
 // INICIALIZAÇÃO
 

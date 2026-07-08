@@ -27,17 +27,36 @@
   <div id="header"></div>
 
   <main id="news">
-    <section class="search-container">
+    <section class="container-top">
       <h1>Notícias</h1>
 
-      <!--<div class="filtros">
-        <select id="filtro">
+      <div class="newsCatgFilter">
+        <button data-category="0" class="ativo">Todas</button>
+        <button data-category="1">Jogos</button>
+        <button data-category="2">Lançamentos</button>
+        <button data-category="3">Eventos</button>
+        <button data-category="4">Saúde</button>
+        <button data-category="5">Educação</button>
+        <button data-category="6">Política</button>
+        <button data-category="7">Tecnologia</button>
+        <button data-category="8">Indústria</button>
+        <button data-category="9">eSports</button>
+        <button data-category="10">Filmes/Séries</button>
+      </div>
+
+      <div class="filter-info">
+        <label for="">Filtro:</label>
+
+        <select id="filter">
           <option value="" disable selected hidden>Selecione</option>
 
-          <option value="a-z">A-Z</option>
-          <option value="z-a">Z-A</option>
+          <option value="data-new">Mais Recentes</option>
+          <option value="data-old">Mais Antigos</option>
+          <option value="relevance">Mais Relevantes</option>
+          <option value="a-z">Ordem Ascendente (A-Z)</option>
+          <option value="z-a">Ordem Descrescente (Z-A)</option>
         </select>
-      </div>-->
+      </div>
     </section>
 
     <section class="container-cards" id="listaNoticias">
