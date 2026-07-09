@@ -105,7 +105,7 @@
   height: 42px;
   padding: 0 0.6em;
   border: 2px solid transparent;
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--bg-Card);
   color: var(--bg-Font);
   font-size: 1em;
@@ -124,7 +124,7 @@
 
 .pag-btn.pag-ativo {
   background-color: var(--bg-Button);
-  color: #fff;
+  color: var(--bg-Font);
   border-color: var(--bg-Button);
   font-weight: 700;
 }
