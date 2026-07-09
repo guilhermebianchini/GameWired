@@ -1,18 +1,40 @@
-// SETAS
+// SETAS - CARROSSÉIS
 
-document.querySelectorAll(".carousel").forEach(carousel => {
-  const wrapper = carousel.querySelector(".carousel-wrapper");
-  const leftBtn = carousel.querySelector(".arrow.left");
-  const rightBtn = carousel.querySelector(".arrow.right");
+function iniciarCarousel(carouselSelector, wrapperSelector, arrowsSelector) {
+  document.querySelectorAll(carouselSelector).forEach(carousel => {
+    const wrapper = carousel.querySelector(wrapperSelector)
 
-  leftBtn.addEventListener("click", () => {
-    wrapper.scrollBy({ left: -220, behavior: "smooth" });
-  });
+    const arrows = carousel.parentElement.querySelector(arrowsSelector)
 
-  rightBtn.addEventListener("click", () => {
-    wrapper.scrollBy({ left: 220, behavior: "smooth" });
-  });
-});
+    const leftBtn = arrows.querySelector(".arrow.left")
+    const rightBtn = arrows.querySelector(".arrow.right")
+
+    const getScroll = () => {
+      const primeiroCard = wrapper.firstElementChild
+      if (!primeiroCard) return 220
+
+      const gap = parseFloat(getComputedStyle(wrapper).gap) || 0
+      return primeiroCard.offsetWidth + gap
+    }
+
+    leftBtn.addEventListener("click", () => {
+      wrapper.scrollBy({
+        left: -getScroll(),
+        behavior: "smooth"
+      })
+    })
+
+    rightBtn.addEventListener("click", () => {
+      wrapper.scrollBy({
+        left: getScroll(),
+        behavior: "smooth"
+      })
+    })
+  })
+}
+
+iniciarCarousel(".carousel", ".carousel-wrapper", ".arrowsCarousel")
+iniciarCarousel(".browserCarousel", ".browserWrapper", ".arrowsBrowser")
 
 // MODAL
 

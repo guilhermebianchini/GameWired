@@ -1,3 +1,5 @@
+// CARREGAR JOGOS POR PLATAFORMA
+
 document.addEventListener("DOMContentLoaded", () => {
   carregarJogosPorPlataforma(1)
 })
@@ -60,6 +62,8 @@ async function carregarJogosPorPlataforma(platform_id) {
   }
 }
 
+// CONFIGURAÇÃO DO MODAL
+
 function configurarModais() {
   const buttons = document.querySelectorAll(".openModal")
   const closes = document.querySelectorAll(".close")
@@ -88,3 +92,56 @@ function configurarModais() {
     }
   })
 }
+
+// CARREGAR JOGOS PARA NAVEGADOR
+
+async function carregarJogosParaNavegador(ids) {
+  const wrapper = document.getElementById("browserGames")
+
+  try {
+    const responses = await Promise.all(
+      ids.map(id =>
+        fetch(`https://gamewired-api.duckdns.org/games/${id}`)
+      )
+    )
+
+    const jogos = await Promise.all(
+      responses.map(async (res) => {
+        if (!res.ok) return null
+
+        const json = await res.json()
+        return json.data
+      })
+    )
+
+    const jogosValidos = jogos.filter(Boolean)
+
+    wrapper.innerHTML = jogosValidos
+      .map(game => `
+        <article class="browserCard">
+          <div class="card-origem">
+            <div class="game_img">
+              <img src="${game.game_img}" alt="${game.nome}">
+            </div>
+
+            <div class="txtGameCard">
+              <h4>${game.nome}</h4>
+
+              <p>${game.descricao}</p>
+
+              <div class="gameLink">
+                <p>Jogue aqui: <a href="${game.download}" target="_blank"> ${game.download}</a></p>
+              </div>
+            </div>
+          </div>
+        </article>
+        `).join("")
+
+  } catch (err) {
+    console.error("Erro ao carregar jogos:", err)
+
+    wrapper.innerHTML = "<p>Erro ao carregar jogos.</p>"
+  }
+}
+
+carregarJogosParaNavegador([34])
