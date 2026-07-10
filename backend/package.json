@@ -8,7 +8,7 @@
     "test": "poku src/tests/login.e2e.test.js",
     "start": "node server.js",
     "start-server": "npm start",
-    "testLogin": "start-server-and-test start-server https://gamewired-api.duckdns.org test",
+    "testLogin": "start-server-and-test start-server https://gamewiredapi.onrender.com test",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

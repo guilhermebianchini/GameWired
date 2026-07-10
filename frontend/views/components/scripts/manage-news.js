@@ -1,3 +1,5 @@
+import { API_URL } from "../../../config/connection.js"
+
 // AUTENTICAÇÃO
 
 async function userAuth() {
@@ -19,7 +21,7 @@ async function userAuth() {
   }
 
   try {
-    const response = await fetch("https://gamewired-api.duckdns.org/users/me", {
+    const response = await fetch(`${API_URL}/users/me`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -127,7 +129,7 @@ async function carregarGerenciamentoNoticias() {
   try {
     const token = localStorage.getItem("token")
 
-    const response = await fetch(`https://gamewired-api.duckdns.org/news/me`,
+    const response = await fetch(`${API_URL}/news/me`,
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -203,7 +205,7 @@ async function deletarNews(news_id) {
   }
 
   try {
-    const res = await fetch(`https://gamewired-api.duckdns.org/news/${news_id}`, {
+    const res = await fetch(`${API_URL}/news/${news_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

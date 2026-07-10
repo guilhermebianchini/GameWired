@@ -1,3 +1,5 @@
+import { API_URL } from "../../../config/connection.js"
+
 // CARREGAR NOTÍCIAS
 
 function limparNews() {
@@ -51,7 +53,7 @@ function renderizarNews(news) {
 
 async function carregarNoticias() {
   try {
-    const response = await fetch("https://gamewired-api.duckdns.org/news/latest")
+    const response = await fetch(`${API_URL}/news/latest`)
 
     const noticias = await response.json()
 
@@ -73,7 +75,7 @@ async function carregarJogosPorPlataforma(platform_id) {
   const wrapper = document.getElementById("carouselGames")
 
   try {
-    const res = await fetch(`https://gamewired-api.duckdns.org/games/platform/${platform_id}`)
+    const res = await fetch(`${API_URL}/games/platform/${platform_id}`)
     const games = await res.json()
 
     if (!res.ok) {
@@ -209,7 +211,7 @@ function renderizarPosts(post) {
 
 async function carregarPosts() {
   try {
-    const response = await fetch("https://gamewired-api.duckdns.org/posts/latest")
+    const response = await fetch(`${API_URL}/posts/latest`)
 
     const posts = await response.json()
 

@@ -1,3 +1,5 @@
+import { API_URL } from "../../../config/connection.js"
+
 const container = document.getElementById("newsModelContainer")
 
 function fullNotice(news) {
@@ -53,7 +55,7 @@ async function carregarNoticia() {
             throw new Error("ID da notícia não encontrado")
         }
 
-        const response = await fetch(`https://gamewired-api.duckdns.org/news/${id}`)
+        const response = await fetch(`${API_URL}/news/${id}`)
 
         if (!response.ok) {
             throw new Error("Notícia não encontrada")

@@ -1,3 +1,5 @@
+import { API_URL } from "../../../config/connection.js"
+
 async function applyauth() {
     const token = localStorage.getItem("token")
 
@@ -31,7 +33,7 @@ async function applyauth() {
     }
 
     try {
-        const response = await fetch("https://gamewired-api.duckdns.org/users/me", {
+        const response = await fetch(`${API_URL}/users/me`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

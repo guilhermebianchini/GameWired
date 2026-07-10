@@ -5,13 +5,16 @@ buttons.forEach(btn => {
     btn.addEventListener("click", () => {
         const pageNumber = btn.dataset.page
 
-        // Esconde todas as páginas
+        // ESCONDE TODAS AS PÁGINAS
+
         pages.forEach(page => page.classList.remove("active"))
 
-        // Mostra a página escolhida
+        // MOSTRA A PÁGINA ESCOLHIDA
+
         document.querySelector(`.page[data-page="${pageNumber}"]`).classList.add("active")
 
-        // Atualiza o botão ativo
+        // ATUALIZA O BOTÃO ATIVO
+
         buttons.forEach(b => b.classList.remove("active"))
         btn.classList.add("active")
     })

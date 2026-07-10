@@ -1,6 +1,7 @@
 import { describe, assert, test } from 'poku'
+import { API_URL } from "../../../config/connection.js"
 
-const requestLogin = (body) => fetch('https://gamewired-api.duckdns.org/users/login', {
+const requestLogin = (body) => fetch(`${API_URL}/users/login`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(body)
