@@ -1,5 +1,3 @@
-import { API_URL } from "../../../config/connection.js"
-
 document.addEventListener("DOMContentLoaded", () => {
     carregarJogosPorPlataforma(3)
 })

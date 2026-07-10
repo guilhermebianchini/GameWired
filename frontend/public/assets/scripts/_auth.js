@@ -1,5 +1,3 @@
-import { API_URL } from "../../../config/connection.js"
-
 async function applyauth() {
     const token = localStorage.getItem("token")
 

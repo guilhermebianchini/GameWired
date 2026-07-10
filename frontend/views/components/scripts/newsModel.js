@@ -1,5 +1,3 @@
-import { API_URL } from "../../../config/connection.js"
-
 const container = document.getElementById("newsModelContainer")
 
 function fullNotice(news) {

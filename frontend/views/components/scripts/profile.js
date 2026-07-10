@@ -1,5 +1,3 @@
-import { API_URL } from "../../../config/connection.js"
-
 // MODAL DE POSTAGEM
 
 document.addEventListener("DOMContentLoaded", () => {

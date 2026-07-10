@@ -1,1 +1,1 @@
-export const API_URL = "https://gamewiredapi.onrender.com"
+const API_URL = "https://gamewiredapi.onrender.com"

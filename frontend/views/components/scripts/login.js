@@ -1,5 +1,3 @@
-import { API_URL } from "../../../config/connection.js"
-
 const form = document.querySelector("#form")
 
 form.addEventListener("submit", async (e) => {

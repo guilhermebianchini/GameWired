@@ -1,5 +1,3 @@
-import { API_URL } from "../../../config/connection.js"
-
 let paginaAtual = 1
 let totalPaginas = 1
 let categoriaAtual = 0

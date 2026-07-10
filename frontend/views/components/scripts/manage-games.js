@@ -1,5 +1,3 @@
-import { API_URL } from "../../../config/connection.js"
-
 // AUTENTICAÇÃO
 
 async function userAuth() {
