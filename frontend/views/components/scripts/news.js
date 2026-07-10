@@ -1,3 +1,5 @@
+import { API_URL } from "../../../config/connection.js"
+
 let paginaAtual = 1
 let totalPaginas = 1
 let categoriaAtual = 0
@@ -66,7 +68,7 @@ function renderizarNews(news) {
 async function carregarNoticias(page = 1, categoria = categoriaAtual, ordem = ordemAtual) {
   try {
     const response = await fetch(
-      `https://gamewired-api.duckdns.org/news?page=${page}&categoria=${categoria}&ordem=${ordem}`
+      `${API_URL}/news?page=${page}&categoria=${categoria}&ordem=${ordem}`
     )
 
     if (!response.ok) {

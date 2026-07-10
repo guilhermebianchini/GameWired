@@ -57,7 +57,7 @@
     margin: 0 auto;
 }
 
-.games .carousel-wrapper {
+.games .carousel .carousel-wrapper {
     display: flex;
     height: 65vh;
     width: 100%;
@@ -70,20 +70,57 @@
     flex-direction: row;
     gap: 2em;
     margin-top: 0.6em;
+    height: 42px;
 }
 
-.games .arrowsCarousel .arrow {
+.games .carousel .arrowsCarousel .arrow {
     min-width: 42px;
-    height: 42px;
     cursor: pointer;
-    background: rgba(27, 20, 46, 0.6);
+    background-color: var(--bg-Card);
     color: var(--bg-Font);
     padding: 0 0.6em;
     border-radius: 10px;
     font-size: 1em;
 }
 
-.games .arrowsCarousel .arrow:hover {
+.games .carousel .arrowsCarousel .arrow:hover {
+    color: var(--bg-Button);
+}
+
+.games .carousel .arrowsCarousel .searchBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.games .carousel .arrowsCarousel .searchBar .search {
+    width: 100%;
+    min-width: 400px;
+    background-color: var(--bg-Card);
+    color: var(--bg-Font);
+    border-radius: 10px;
+    padding: 0.7em;
+}
+
+.games .carousel .arrowsCarousel .searchBar .search::placeholder {
+    color: var(--bg-Font);
+    opacity: 0.5;
+}
+
+.games .carousel .arrowsCarousel .searchBar button {
+    min-width: 42px;
+    height: 42px;
+    background-color: var(--bg-Card);
+    border-radius: 10px;
+}
+
+.games .carousel .arrowsCarousel .searchBar button i {
+    color: var(--bg-Font);
+    font-weight: 600;
+}
+
+.games .carousel .arrowsCarousel .searchBar button i:hover {
     color: var(--bg-Button);
 }
 
@@ -98,23 +135,21 @@
 }
 
 .gamesForBrowser .browserCarousel {
-    width: 90%;
+    width: 85%;
     overflow: hidden;
 }
 
 .gamesForBrowser .browserWrapper {
     display: flex;
     gap: 2em;
-    transition: transform .4s ease;
-    overflow: hidden;
-}
-
-.browserWrapper::-webkit-scrollbar {
-    display: none;
-}
-
-.browserWrapper {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
     scrollbar-width: none;
+}
+
+.gamesForBrowser .browserWrapper::-webkit-scrollbar {
+    display: none;
 }
 
 .gamesForBrowser .arrowsBrowser {
@@ -128,7 +163,7 @@
     min-width: 42px;
     height: 42px;
     cursor: pointer;
-    background: rgba(27, 20, 46, 0.6);
+    background-color: var(--bg-Card);
     color: var(--bg-Font);
     padding: 0 0.6em;
     border-radius: 10px;

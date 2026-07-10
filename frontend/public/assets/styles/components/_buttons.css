@@ -93,15 +93,6 @@
   }
 }
 
-.search-btn {
-  text-align: center;
-  background-color: var(--bg-Button);
-  border-radius: 100px;
-  color: white;
-  padding: 0.5rem 0.6rem;
-  font-size: 1.125rem;
-}
-
 .btn-register {
   background-color: var(--bg-Button);
   color: white;

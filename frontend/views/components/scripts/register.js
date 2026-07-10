@@ -1,3 +1,5 @@
+import { API_URL } from "../../../config/connection.js"
+
 const form = document.querySelector("#form")
 
 form.addEventListener("submit", async (e) => {
@@ -41,9 +43,7 @@ form.addEventListener("submit", async (e) => {
     confirmarSenha: document.getElementById("confirmarSenha").value
   }
 
-  const url = "https://gamewired-api.duckdns.org/users/register"
-
-  const res = await fetch(url, {
+  const res = await fetch(`${API_URL}/users/register`, {
     headers: { "Content-Type": "application/json" },
     method: "POST",
     body: JSON.stringify(data)

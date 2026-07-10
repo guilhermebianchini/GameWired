@@ -1,3 +1,5 @@
+import { API_URL } from "../../../config/connection.js"
+
 // CARREGAR JOGOS POR PLATAFORMA
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -8,7 +10,7 @@ async function carregarJogosPorPlataforma(platform_id) {
   const wrapper = document.getElementById("carouselGames")
 
   try {
-    const res = await fetch(`https://gamewired-api.duckdns.org/games/platform/${platform_id}`)
+    const res = await fetch(`${API_URL}/games/platform/${platform_id}`)
     const games = await res.json()
 
     if (!res.ok) {
@@ -101,7 +103,7 @@ async function carregarJogosParaNavegador(ids) {
   try {
     const responses = await Promise.all(
       ids.map(id =>
-        fetch(`https://gamewired-api.duckdns.org/games/${id}`)
+        fetch(`${API_URL}/games/${id}`)
       )
     )
 
@@ -144,4 +146,4 @@ async function carregarJogosParaNavegador(ids) {
   }
 }
 
-carregarJogosParaNavegador([34])
+carregarJogosParaNavegador([35, 36, 37])

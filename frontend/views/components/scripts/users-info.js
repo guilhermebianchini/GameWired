@@ -1,3 +1,5 @@
+import { API_URL } from "../../../config/connection.js"
+
 // AUTENTICAÇÃO
 
 async function userAuth() {
@@ -19,7 +21,7 @@ async function userAuth() {
     }
 
     try {
-        const response = await fetch("https://gamewired-api.duckdns.org/users/me", {
+        const response = await fetch(`${API_URL}/users/me`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -78,10 +80,8 @@ function getUserIdFromToken() {
 async function carregarStats() {
     const token = localStorage.getItem("token")
 
-    let url = "https://gamewired-api.duckdns.org/stats"
-
     try {
-        const res = await fetch(url, {
+        const res = await fetch(`${API_URL}/stats`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -112,10 +112,8 @@ async function carregarRanking() {
 
     const token = localStorage.getItem("token")
 
-    let url = "https://gamewired-api.duckdns.org/top-users"
-
     try {
-        const res = await fetch(url, {
+        const res = await fetch(`${API_URL}/top-users`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`

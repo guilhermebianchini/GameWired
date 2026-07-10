@@ -1,3 +1,5 @@
+import { API_URL } from "../../../config/connection.js"
+
 // AUTENTICAÇÃO PARA PUBLICAR
 
 function communityAuth() {
@@ -59,7 +61,7 @@ async function carregarPerfil() {
   }
 
   try {
-    const res = await fetch(`https://gamewired-api.duckdns.org/profile`, {
+    const res = await fetch(`${API_URL}/profile`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
@@ -185,11 +187,11 @@ form.addEventListener("submit", async (e) => {
     formData.append("foto_postagem", fileInput.files[0])
   }
 
-  let url = "https://gamewired-api.duckdns.org/posts"
+  let url = `${API_URL}/posts`
   let method = "POST"
 
   if (editandoId) {
-    url = `https://gamewired-api.duckdns.org/posts/${editandoId}`
+    url = `${API_URL}/posts/${editandoId}`
     method = "PATCH"
   }
 
@@ -406,7 +408,7 @@ document.addEventListener("DOMContentLoaded", () => { carregarJogos() })
 
 async function carregarJogos() {
   try {
-    const res = await fetch("https://gamewired-api.duckdns.org/games/select")
+    const res = await fetch(`${API_URL}/games/select`)
     const games = await res.json()
 
     const select = document.getElementById("categoria_postagem")
@@ -430,7 +432,7 @@ async function carregarJogos() {
 
 async function carregarJogosFiltro() {
   try {
-    const res = await fetch('https://gamewired-api.duckdns.org/games/select')
+    const res = await fetch(`${API_URL}/games/select`)
     const games = await res.json()
 
     const select = document.getElementById('select-button')
@@ -627,7 +629,7 @@ async function carregarPosts(reset = false) {
   postsController = new AbortController()
 
   try {
-    let url = "https://gamewired-api.duckdns.org/posts/cursor"
+    let url = `${API_URL}/posts/cursor`
     const params = new URLSearchParams()
 
     if (gameIdAtual) {
@@ -644,7 +646,7 @@ async function carregarPosts(reset = false) {
 
     const [responsePosts, responseComentarios] = await Promise.all([
       fetch(url, { signal: postsController.signal }),
-      fetch("https://gamewired-api.duckdns.org/comentarios", { signal: postsController.signal })
+      fetch(`${API_URL}/comentarios`, { signal: postsController.signal })
     ])
 
     const postsResult = await responsePosts.json()
@@ -751,7 +753,7 @@ function toggleMenuComentario(comentarioId) {
 async function editarPost(post_id) {
   const token = localStorage.getItem("token")
 
-  const res = await fetch(`https://gamewired-api.duckdns.org/posts/${post_id}/me`, {
+  const res = await fetch(`${API_URL}/posts/${post_id}/me`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -814,7 +816,7 @@ async function deletarPost(post_id) {
   if (!confirmacao.isConfirmed) return
 
   try {
-    const res = await fetch(`https://gamewired-api.duckdns.org/posts/${post_id}`, {
+    const res = await fetch(`${API_URL}/posts/${post_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -908,7 +910,7 @@ document.addEventListener("submit", async (e) => {
 
   inputBox.classList.add("valid")
 
-  let url = "https://gamewired-api.duckdns.org/comentarios"
+  let url = `${API_URL}/comentarios`
   let method = "POST"
   let body = {
     comentario_conteudo,
@@ -916,7 +918,7 @@ document.addEventListener("submit", async (e) => {
   }
 
   if (editandoComentarioId) {
-    url = `https://gamewired-api.duckdns.org/comentarios/${editandoComentarioId}`
+    url = `${API_URL}/comentarios/${editandoComentarioId}`
     method = "PATCH"
     body = {
       comentario_conteudo
@@ -1011,7 +1013,7 @@ async function editarComment(comentario_id) {
   const token = localStorage.getItem("token")
 
   try {
-    const res = await fetch(`https://gamewired-api.duckdns.org/comentarios/${comentario_id}/me`, {
+    const res = await fetch(`${API_URL}/comentarios/${comentario_id}/me`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -1088,7 +1090,7 @@ async function deletarComment(comentario_id) {
   if (!confirmacao.isConfirmed) return
 
   try {
-    const res = await fetch(`https://gamewired-api.duckdns.org/comentarios/${comentario_id}`, {
+    const res = await fetch(`${API_URL}/comentarios/${comentario_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

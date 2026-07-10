@@ -1,8 +1,10 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const platform_id = document.body.dataset.platform
-  carregarJogosPorPlataforma(platform_id)
-})
+document.addEventListener("DOMContentLoaded", async () => {
+  const platformId = Number(document.body.dataset.platform)
+  
+  if (platformId) {
+    await carregarJogosPorPlataforma(platformId)
+  }
 
-carregarJogosPorPlataforma(1) // PC
-carregarJogosPorPlataforma(2) // CONSOLE
-carregarJogosPorPlataforma(3) // MOBILE
+  iniciarCarousel(".carousel", ".carousel-wrapper", ".arrowsCarousel")
+  iniciarCarousel(".browserCarousel", ".browserWrapper", ".arrowsBrowser", true)
+})

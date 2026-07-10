@@ -1,3 +1,5 @@
+import { API_URL } from "../../../config/connection.js"
+
 // AUTENTICAÇÃO PARA PUBLICAR
 
 async function userAuth() {
@@ -19,7 +21,7 @@ async function userAuth() {
   }
 
   try {
-    const response = await fetch("https://gamewired-api.duckdns.org/users/me", {
+    const response = await fetch(`${API_URL}users/me`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -159,11 +161,11 @@ form.addEventListener("submit", async (e) => {
     formData.append("game_img", fileInput.files[0])
   }
 
-  let url = "https://gamewired-api.duckdns.org/games"
+  let url = `${API_URL}/games`
   let method = "POST"
 
   if (editandoId) {
-    url = `https://gamewired-api.duckdns.org/games/${editandoId}`
+    url = `${API_URL}/games/${editandoId}`
     method = "PATCH"
   }
 
@@ -471,7 +473,7 @@ if (gamesId) {
 async function editarGames(games_id) {
   const token = localStorage.getItem("token")
 
-  const res = await fetch(`https://gamewired-api.duckdns.org/games/${games_id}`, {
+  const res = await fetch(`${API_URL}/games/${games_id}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
