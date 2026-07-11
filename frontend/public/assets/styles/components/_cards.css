@@ -62,118 +62,121 @@
   flex: 0 0 17.3%;
   align-items: center;
   margin: 2vh 3vw 2vh 0;
-  width: 300px;
-  height: 300px;
+  width: 350px;
   border-radius: 10px;
+}
 
-  img {
-    width: 250px;
-    object-fit: cover;
-    border-radius: 8px 8px 0 0;
-  }
+.card__game img {
+  display: block;
+  height: 350px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
 
-  .game-n-more {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    height: 75px;
-    background-color: var(--bg-Card);
-    border-radius: 0 0 8px 8px;
-    padding: 1px 5px 8px;
+.card__game .game-n-more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  min-height: 100px;
+  background-color: var(--bg-Card);
+  border-radius: 0 0 8px 8px;
+  padding: 1px 5px 8px;
+  gap: 0.5em;
+}
 
-    p {
-      font-size: 16px;
-    }
+.card__game .game-n-more p {
+  font-size: 1em;
+}
 
-    button {
-      border-radius: 20px;
-      color: #f9fcff;
-      background-color: #282348;
-      padding: 8px;
-      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
-      text-transform: uppercase;
-      font-size: 12px;
-    }
-  }
+.card__game .game-n-more button {
+  border-radius: 10px;
+  color: #f9fcff;
+  background-color: #282348;
+  padding: 8px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  font-size: 12px;
+}
 
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-  }
+.card__game .game-n-more .modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+}
 
-  .modal.active {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.card__game .game-n-more .modal.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .modal-content {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--bg-Card);
-    padding: 25px;
-    border-radius: 10px;
-    max-width: 75vw;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.3s ease;
+.card__game .game-n-more .modal-content {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-Card);
+  padding: 25px;
+  border-radius: 10px;
+  max-width: 75vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease;
+}
 
-    h2 {
-      padding: 10px;
-      font-size: 30px;
-    }
+.card__game .game-n-more .modal-content h2 {
+  padding: 10px;
+  font-size: 30px;
+}
 
-    hr {
-      margin: 0 auto;
-      text-align: center;
-      width: 97%;
-    }
+.card__game .game-n-more .modal-content hr {
+  margin: 0 auto;
+  text-align: center;
+  width: 97%;
+}
 
-    .game-content {
-      padding: 10px;
-      text-align: justify;
+.card__game .game-n-more .modal-content .game-content {
+  padding: 10px;
+  text-align: justify;
+}
 
-      p {
-        margin-top: 1em;
-        font-size: 18px;
-      }
+.card__game .game-n-more .modal-content .game-content p {
+  margin-top: 1em;
+  font-size: 18px;
+}
 
-      .sourceDownload {
-        word-break: break-all;
-      }
-    }
-  }
+.card__game .game-n-more .modal-content .game-content .sourceDownload {
+  word-break: break-all;
+}
 
-  .modal-content::-webkit-scrollbar {
-    width: 8px;
-  }
+.card__game .game-n-more .modal-content::-webkit-scrollbar {
+  width: 8px;
+}
 
-  .modal-content::-webkit-scrollbar-track {
-    background: transparent;
-  }
+.card__game .game-n-more .modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-  .modal-content::-webkit-scrollbar-thumb {
-    background-color: var(--bg-Font);
-    border-radius: 10px;
-  }
+.card__game .game-n-more .modal-content::-webkit-scrollbar-thumb {
+  background-color: var(--bg-Font);
+  border-radius: 10px;
+}
 
-  .close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #ffffff;
-    cursor: pointer;
-  }
+.card__game .game-n-more .close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
 }
 
 /* CARD DE JOGOS PARA NAVEGADOR */

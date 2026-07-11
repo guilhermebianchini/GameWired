@@ -53,13 +53,12 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
 }
 
 .games .carousel .carousel-wrapper {
     display: flex;
-    height: 65vh;
     width: 100%;
     padding: 0;
     overflow: hidden;
@@ -106,22 +105,6 @@
 .games .carousel .arrowsCarousel .searchBar .search::placeholder {
     color: var(--bg-Font);
     opacity: 0.5;
-}
-
-.games .carousel .arrowsCarousel .searchBar button {
-    min-width: 42px;
-    height: 42px;
-    background-color: var(--bg-Card);
-    border-radius: 10px;
-}
-
-.games .carousel .arrowsCarousel .searchBar button i {
-    color: var(--bg-Font);
-    font-weight: 600;
-}
-
-.games .carousel .arrowsCarousel .searchBar button i:hover {
-    color: var(--bg-Button);
 }
 
 .gamesForBrowser {

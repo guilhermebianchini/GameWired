@@ -47,22 +47,36 @@
   opacity: 0.9;
 }
 
-.filterInfo {
+.container-top .filterSearch {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   margin-top: 1em;
   width: 100%;
-  gap: 0.5em;
   font-size: 1em;
+  gap: 2em;
+}
+
+.container-top .filterSearch .filterInfo,
+.searchBarNews {
+    flex: 1;
+}
+
+.container-top .filterSearch .filterInfo {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 0.5em;
   opacity: 0.9;
 }
 
-.filterInfo p {
+.container-top .filterSearch .filterInfo p {
   font-size: 1em;
 }
 
-.filterInfo select {
+.container-top .filterSearch .filterInfo select {
+  flex: 1;
   padding: 0.7em;
   border-radius: 10px;
   transition: 0.4s;
@@ -72,6 +86,42 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+.container-top .filterSearch .searchBarNews {
+  display: flex;
+  flex: 1;
+  gap: 0.5em;
+}
+
+.container-top .filterSearch .searchBarNews .searchNews {
+    flex: 1;
+    min-width: 0;
+    background-color: var(--bg-Eclipse);
+    color: var(--bg-Font);
+    border-radius: 10px;
+    padding: 0.7em;
+}
+
+.container-top .filterSearch .searchBarNews .searchNews::placeholder {
+    color: var(--bg-Font);
+    opacity: 0.5;
+}
+
+.container-top .filterSearch .searchBarNews button {
+    min-width: 42px;
+    height: 42px;
+    background-color: var(--bg-Eclipse);
+    border-radius: 10px;
+}
+
+.container-top .filterSearch .searchBarNews button i {
+    color: var(--bg-Font);
+    font-weight: 600;
+}
+
+.container-top .filterSearch .searchBarNews button i:hover {
+    color: var(--bg-Button);
 }
 
 .container-cards #newsContainer {

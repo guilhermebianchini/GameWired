@@ -16,6 +16,31 @@ const gameRepository = {
         return rows
     },
 
+
+
+    async searchByGame(platformId, term) {
+        if (!term) {
+            return []
+        }
+
+        const sql = `
+                SELECT g.*
+                FROM games g
+                INNER JOIN game_platform gp
+                    ON gp.games_id = g.games_id
+                WHERE gp.platform_id = $1
+                    AND g.nome ILIKE $2
+                ORDER BY g.nome
+            `
+
+        const { rows } = await pool.query(sql, [
+            platformId,
+            `%${term}%`
+        ])
+
+        return rows
+    },
+
     async readById(games_id) {
         const { rows } = await query(`
                 SELECT g.games_id, g.nome, g.descricao, g.genero, g.desenvolvedora, g.publicadora, g.classificacao, g.tipo, g.download, g.requisitos, g.game_img, ARRAY_AGG(gp.platform_id ORDER BY gp.platform_id) AS plataformas, ARRAY_AGG(pl.platform_nome ORDER BY gp.platform_id) AS plataformas_nome
