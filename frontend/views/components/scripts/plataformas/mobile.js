@@ -134,7 +134,7 @@ async function pesquisarJogo(termo) {
 
   try {
     const response = await fetch(
-      `${API_URL}/games/search?platform=1&q=${encodeURIComponent(termo)}`
+      `${API_URL}/games/search?platform=3&q=${encodeURIComponent(termo)}`
     )
 
     if (!response.ok) {

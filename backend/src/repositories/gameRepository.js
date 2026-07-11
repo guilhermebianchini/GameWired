@@ -16,8 +16,6 @@ const gameRepository = {
         return rows
     },
 
-
-
     async searchByGame(platformId, term) {
         if (!term) {
             return []
