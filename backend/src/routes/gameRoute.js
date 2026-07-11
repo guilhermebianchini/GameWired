@@ -7,6 +7,8 @@ import { sanitizeGame } from "../middlewares/sanitization/gameSanitize.js"
 
 const gameRouter = Router()
 
+gameRouter.get('/games/search', gameController.searchGames)
+
 gameRouter.get('/games', gameController.getAllGames)
 
 gameRouter.get('/games/select', gameController.getGameBySelect)

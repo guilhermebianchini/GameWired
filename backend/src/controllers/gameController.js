@@ -24,7 +24,28 @@ const gameController = {
         }
     },
 
+    async searchGames(req, res) {
+        try {
+            const { platform, q = "" } = req.query
+            const platformId = Number(platform)
+
+            const games = await gameRepository.searchByGame(platform, q.trim())
+
+            return res.status(200).json({
+                ok: true,
+                data: games
+            })
+
+        } catch (err) {
+            res.status(500).json({
+                ok: false,
+                message: err.message
+            })
+        }
+    },
+
     async getGameById(req, res) {
+
         try {
             const games_id = req.params.games_id
             const games = await gameRepository.readById(games_id)
