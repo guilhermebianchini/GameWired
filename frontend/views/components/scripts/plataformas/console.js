@@ -1,23 +1,16 @@
-document.addEventListener("DOMContentLoaded", () => {
-    carregarJogosPorPlataforma(2)
-})
+// RENDERIZAR CARDS
 
-async function carregarJogosPorPlataforma(platform_id) {
-    const wrapper = document.getElementById("carouselGames")
+function renderizarGames(wrapper, games) {
 
-    try {
-        const res = await fetch(`${API_URL}/games/platform/${platform_id}`)
-        const games = await res.json()
+  wrapper.innerHTML = ""
 
-        if (!res.ok) {
-            wrapper.innerHTML = `<p>Nenhum jogo encontrado.</p>`
-            return
-        }
+  if (games.length === 0) {
+    wrapper.innerHTML = "<p>Nenhum jogo encontrado.</p>"
+    return
+  }
 
-        wrapper.innerHTML = ""
-
-        games.forEach(game => {
-            wrapper.innerHTML += `
+  games.forEach(game => {
+    wrapper.innerHTML += `
         <article class="card__game">
           <img src="${game.game_img}" alt="${game.nome}" />
 
@@ -42,7 +35,7 @@ async function carregarJogosPorPlataforma(platform_id) {
                   <p><strong>Publicador(a):</strong> ${game.publicadora}</p>
                   <p><strong>Classificação Indicativa:</strong> ${game.classificacao}</p>
                   <p><strong>Tipo:</strong> ${game.tipo}</p>
-                  <p class="sourceDownload"><strong>Download:</strong> ${game.download}</p>
+                  <p class="sourceDownload"><strong>Download/Onde Jogar?</strong> ${game.download}</p>
                   <p><strong>Requisitos:</strong> ${game.requisitos}</p>
                 </div>
               </div>
@@ -50,15 +43,38 @@ async function carregarJogosPorPlataforma(platform_id) {
           </div>
         </article>
       `
-        })
+  })
 
-        configurarModais()
-
-    } catch (err) {
-        console.error("Erro ao carregar jogos:", err)
-        wrapper.innerHTML = `<p>Erro ao carregar jogos.</p>`
-    }
+  configurarModais()
 }
+
+// CARREGAR JOGOS POR PLATAFORMA
+
+document.addEventListener("DOMContentLoaded", () => {
+  carregarJogosPorPlataforma(2)
+})
+
+async function carregarJogosPorPlataforma(platform_id) {
+  const wrapper = document.getElementById("carouselGames")
+
+  try {
+    const res = await fetch(`${API_URL}/games/platform/${platform_id}`)
+    const games = await res.json()
+
+    if (!res.ok) {
+      wrapper.innerHTML = `<p>Nenhum jogo encontrado.</p>`
+      return
+    }
+
+    renderizarGames(wrapper, games)
+
+  } catch (err) {
+    console.error("Erro ao carregar jogos:", err)
+    wrapper.innerHTML = `<p>Erro ao carregar jogos.</p>`
+  }
+}
+
+// CONFIGURAÇÃO DO MODAL
 
 function configurarModais() {
   const buttons = document.querySelectorAll(".openModal")
@@ -87,4 +103,53 @@ function configurarModais() {
       e.target.classList.remove("active")
     }
   })
+}
+
+// PESQUISAR JOGOS
+
+const searchInput = document.querySelector(".search")
+
+let debounce
+
+searchInput.addEventListener("input", () => {
+  clearTimeout(debounce)
+
+  debounce = setTimeout(() => {
+    pesquisarJogo(searchInput.value)
+  }, 300)
+})
+
+async function pesquisarJogo(termo) {
+  const wrapper = document.getElementById("carouselGames")
+
+  termo = termo.trim()
+
+  if (termo === "") {
+    await carregarJogosPorPlataforma(2)
+
+    return
+  }
+
+  if (termo.length < 2) return
+
+  try {
+    const response = await fetch(
+      `${API_URL}/games/search?platform=1&q=${encodeURIComponent(termo)}`
+    )
+
+    if (!response.ok) {
+      throw new Error("Erro na requisição!");
+    }
+
+    const data = await response.json()
+
+    if (!data.ok) {
+      throw new Error("Erro ao pesquisar jogos!")
+    }
+
+    renderizarGames(wrapper, data.data)
+
+  } catch (err) {
+    console.error(err)
+  }
 }
