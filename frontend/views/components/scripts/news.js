@@ -3,19 +3,23 @@ let totalPaginas = 1
 let categoriaAtual = 0
 let ordemAtual = "data-new"
 
-// MODELO DO CONTAINER DAS NOTÍCIAS
+// MODELO DO CONTAINER DAS NOTÍCIAS + RENDERIZAÇÃO DAS NOTÍCIAS
 
 function limparNews() {
   const container = document.getElementById("newsContainer")
   if (container) container.innerHTML = ""
 }
 
-function previewNews(noticias) {
-  let html = ""
+function renderizarNews(wrapper, noticias) {
+  wrapper.innerHTML = ""
+
+  if (noticias.length === 0) {
+    wrapper.innerHTML = "<p>Nenhuma notícia encontrada.</p>"
+    return
+  }
 
   noticias.forEach(news => {
-
-    html += `
+    wrapper.innerHTML += `
       <div class="news">
         <div class="news_origem">
           <div class="img-card">
@@ -37,33 +41,13 @@ function previewNews(noticias) {
       </div>
     `
   })
-
-  return html
-}
-
-// RENDERIZAÇÃO DAS NOTÍCIAS
-
-function renderizarNews(news) {
-  const container = document.getElementById("newsContainer")
-
-  if (!container) {
-    console.error("Container das notícias não encontrado!")
-    return
-  }
-
-  if (!news.length) {
-    container.innerHTML = '<p class="empty-news">Nenhuma notícia encontrada.</p>'
-    return
-  }
-
-  const html = previewNews(news)
-
-  container.innerHTML = html
 }
 
 // CARREGAMENTO DAS NOTÍCIAS
 
 async function carregarNoticias(page = 1, categoria = categoriaAtual, ordem = ordemAtual) {
+  const wrapper = document.getElementById("newsContainer")
+  
   try {
     const response = await fetch(
       `${API_URL}/news?page=${page}&categoria=${categoria}&ordem=${ordem}`
@@ -84,13 +68,56 @@ async function carregarNoticias(page = 1, categoria = categoriaAtual, ordem = or
     categoriaAtual = categoria
     ordemAtual = ordem
 
-    renderizarNews(result.data)
+    renderizarNews(wrapper, result.data)
     renderizarPaginacao()
 
     return result
   } catch (error) {
     console.error(error)
     return null
+  }
+}
+
+// PESQUISAR NOTÍCIAS
+
+const form = document.querySelector(".searchBarNews")
+const searchInput = document.querySelector(".searchNews")
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  pesquisarNoticias(searchInput.value)
+})
+
+async function pesquisarNoticias(termo) {
+  const wrapper = document.getElementById("newsContainer")
+
+  termo = termo.trim()
+
+  if (termo === "") {
+    await carregarNoticias()
+    return
+  }
+
+  try {
+    const response = await fetch(
+      `${API_URL}/news/search?q=${encodeURIComponent(termo)}`
+    )
+
+    if (!response.ok) {
+      throw new Error("Erro na requisição!");
+    }
+
+    const data = await response.json()
+
+    if (!data.ok) {
+      throw new Error("Erro ao pesquisar notícias!")
+    }
+
+    renderizarNews(wrapper, data.data)
+
+  } catch (err) {
+    console.error(err)
   }
 }
 

@@ -15,23 +15,6 @@ function normalizarCategorias(categorias) {
 }
 
 const newsController = {
-    /*async getAllNews(req, res) {
-        try {
-
-            const news = await newsRepository.readAll()
-
-            res.status(200).json(news)
-
-        } catch (e) {
-
-            console.error(e)
-
-            res.status(500).json({
-                ok: false,
-                message: "Erro ao buscar notícias!"
-            })
-        }
-    },*/
 
     async getByNewsPage(req, res) {
         try {
@@ -65,6 +48,25 @@ const newsController = {
             res.status(500).json({
                 ok: false,
                 message: "Erro ao buscar notícias!"
+            })
+        }
+    },
+
+    async searchNews(req, res) {
+        try {
+            const { q = "" } = req.query
+
+            const news = await newsRepository.searchByNews(q.trim())
+
+            return res.status(200).json({
+                ok: true,
+                data: news
+            })
+
+        } catch (err) {
+            return res.status(500).json({
+                ok: false,
+                message: err.message
             })
         }
     },

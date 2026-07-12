@@ -7,6 +7,8 @@ import { sanitizeNews } from "../middlewares/sanitization/newsSanitize.js"
 
 const newsRouter = Router()
 
+newsRouter.get('/news/search', newsController.searchNews)
+
 newsRouter.get('/news/latest', newsController.getByLatestNews)
 
 newsRouter.get('/news/me', verifyToken, newsController.getNewsByUser)
