@@ -3,16 +3,6 @@ import { pool } from "../config/connection.js"
 
 const newsRepository = {
 
-    /*async readAll() {
-
-        const { rows } = await query(`
-            SELECT * FROM news n
-            ORDER BY n.data_publicacao DESC
-            `)
-
-        return rows
-    },*/
-
     async readByNewsPage(page, limit, categoria = 0, ordem = "data-new") {
 
         const offset = (page - 1) * limit
@@ -84,6 +74,25 @@ const newsRepository = {
             LIMIT $1
             OFFSET $2
         `, [limit, offset, categoria, ordem])
+
+        return rows
+    },
+
+    async searchByNews(term) {
+        if (!term) {
+            return []
+        }
+
+        const sql = `
+                SELECT *
+                FROM news 
+                WHERE titulo ILIKE $1
+                    OR subtitulo ILIKE $1
+                    OR conteudo ILIKE $1
+                ORDER BY titulo
+            `
+
+        const { rows } = await pool.query(sql, [`%${term}%`])
 
         return rows
     },
