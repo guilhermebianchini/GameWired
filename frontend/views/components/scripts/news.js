@@ -2,6 +2,7 @@ let paginaAtual = 1
 let totalPaginas = 1
 let categoriaAtual = 0
 let ordemAtual = "data-new"
+let pesquisaAtual = ""
 
 // MODELO DO CONTAINER DAS NOTÍCIAS + RENDERIZAÇÃO DAS NOTÍCIAS
 
@@ -47,7 +48,9 @@ function renderizarNews(wrapper, noticias) {
 
 async function carregarNoticias(page = 1, categoria = categoriaAtual, ordem = ordemAtual) {
   const wrapper = document.getElementById("newsContainer")
-  
+
+  pesquisaAtual = ""
+
   try {
     const response = await fetch(
       `${API_URL}/news?page=${page}&categoria=${categoria}&ordem=${ordem}`
@@ -89,10 +92,12 @@ form.addEventListener("submit", (e) => {
   pesquisarNoticias(searchInput.value)
 })
 
-async function pesquisarNoticias(termo) {
+async function pesquisarNoticias(termo, page = 1) {
   const wrapper = document.getElementById("newsContainer")
 
   termo = termo.trim()
+
+  pesquisaAtual = termo
 
   if (termo === "") {
     await carregarNoticias()
@@ -101,7 +106,7 @@ async function pesquisarNoticias(termo) {
 
   try {
     const response = await fetch(
-      `${API_URL}/news/search?q=${encodeURIComponent(termo)}`
+      `${API_URL}/news/search?q=${encodeURIComponent(termo)}&page=${page}`
     )
 
     if (!response.ok) {
@@ -114,7 +119,11 @@ async function pesquisarNoticias(termo) {
       throw new Error("Erro ao pesquisar notícias!")
     }
 
+    paginaAtual = data.page
+    totalPaginas = data.totalPages
+
     renderizarNews(wrapper, data.data)
+    renderizarPaginacao()
 
   } catch (err) {
     console.error(err)
@@ -138,7 +147,12 @@ function renderizarPaginacao() {
   btnAnterior.disabled = paginaAtual === 1
 
   btnAnterior.addEventListener("click", () => {
-    carregarNoticias(paginaAtual - 1, categoriaAtual, ordemAtual)
+    if (pesquisaAtual) {
+      pesquisarNoticias(pesquisaAtual, paginaAtual - 1)
+    } else {
+      carregarNoticias(paginaAtual - 1, categoriaAtual, ordemAtual)
+    }
+
     rolarParaTopo()
   })
 
@@ -154,7 +168,12 @@ function renderizarPaginacao() {
     }
 
     btn.addEventListener("click", () => {
-      carregarNoticias(i, categoriaAtual, ordemAtual)
+      if (pesquisaAtual) {
+        pesquisarNoticias(pesquisaAtual, i)
+      } else {
+        carregarNoticias(i, categoriaAtual, ordemAtual)
+      }
+
       rolarParaTopo()
     })
 
@@ -167,7 +186,12 @@ function renderizarPaginacao() {
   btnProximo.disabled = paginaAtual === totalPaginas
 
   btnProximo.addEventListener("click", () => {
-    carregarNoticias(paginaAtual + 1, categoriaAtual, ordemAtual)
+    if (pesquisaAtual) {
+      pesquisarNoticias(pesquisaAtual, paginaAtual + 1)
+    } else {
+      carregarNoticias(paginaAtual + 1, categoriaAtual, ordemAtual)
+    }
+
     rolarParaTopo()
   })
 
@@ -203,7 +227,7 @@ const filtro = document.getElementById("filter")
 if (filtro) {
 
   filtro.addEventListener("change", () => {
-    
+
     ordemAtual = filtro.value || "data-new"
 
     carregarNoticias(
@@ -211,7 +235,7 @@ if (filtro) {
       categoriaAtual,
       ordemAtual
     )
-    
+
   })
 }
 

@@ -54,13 +54,33 @@ const newsController = {
 
     async searchNews(req, res) {
         try {
-            const { q = "" } = req.query
+            const page = Math.max(Number(req.query.page) || 1, 1)
+            const limit = 9
 
-            const news = await newsRepository.searchByNews(q.trim())
+            const { q = "" } = req.query
+            const term = q.trim()
+
+            if (!term) {
+                return res.status(200).json({
+                    ok: true,
+                    data: [],
+                    page: 1,
+                    totalNews: 0,
+                    totalPages: 0
+                })
+            }
+
+            const news = await newsRepository.searchByNews(q.trim(), page, limit)
+            const totalNews = await newsRepository.countSearchNews(q.trim())
+
+            const totalPages = Math.ceil(totalNews / limit)
 
             return res.status(200).json({
                 ok: true,
-                data: news
+                data: news,
+                page,
+                totalNews,
+                totalPages
             })
 
         } catch (err) {

@@ -78,10 +78,12 @@ const newsRepository = {
         return rows
     },
 
-    async searchByNews(term) {
+    async searchByNews(term, page, limit) {
         if (!term) {
             return []
         }
+
+        const offset = (page - 1) * limit
 
         const sql = `
                 SELECT *
@@ -90,9 +92,16 @@ const newsRepository = {
                     OR subtitulo ILIKE $1
                     OR conteudo ILIKE $1
                 ORDER BY titulo
+
+                LIMIT $2
+                OFFSET $3
             `
 
-        const { rows } = await pool.query(sql, [`%${term}%`])
+        const { rows } = await pool.query(sql, [
+            `%${term}%`,
+            limit,
+            offset
+        ])
 
         return rows
     },
@@ -171,6 +180,21 @@ const newsRepository = {
             )
         )
         `, [categoria])
+
+        return Number(rows[0].total)
+    },
+
+    async countSearchNews(term) {
+
+        const sql = `
+            SELECT COUNT(*) AS total
+                FROM news
+                WHERE titulo ILIKE $1
+            OR subtitulo ILIKE $1
+            OR conteudo ILIKE $1
+        `
+
+        const { rows } = await pool.query(sql, [`%${term}%`])
 
         return Number(rows[0].total)
     },
