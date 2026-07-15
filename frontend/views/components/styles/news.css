@@ -60,7 +60,7 @@
 
 .container-top .filterSearch .filterInfo,
 .searchBarNews {
-    flex: 1;
+  flex: 1;
 }
 
 .container-top .filterSearch .filterInfo {
@@ -95,50 +95,45 @@
 }
 
 .container-top .filterSearch .searchBarNews .searchNews {
-    flex: 1;
-    min-width: 0;
-    background-color: var(--bg-Eclipse);
-    color: var(--bg-Font);
-    border-radius: 10px;
-    padding: 0.7em;
+  flex: 1;
+  min-width: 0;
+  background-color: var(--bg-Eclipse);
+  color: var(--bg-Font);
+  border-radius: 10px;
+  padding: 0.7em;
 }
 
 .container-top .filterSearch .searchBarNews .searchNews::placeholder {
-    color: var(--bg-Font);
-    opacity: 0.5;
+  color: var(--bg-Font);
+  opacity: 0.5;
 }
 
 .container-top .filterSearch .searchBarNews button {
-    min-width: 42px;
-    height: 42px;
-    background-color: var(--bg-Eclipse);
-    border-radius: 10px;
+  min-width: 42px;
+  height: 42px;
+  background-color: var(--bg-Eclipse);
+  border-radius: 10px;
 }
 
 .container-top .filterSearch .searchBarNews button i {
-    color: var(--bg-Font);
-    font-weight: 600;
+  color: var(--bg-Font);
+  font-weight: 600;
 }
 
 .container-top .filterSearch .searchBarNews button i:hover {
-    color: var(--bg-Button);
+  color: var(--bg-Button);
 }
 
 .container-cards #newsContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.5em;
-  margin-top: 0.5em;
+  margin-top: 0.8em;
 }
 
 .empty-news {
   margin-top: 2em;
   font-size: 1.1em;
-}
-
-.container-cards #newsContainer .news {
-  width: 350px;
-  height: 95%;
 }
 
 .paginacao {
@@ -190,65 +185,79 @@
 }
 
 @media screen and (max-width: 1024px) {
+
+  .container-top,
+  .container-cards {
+    max-width: 680px;
+  }
+
+  .container-top .newsCatgFilter {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1em;
+  }
+
+  .container-top .newsCatgFilter button {
+    padding: 0.6em;
+  }
+
   .container-cards #newsContainer {
-    grid-template-columns: 1fr;
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: min-content;
   }
 
-  .container-cards #newsContainer .news {
-    width: 525px;
-    height: 90%;
-  }
-
-  .container-cards #newsContainer .news .img-card img {
-    height: 300px;
+  .container-cards .paginacao {
+    margin-top: 3em;
   }
 }
 
 @media screen and (max-width: 640px) {
-  .container-top {
-    width: 90%;
+
+  .container-top,
+  .container-cards {
+    max-width: 480px;
+  }
+
+  .container-top .newsCatgFilter {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .container-top .filterSearch {
+    flex-direction: column;
+  }
+
+  .container-top .filterSearch .filterInfo,
+  .searchBarNews {
+    width: 100%;
   }
 
   .container-cards #newsContainer {
     grid-template-columns: 1fr;
-    gap: 0.5em;
-  }
-
-  .container-cards #newsContainer .news {
-    width: 425px;
-    height: 85%;
-  }
-
-  .container-cards #newsContainer .news .img-card img {
-    height: 250px;
+    gap: 3em;
   }
 }
 
 @media (max-width: 480px) {
-  .container-cards #newsContainer {
-    grid-template-columns: 1fr;
-    gap: 0.5em;
+
+  .container-top,
+  .container-cards {
+    max-width: 300px;
   }
 
-  .container-cards #newsContainer .news {
-    width: 325px;
-    height: 90%;
+  .container-top .newsCatgFilter {
+    grid-template-columns: repeat(2, 1fr);
   }
-
-  .container-cards #newsContainer .news .img-card img {
-    height: 250px;
-  }
-
+  
   #filtro {
-    width: 90%;
+    width: 80%;
     padding: 0.3em 0.6em;
     font-size: 14px;
   }
 
   .pag-btn {
-    min-width: 36px;
-    height: 36px;
-    font-size: 0.9em;
+    min-width: 30px;
+    height: 30px;
+    font-size: 0.7em;
   }
 }

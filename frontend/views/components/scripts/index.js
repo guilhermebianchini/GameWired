@@ -5,12 +5,16 @@ function limparNews() {
   if (container) container.innerHTML = ""
 }
 
-function previewNews(noticias) {
-  let html = ""
+function renderizarNews(wrapper, noticias) {
+  wrapper.innerHTML = ""
+
+  if (noticias.length === 0) {
+    wrapper.innerHTML = "<p>Nenhuma notícia encontrada.</p>"
+    return
+  }
 
   noticias.forEach(news => {
-
-    html += `
+    wrapper.innerHTML += `
       <div class="news">
         <div class="news_origem">
           <div class="img-card">
@@ -32,32 +36,27 @@ function previewNews(noticias) {
       </div>
     `
   })
-
-  return html
-}
-
-function renderizarNews(news) {
-  const container = document.getElementById("newsContainer")
-
-  if (!container) {
-    console.error("Container das notícias não encontrado!")
-    return
-  }
-
-  const html = previewNews(news)
-
-  container.innerHTML = html
 }
 
 async function carregarNoticias() {
+  const wrapper = document.getElementById("newsContainer")
+
   try {
     const response = await fetch(`${API_URL}/news/latest`)
 
+    if (!response.ok) {
+      throw new Error("Erro ao carregar notícias!")
+    }
+
     const noticias = await response.json()
 
-    renderizarNews(noticias)
+    renderizarNews(wrapper, noticias)
+
   } catch (error) {
+
     console.error(error)
+
+    return null
   }
 }
 
@@ -163,6 +162,7 @@ function limparPosts() {
 
 function previewPosts(posts) {
   let html = ""
+  const FOTO_PADRAO = "https://res.cloudinary.com/dtno5yrwl/image/upload/v1776181814/user-default_gcbfvc.jpg"
 
   posts.forEach(post => {
 
@@ -176,7 +176,7 @@ function previewPosts(posts) {
         <div class="community-wrapper">
           <div class="card-community">
             <div class="community-user">
-              <img src="${post.foto_perfil}" alt="Foto de Perfil">
+              <img src="${post.foto_perfil || FOTO_PADRAO}" alt="Foto de Perfil">
               <h4>${post.nome_usuario}</h4>
             </div>
 

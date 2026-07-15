@@ -22,7 +22,7 @@ body {
 .main-nav {
   width: 100%;
   max-width: 100%;
-  min-height: 60px;
+  min-height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,8 +36,7 @@ body {
     display: block;
 
     img {
-      height: 80px;
-      width: 80px;
+      width: 60px;
     }
   }
 
