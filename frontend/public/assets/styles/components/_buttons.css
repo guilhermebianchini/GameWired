@@ -1,14 +1,13 @@
 .linkNews {
+  margin-top: 2em;
   display: flex;
-  position: absolute;
-  top: 340px;
-  right: 0;
+  justify-content: flex-end;
 
   .link-card {
     display: flex;
     justify-content: center;
     background-color: var(--bg-Button);
-    color: white;
+    color: var(--bg-Font);
     padding: 0.8rem 1.4rem;
     border-radius: 10px;
   }
@@ -104,10 +103,6 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .linkNews {
-    top: 310px;
-  }
-
   .community-button {
     width: 100%;
     text-wrap: nowrap;
@@ -124,20 +119,12 @@
 }
 
 @media screen and (max-width: 640px) {
-  .linkNews {
-    top: 280px;
-  }
-
   .community-button {
     font-size: 14px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .linkNews {
-    top: 315px;
-  }
-
   .community-button {
     font-size: 14px;
   }

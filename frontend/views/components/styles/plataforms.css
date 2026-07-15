@@ -59,6 +59,7 @@
 
 .games .carousel .carousel-wrapper {
     display: flex;
+    flex-wrap: nowrap;
     width: 100%;
     padding: 0;
     overflow: hidden;
@@ -66,7 +67,8 @@
 
 .games .carousel .arrowsCarousel {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     gap: 2em;
     margin-top: 0.6em;
     height: 42px;
@@ -74,6 +76,7 @@
 
 .games .carousel .arrowsCarousel .arrow {
     min-width: 42px;
+    height: 42px;
     cursor: pointer;
     background-color: var(--bg-Card);
     color: var(--bg-Font);
@@ -91,6 +94,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.5em;
+    height: 42px;
 }
 
 .games .carousel .arrowsCarousel .searchBar .search {
@@ -111,9 +115,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .gamesForBrowser h3 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 1.8em;
     margin-bottom: 0.8em;
 }
 
@@ -161,6 +170,24 @@
     .container-top h1 {
         font-size: 35px;
     }
+
+    .games .carousel .arrowsCarousel .searchBar .search {
+        min-width: 300px;
+    }
+
+    .gamesForBrowser h3 {
+        font-size: 1.4em;
+    }
+
+    .gamesForBrowser .browserCarousel {
+        width: 90%;
+    }
+
+    .gamesForBrowser .arrowsBrowser .arrow {
+        min-width: 38px;
+        height: 38px;
+        font-size: 0.9em;
+    }
 }
 
 @media screen and (max-width: 640px) {
@@ -176,19 +203,44 @@
         display: none;
     }
 
-    .games .carousel-wrapper {
-        overflow-x: scroll;
-        overflow-y: hidden;
-        scrollbar-width: none;
+    .games .carousel .arrowsCarousel .searchBar .search::placeholder {
+        font-size: 14px;
     }
 
-    .games .carousel-wrapper::-webkit-scrollbar {
+    .games .carousel .carousel-wrapper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .games .carousel .carousel-wrapper::-webkit-scrollbar {
         display: none;
+    }
+
+    .gamesForBrowser h3 {
+        font-size: 1.2em;
+    }
+
+    .gamesForBrowser .arrowsBrowser .arrow {
+        min-width: 35px;
+        height: 35px;
+        font-size: 0.8em;
     }
 }
 
 @media screen and (max-width: 480px) {
     .games h3 {
         font-size: 20px;
+    }
+
+    .gamesForBrowser h3 {
+        font-size: 1.1em;
+    }
+
+    .gamesForBrowser .arrowsBrowser .arrow {
+        min-width: 32px;
+        height: 32px;
+        font-size: 0.7em;
     }
 }
