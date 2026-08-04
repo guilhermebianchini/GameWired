@@ -12,7 +12,6 @@ import commentRouter from './src/routes/commentRoute.js'
 import panelRouter from './src/routes/panelRoutes.js'
 
 import globalMiddleware from "./src/middlewares/globalMiddleware.js"
-import panelRouter from './src/routes/panelRoutes.js'
 
 const port = process.env.PORT || 3000
 const app = express()
