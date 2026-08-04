@@ -23,7 +23,6 @@
 
             <div class="nav__center">
                 <ul>
-                    <li> <a id="dashboardBtn" href="/dashboard" class="abas" style="display:none;"> Dashboard </a> </li>
                     <li> <a href="/noticias" class="abas"> Notícias </a> </li>
                     <li>
                         <button class="abas"> Plataformas </button>
@@ -34,6 +33,14 @@
                         </ul>
                     </li>
                     <li> <a href="/comunidade" class="abas"> Comunidade </a> </li>
+                    <li>
+                        <button class="abas"> Mais </button>
+                        <ul class="abas-list">
+                            <li><a href="/" class="abas">...</a></li>
+                            <li><a href="/" class="abas">...</a></li>
+                            <li><a href="/" class="abas">...</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
 
@@ -48,12 +55,16 @@
                     <i class="bi bi-person-circle"></i>
                 </a>
 
+                <a id="panelBtn" href="/painel" class="abas" style="display:none;">
+                    <i class="bi bi-gear"></i>
+                </a>
+
                 <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
                     <i class="ph ph-moon-stars"></i>
                 </button>
 
                 <a id="logoutBtnDesktop" style="display:none;" href="/login">
-                    <i class="bi bi-door-closed"></i>
+                    <i class="bi bi-door-open"></i>
                 </a>
 
                 <button class="nav-button" aria-label="abrir menu de navegação" onclick="openMenu()">

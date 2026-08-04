@@ -29,115 +29,132 @@ body {
   padding: 0 1em;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+}
 
-  .nav__logo {
-    object-fit: cover;
-    object-position: center;
+.main-nav .nav__logo {
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.main-nav .nav__logo img {
+  width: 60px;
+}
+
+.main-nav .nav__center {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  color: var(--bg-Font);
+}
+
+.main-nav .nav__center a {
+  border: none;
+  cursor: pointer;
+}
+
+.main-nav .nav__center button {
+  color: var(--bg-Font);
+}
+
+.main-nav .nav__center>ul {
+  display: flex;
+  text-align: center;
+  gap: 4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav .nav__center>ul>li {
+  position: relative;
+}
+
+.main-nav .nav__center .platforms-list,
+.main-nav .nav__center .abas-list {
+  display: none;
+  position: absolute;
+  top: calc(100%);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 180px;
+  padding: 10px;
+  background: var(--bg-Card);
+  border-radius: 10px;
+  list-style: none;
+}
+
+.main-nav .nav__center .platforms-list li,
+.main-nav .nav__center .abas-list li {
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+}
+
+.main-nav .nav__center > ul > li:hover > .platforms-list,
+.main-nav .nav__center > ul > li:hover > .abas-list {
     display: block;
+}
 
-    img {
-      width: 60px;
-    }
-  }
+.main-nav .nav__user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  gap: 1em;
+  padding-right: 0;
+  flex-shrink: 0;
+}
 
-  .nav__center {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    color: var(--bg-Font);
+.main-nav .nav__user .ph,
+.main-nav .nav__user .bi {
+  color: var(--bg-Font);
+  font-size: 2em;
+}
 
-    a {
-      border: none;
-      cursor: pointer;
-    }
+.main-nav .nav__user .ph &:hover,
+.main-nav .nav__user .bi &:hover {
+  text-shadow: 0 0 8px var(--bg-Button);
+}
 
-    button {
-      color: var(--bg-Font);
-    }
+.main-nav .nav__user .bi {
+  display: none;
+  font-size: 1.55em;
+}
 
-    .platforms-list {
-      display: none;
-      position: absolute;
-      background-color: #191919;
-      width: 40%;
-      padding: 10px;
-      border-radius: 10px 10px 10px 10px;
-      top: 100%;
-      left: 70%;
-      transform: translateX(-60%);
-      text-align: center;
-      gap: 75px;
+.main-nav .nav__user .nav-button {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  transition-duration: 0.3s;
+}
 
-      li {
-        padding: 10px;
-        cursor: pointer;
-        color: white;
-        font-weight: 500;
-      }
-    }
+.main-nav .nav__user .nav-button .bar {
+  background: var(--bg-Font);
+  width: 100%;
+  height: 4px;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+}
 
-    li:hover .platforms-list {
-      display: block;
-    }
-  }
+.main-nav .nav__user .nav-button .bar1 {
+  width: 35px;
+}
 
-  .nav__user {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    gap: 1em;
-    padding-right: 0;
-    flex-shrink: 0;
+.main-nav .nav__user .nav-button .bar2 {
+  width: 25px;
+}
 
-    .ph,
-    .bi {
-      color: var(--bg-Font);
-      font-size: 2em;
-
-      &:hover {
-        text-shadow: 0 0 8px var(--bg-Button);
-      }
-    }
-
-    .bi {
-      display: none;
-      font-size: 1.55em;
-    }
-
-    .nav-button {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 5px;
-      transition-duration: 0.3s;
-
-      .bar {
-        background: var(--bg-Font);
-        width: 100%;
-        height: 4px;
-        border-radius: 5px;
-        transition-duration: 0.3s;
-      }
-
-      .bar1 {
-        width: 35px;
-      }
-
-      .bar2 {
-        width: 25px;
-      }
-
-      .bar3 {
-        width: 10px;
-      }
-    }
-  }
+.main-nav .nav__user .nav-button .bar3 {
+  width: 10px;
 }
 
 .nav__mobile {
@@ -178,7 +195,7 @@ body {
       justify-content: center;
       width: 40%;
 
-      ul {
+      > ul {
         display: flex;
         align-items: center;
         justify-content: center;

@@ -49,7 +49,7 @@
 .container-cards #newsContainer .news .txt-card .date {
   font-size: clamp(0.8rem, 0.8vw + 0.8rem, 1.1rem);
   margin: 0 0 0.5em;
-  color: #625994;
+  color: var(--bg-Button);
   font-weight: 600;
 }
 
@@ -458,8 +458,19 @@
     font-size: 14px;
   }
 
+  .gamesForBrowser .browserCarousel .browserCard {
+    height: auto;
+  }
+
+  .gamesForBrowser .browserCarousel .browserCard .card-origem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .gamesForBrowser .browserCarousel .browserCard .card-origem .game_img {
-    width: 120px;
+    width: 100%;
+    height: 350px;
   }
 
   .gamesForBrowser .browserCarousel .browserCard .card-origem .txtGameCard p {

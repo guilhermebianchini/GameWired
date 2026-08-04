@@ -19,16 +19,16 @@
 
   <link rel="stylesheet" href="/frontend/public/assets/styles/main.css" />
 
-  <link rel="stylesheet" href="/frontend/views/components/styles/editor-dashboard.css" />
+  <link rel="stylesheet" href="/frontend/views/components/styles/control-panel.css" />
 
-  <title>GameWired | Dashboard</title>
+  <title>GameWired | Painel de Controle</title>
 </head>
 <body>
   <div id="header"></div>
 
-  <main id="dashboard">
+  <main id="panel">
     <div class="info-title">
-      <h1>Dashboard</h1>
+      <h1>Painel de Controle</h1>
     </div>
 
     <section class="container_cards">
@@ -36,7 +36,7 @@
         <div class="txt-card">
           <h4>Publicação de Novo Conteúdo</h4>
           <p>Publique uma nova notícia para o blog.</p>
-          <div class="btns-dashboard">
+          <div class="btns-panel">
           <a href="/postagem-noticias" class="link-card">Criar Notícia</a>
           </div>
         </div>
@@ -45,9 +45,9 @@
       <div class="card">
         <div class="txt-card">
           <h4>Gerenciamento de Notícias</h4>
-          <p>Visualize, edite ou exclua suas postagens existentes.</p>
-          <div class="btns-dashboard">
-            <a href="/gerenciamento-noticias" class="link-card">Gerenciar</a>
+          <p>Visualize, edite ou exclua suas notícias existentes.</p>
+          <div class="btns-panel">
+            <a href="/gerenciamento-noticias" class="link-card">Gerenciar Notícias</a>
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@
         <div class="txt-card">
           <h4>Publicação de Jogos</h4>
           <p>Adicione novos jogos ao blog.</p>
-          <div class="btns-dashboard">
+          <div class="btns-panel">
             <a href="/postagem-jogos" class="link-card">Adicionar Jogo</a>
           </div>
         </div>
@@ -66,8 +66,8 @@
         <div class="txt-card">
           <h4>Gerenciamento de Jogos</h4>
           <p>Edite ou exclua os jogos existentes.</p>
-          <div class="btns-dashboard">
-            <a href="/gerenciamento-jogos" class="link-card">Visualizar Jogos</a>
+          <div class="btns-panel">
+            <a href="/gerenciamento-jogos" class="link-card">Gerenciar Jogos</a>
           </div>
         </div>
       </div>
@@ -76,8 +76,18 @@
         <div class="txt-card">
           <h4>Quadro de Informações</h4>
           <p>Informações sobre usuários, notícias, postagens e mais.</p>
-          <div class="btns-dashboard">
-            <a href="/quadro" class="link-card">Visualizar</a>
+          <div class="btns-panel">
+            <a href="/quadro" class="link-card">Visualizar Informações</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="txt-card">
+          <h4>Controle de Dados</h4>
+          <p>Manipulação de dados, como informações e ativação/desativação de usuários.</p>
+          <div class="btns-panel">
+            <a href="/administracao" class="link-card">Administrar Dados</a>
           </div>
         </div>
       </div>
@@ -87,7 +97,7 @@
   <footer id="footer"></footer>
 
   <script src="/frontend/config/connection.js"></script>
-  <script src="/frontend/views//components/scripts/editor-dashboard.js"></script>
+  <script src="/frontend/views//components/scripts/control-panel.js"></script>
   <script src="/frontend/views/components/global/global-js/global-footer-header.js"></script>
   <script src="/frontend/public/assets/scripts/_temas.js"></script>
   <script src="/frontend/public/assets/scripts/_navBar.js"></script>

@@ -148,9 +148,9 @@ async function carregarRanking() {
     }
 }
 
-async function iniciarDashboard() {
+async function iniciarPainel() {
     await carregarStats()
     await carregarRanking()
 }
 
-iniciarDashboard()
+iniciarPainel()

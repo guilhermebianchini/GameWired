@@ -9,7 +9,7 @@ async function applyauth() {
     const profileMobile = document.getElementById("profileLinkMobile")
     const logoutMobile = document.getElementById("logoutBtnMobile")
 
-    const dashboardBtn = document.getElementById("dashboardBtn")
+    const panelBtn = document.getElementById("panelBtn")
 
     if (!registerDesktop) return
 
@@ -23,8 +23,8 @@ async function applyauth() {
         logoutDesktop.style.display = "none"
         logoutMobile.style.display = "none"
 
-        if (dashboardBtn) {
-            dashboardBtn.style.display = "none"
+        if (panelBtn) {
+            panelBtn.style.display = "none"
         }
 
         return
@@ -56,12 +56,12 @@ async function applyauth() {
         logoutDesktop.style.display = "inline-block"
         logoutMobile.style.display = "inline-block"
 
-        if (dashboardBtn) {
+        if (panelBtn) {
 
             if (user.user_type === "admin" || user.user_type === "editor") {
-                dashboardBtn.style.display = "inline-block"
+                panelBtn.style.display = "inline-block"
             } else {
-                dashboardBtn.style.display = "none"
+                panelBtn.style.display = "none"
             }
         }
 

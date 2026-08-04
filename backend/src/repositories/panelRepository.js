@@ -1,6 +1,6 @@
 import query from "../config/connection.js"
 
-const dashboardRepository = {
+const panelRepository = {
 
   async getStats() {
     const { rows } = await query(`
@@ -51,4 +51,4 @@ const dashboardRepository = {
 
 }
 
-export default dashboardRepository
+export default panelRepository

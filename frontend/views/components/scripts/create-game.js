@@ -197,7 +197,7 @@ form.addEventListener("submit", async (e) => {
       confirmButtonColor: "#8863e7",
       confirmButtonText: "Continuar"
     }).then(() => {
-      window.location.href = "/dashboard"
+      window.location.href = "/painel"
     })
   } catch (err) {
     console.error("Erro ao adicionar jogo:", err)
